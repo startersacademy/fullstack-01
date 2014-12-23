@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/startersacademy/lms-2014-oct.png?label=ready&title=Ready)](https://waffle.io/startersacademy/lms-2014-oct)
+[![Stories in Ready](https://badge.waffle.io/startersacademy/fullstack-01.svg?label=ready&title=Ready)](http://waffle.io/startersacademy/fullstack-01)
 ============
 
 Learning Management System for Nuekinnis
