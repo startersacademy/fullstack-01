@@ -2,7 +2,7 @@
 
 casper.test.begin('page1 navigates to page2', 3, function suite(test){
 
-  var link = 'a[href=/page2.html]';
+  var link = 'a[href=\'/page2.html\']';
 
   casper.start('http://localhost:5000/page1.html', function(){
     test.assertTitle('Page 1', 'page1 title is the one expected');
