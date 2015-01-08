@@ -1,4 +1,6 @@
 language: node_js
 node_js:
   - "0.10"
-script: cd neukinnis && npm install && npm test
+script: npm install && npm test
+before_script:
+  - "cd neukinnis && node ."
