@@ -5,8 +5,9 @@ before_script:
   - cd neukinnis
   - npm install
   - npm install -g casperjs
+  - npm install -g strongloop
   - phantomjs --version; casperjs --version
-  - slc run --detach
+  - slc run . --detach
 script:
   - sleep 3
   - npm test
