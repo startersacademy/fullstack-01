@@ -7,5 +7,7 @@ before_script:
   - npm install -g casperjs
   - phantomjs --version; casperjs --version
   - node .
-script: npm test
+script:
+  - sleep 3
+  - npm test
 
