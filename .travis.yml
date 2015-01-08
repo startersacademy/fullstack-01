@@ -6,7 +6,7 @@ before_script:
   - npm install
   - npm install -g casperjs
   - phantomjs --version; casperjs --version
-  - node .
+  - slc run --detach
 script:
   - sleep 3
   - npm test
