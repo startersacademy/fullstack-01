@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - "0.10"
-script: npm test
 before_script:
-  - "cd neukinnis && npm install && node ."
+  - npm install -g casperjs
+  - phantomjs --version; casperjs --version
+  - cd neukinnis
+  - node .
+script: npm test
+
