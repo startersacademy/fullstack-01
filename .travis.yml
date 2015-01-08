@@ -9,6 +9,5 @@ before_script:
   - phantomjs --version; casperjs --version
   - slc run --detach .
 script:
-  - sleep 3
   - npm test
 
