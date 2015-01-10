@@ -10,7 +10,10 @@ gulp.task('start-server', function(){
 
 gulp.task('integrate', ['start-server'], function () {
   console.log('starting to run integration tests');
-  gulp.src('./spec/integration/**')
-    .pipe(casperJs({command:'test'}));
+  setTimeout(function(){
+    gulp.src('./spec/integration/**')
+      .pipe(casperJs({command:'test'}));
+  }, 3000);
+
 });
 
