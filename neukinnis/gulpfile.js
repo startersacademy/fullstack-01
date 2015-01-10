@@ -12,7 +12,7 @@ var server = require('gulp-develop-server');
 //});
 
 gulp.task('server:start', function(cb){
-  server.listen({path: '.'}, cb);
+  server.listen({path: '.'}, setTimeout(cb, 3000));
 });
 
 gulp.task('integrate', ['server:start'], function (err) {
