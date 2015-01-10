@@ -17,7 +17,13 @@ gulp.task('server:start', function(cb){
 
 gulp.task('integrate', ['server:start'], function (err) {
   console.log('starting to run integration tests');
+  var casper = casperJs({command:'test'});
+  casper.on('data', function(){
+  });
   gulp.src('./spec/integration/**')
-      .pipe(casperJs({command:'test'}));
+      .pipe(casper).on('end', function() {
+      server.kill();
+    });
+
 });
 
