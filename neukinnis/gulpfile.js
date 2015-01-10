@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var casperJs = require('gulp-casperjs');
-var run = require ('gulp-run');
+//var run = require ('gulp-run');
 var server = require('gulp-develop-server');
 
 //gulp.task('server:start', function(){
@@ -12,7 +12,7 @@ var server = require('gulp-develop-server');
 //});
 
 gulp.task('server:start', function(cb){
-  server.listen({path: '.'}, setTimeout(cb, 3000));
+  server.listen({path: '.', delay: 3000}, cb);
 });
 
 gulp.task('integrate', ['server:start'], function (err) {
