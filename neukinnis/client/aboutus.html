@@ -2,351 +2,158 @@
 <html>
 <head>
 	<title>About Us</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<style>
-	body {
-		font-family: 'Open Sans', sans-serif;
-		margin-top: 50px;
-	}
-	a {
-		text-decoration: none;
-		color: white;
-	}
-	a:hover {
-		color:#EAD580;
-		background-color: #444444;
-		text-decoration: none;
-	}
-	.nav
-/*	a:link {
-		text-decoration: none;
-		color: white;
-	}*/
-	.min-res {
-		min-width: 360px;
-	}
-	.nav-fixed {
-		position: fixed;
-		z-index: 9999;
-		width: 100%;
-		top: 0;
-		background:#444444;
-		color:white;
-	}
-	.brand-logo {
-		font-size: 16px;
-		text-align: left;
-	}
-	.nav-lnk-box {
-		text-align: right;
-	}
-	/*
-	@media (max-width:680px) {
-		.nav-lnk-box {
-			visibility: hidden;
-		}
-		.dropmenu {
-			visibility: visible;
-		}
-	}
-	.dropmenu {
-		visibility: none;
-	}*/
-	.nav-lnk {
-		padding-left: 20px;
-		text-decoration: none;
-	}
-	.nav-lnk:hover {
-		color:#EAD580;
-		text-decoration: none;
-	}
-	.breadcrum {
-		height:40px;
-		line-height:40px;
-		margin:0 0px 20px 0px;
-		background:#f5f5f5;
-		padding-left:10px;
-	}
-	.history-photo {
-		width:100%;
-		height:200px;
-		background:#f5f5f5
-	}
-	.footer-box {
-		padding: 20px 0;
-		margin-top: 50px;
-		background: #EAD580;
-	}
-	.cust-prof {
-		width: 100%;
-		height: 100px;
-		background: #f5f5f5;
-		text-align: center;
-		margin-bottom: 20px;
-	}
-	.team-mbr {
-		border-radius: 3px;
-		text-align: center;
-		background: #E4E4E4;
-		border: 1px solid #CACACA;
-		margin-bottom: 20px;
-		padding: 10px;
-	}
-	@media (max-width: 991px) and (min-width: 769px) {
-		.team-mbr {
-			width: 50%;
-			margin: 20px auto;
-		}
-	}
-	@media (max-width: 768px) {
-		.team-mbr {
-			width: 100%;
-		}
-	}
-	.mbr-pic {
-		width:100px;
-		height: 100px;
-		border-radius: 50%;
-		border: 1px solid gray;
-		background: #81D2FE;
-		margin: 0 auto;
-	}
-	.txt-mbr-name {
-		font-size: 20px;
-	}
-	.txt-mbr-title {
-		font-size: 16px;
-	}
-	.txt-mbr-desc {
-		font-size: 14px;
-	}
-	.mbr-social {
-		padding: 10px 5px 0 0;
-	}
-	.contact-ico {
-		width: 30px;
-		padding-right: 30px;
-		text-align: center;
-	}
-
-	/* Bootstrap overwrites */
-	.navbar-default {
-		background-color: #F4F4F4;
-	}
-		@media (min-width: 768px) {
-		.navbar-toggle-cust {
-			display: none;
-			color: red;
-		}
-	}
-
-	.nav>li>a:hover, .nav>li>a:focus {
-text-decoration: none;
-background-color: #444444
-}
-
-	.footer-links {
-		float: left;
-	}
-	.footer-contact {
-		float: right;
-	}
-	@media (max-width: 540px) {
-		.footer-links, .footer-contact {
-			width: 100%;
-		}
-	}
-
-	.navbar-toggle-cust {
-		position: relative;
-		float: right;
-		padding-top: 10px;
-		background-color: transparent;
-		background-image: none;
-		border: 1px solid transparent;
-		border-radius: 4px;
-	}
-
-	/* Some alignment fixes due to bootstrap */ 
-	.pad-fix-right {
-		padding-right: 0px;
-	}
-	.pad-fix-left {
-		padding-left: 0px;
-	}
-	.padding-fix {
-		padding: 0 0px;
-	}
-	.margin-fix {
-		margin: 0 -15px;
-	}
-</style>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container container-fluid">
+    <div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+    	<a class="navbar-brand" href="#">Neukinnis</a> </div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/">Home</a></li>
+		        <li><a href="/courses.html">Courses</a></li>
+		        <li><a href="/instructors.html">Instructors</a></li>
+		        <li><a href="/aboutus.html">About Neukinnis</a></li>
+		        <li><a href="/contactus.html">Contact Us</a></li>
+			</ul>
+		</div>
+  </div>
+</nav>
 
-<div class="container-fluid">
+<div class="container">
+	<h2><b>About Us</b></h2>
+	<hr>
+	<ol class="breadcrumb">
+	  <li><a href="#">Home</a></li>
+	  <li class="active">About Us</li>
+	</ol>
 	<div class="row">
-		<div class="col-md-12 nav-fixed padding-fix">
-			<div class="col-md-8 col-md-offset-2">
-				<div class="navbar-header">
-		            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle-cust">
-		                <span class="sr-only">Toggle navigation</span>
-		                <span><i class="fa fa-bars fa-2x"></i></span>
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		            </button>
-		            <a href="#" class="navbar-brand">Neukinnis</a>
-			    </div>
-		        <div id="navbarCollapse" class="collapse navbar-collapse">
-		            <ul class="nav navbar-nav navbar-right">
-		                <li><a href="#">Home</a></li>
-		                <li><a href="#">Courses</a></li>
-		                <li><a href="#">Instructors</a></li>
-		                <li><a href="aboutus.html">About Neukinnis</a></li>
-		                <li><a href="#">Contact Us</a></li>
-		            </ul>
-		        </div>
+		<div class="col-md-6">
+			<div class="history-img"></div>
+		</div>
+		<div class="col-md-6">
+			<h3>History</h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis risus sit amet tortor convallis maximus. Vivamus id nibh mattis, maximus ipsum id, accumsan quam. Integer congue purus eget velit lobortis, vel tristique metus dapibus. Nunc scelerisque, quam a laoreet eleifend, diam sem accumsan metus, at suscipit leo orci a felis.
+		</div>
+	</div>
+	<h3>Our Team</h3>
+	<hr>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="team-mbr">
+				<div class="mbr-pic"></div><br />
+				<span class="txt-mbr-name"><b>John Smith</b></span><br />
+				<span class="txt-mbr-title">Job Title<br />
+				<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br />
+				<i class="fa fa-facebook-square fa-2x"></i>
+				<i class="fa fa-linkedin-square fa-2x"></i>
+				<i class="fa fa-twitter-square fa-2x"></i>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="team-mbr">
+				<div class="mbr-pic"></div><br />
+				<span class="txt-mbr-name"><b>John Smith</b></span><br />
+				<span class="txt-mbr-title">Job Title<br />
+				<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br />
+				<i class="fa fa-facebook-square fa-2x"></i>
+				<i class="fa fa-linkedin-square fa-2x"></i>
+				<i class="fa fa-twitter-square fa-2x"></i>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="team-mbr">
+				<div class="mbr-pic"></div><br />
+				<span class="txt-mbr-name"><b>John Smith</b></span><br />
+				<span class="txt-mbr-title">Job Title<br />
+				<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br />
+				<i class="fa fa-facebook-square fa-2x"></i>
+				<i class="fa fa-linkedin-square fa-2x"></i>
+				<i class="fa fa-twitter-square fa-2x"></i>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="team-mbr">
+				<div class="mbr-pic"></div><br />
+				<span class="txt-mbr-name"><b>John Smith</b></span><br />
+				<span class="txt-mbr-title">Job Title<br />
+				<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br />
+				<i class="fa fa-facebook-square fa-2x"></i>
+				<i class="fa fa-linkedin-square fa-2x"></i>
+				<i class="fa fa-twitter-square fa-2x"></i>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="team-mbr">
+				<div class="mbr-pic"></div><br />
+				<span class="txt-mbr-name"><b>John Smith</b></span><br />
+				<span class="txt-mbr-title">Job Title<br />
+				<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br />
+				<i class="fa fa-facebook-square fa-2x"></i>
+				<i class="fa fa-linkedin-square fa-2x"></i>
+				<i class="fa fa-twitter-square fa-2x"></i>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="team-mbr">
+				<div class="mbr-pic"></div><br />
+				<span class="txt-mbr-name"><b>John Smith</b></span><br />
+				<span class="txt-mbr-title">Job Title<br />
+				<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br />
+				<i class="fa fa-facebook-square fa-2x"></i>
+				<i class="fa fa-linkedin-square fa-2x"></i>
+				<i class="fa fa-twitter-square fa-2x"></i>
 			</div>
 		</div>
 	</div>
-</div>
-
-	<div class="row min-res">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="col-md-12">
-				<h2><b>About Us</b></h2>
-				<hr>
-			</div>
-
-			<div class="col-md-12 pull-left">
-				<div class="breadcrum">Home / About</div>
-			</div>
-
-			<div class="col-md-6">
-				<div class="history-photo">
-				</div>
-			</div>
-			<div class="col-md-6">
-				<h3>History</h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis risus sit amet tortor convallis maximus. Vivamus id nibh mattis, maximus ipsum id, accumsan quam. Integer congue purus eget velit lobortis, vel tristique metus dapibus. Nunc scelerisque, quam a laoreet eleifend, diam sem accumsan metus, at suscipit leo orci a felis.
-			</div>
-			<div class="col-md-12">
-				<h3>Our Team</h3>
-				<hr>
-			</div>
-			<div class="col-md-12 padding-fix">
-				<div class="col-md-4">
-					<div class="team-mbr">
-						<div class="mbr-pic"></div><br>
-						<span class="txt-mbr-name"><b>John Smith</b></span><br>
-						<span class="txt-mbr-title"><span class="#8F8F8F">Job Title</span><br>
-						<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br>
-						<i class="fa fa-facebook-square fa-2x mbr-social"></i>
-						<i class="fa fa-linkedin-square fa-2x mbr-social"></i>
-						<i class="fa fa-twitter-square fa-2x mbr-social"></i>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="team-mbr">
-						<div class="mbr-pic"></div><br>
-						<span class="txt-mbr-name"><b>John Smith</b></span><br>
-						<span class="txt-mbr-title"><span class="#8F8F8F">Job Title</span><br>
-						<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br>
-						<i class="fa fa-facebook-square fa-2x mbr-social"></i>
-						<i class="fa fa-linkedin-square fa-2x mbr-social"></i>
-						<i class="fa fa-twitter-square fa-2x mbr-social"></i>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="team-mbr">
-						<div class="mbr-pic"></div><br>
-						<span class="txt-mbr-name"><b>John Smith</b></span><br>
-						<span class="txt-mbr-title"><span class="#8F8F8F">Job Title</span><br>
-						<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br>
-						<i class="fa fa-facebook-square fa-2x mbr-social"></i>
-						<i class="fa fa-linkedin-square fa-2x mbr-social"></i>
-						<i class="fa fa-twitter-square fa-2x mbr-social"></i>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-12 padding-fix">
-				<div class="col-md-4">
-					<div class="team-mbr">
-						<div class="mbr-pic"></div><br>
-						<span class="txt-mbr-name"><b>John Smith</b></span><br>
-						<span class="txt-mbr-title"><span class="#8F8F8F">Job Title</span><br>
-						<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br>
-						<i class="fa fa-facebook-square fa-2x mbr-social"></i>
-						<i class="fa fa-linkedin-square fa-2x mbr-social"></i>
-						<i class="fa fa-twitter-square fa-2x mbr-social"></i>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="team-mbr">
-						<div class="mbr-pic"></div><br>
-						<span class="txt-mbr-name"><b>John Smith</b></span><br>
-						<span class="txt-mbr-title"><span class="#8F8F8F">Job Title</span><br>
-						<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br>
-						<i class="fa fa-facebook-square fa-2x mbr-social"></i>
-						<i class="fa fa-linkedin-square fa-2x mbr-social"></i>
-						<i class="fa fa-twitter-square fa-2x mbr-social"></i>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="team-mbr">
-						<div class="mbr-pic"></div><br>
-						<span class="txt-mbr-name"><b>John Smith</b></span><br>
-						<span class="txt-mbr-title"><span class="#8F8F8F">Job Title</span><br>
-						<span class="txt-mbr-desc"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></span><br>
-						<i class="fa fa-facebook-square fa-2x mbr-social"></i>
-						<i class="fa fa-linkedin-square fa-2x mbr-social"></i>
-						<i class="fa fa-twitter-square fa-2x mbr-social"></i>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-12">
-			<h3>Our Customers</h3>
-			<hr>
-				<div class="col-md-2 pad-fix-left">
-					<div class="cust-prof">500 x 300</div>
-				</div>
-				<div class="col-md-2">
-					<div class="cust-prof">500 x 300</div>
-				</div>
-				<div class="col-md-2">
-					<div class="cust-prof">500 x 300</div>
-				</div>
-				<div class="col-md-2">
-					<div class="cust-prof">500 x 300</div>
-				</div>
-				<div class="col-md-2">
-					<div class="cust-prof">500 x 300</div>
-				</div>
-				<div class="col-md-2 pad-fix-right">
-					<div class="cust-prof">500 x 300</div>
-				</div>
-			</div>
+	<h3>Our Customers</h3>
+	<hr>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="cust-prof">500 x 300</div>
+		</div>
+		<div class="col-md-2">
+			<div class="cust-prof">500 x 300</div>
+		</div>
+		<div class="col-md-2">
+			<div class="cust-prof">500 x 300</div>
+		</div>
+		<div class="col-md-2">
+			<div class="cust-prof">500 x 300</div>
+		</div>
+		<div class="col-md-2">
+			<div class="cust-prof">500 x 300</div>
+		</div>
+		<div class="col-md-2">
+			<div class="cust-prof">500 x 300</div>
 		</div>
 	</div>
-	<div class="row footer-box margin-fix">
-		<div class="col-md-12">
-			<div class="col-md-8 col-md-offset-2">
-			<div class="col-md-6 footer-links">
-				<h3>Useful Links</h3>About Us<br>Privacy Policy
-			</div>
-			<div class="col-md-6 footer-contact">
-				<h3>Contact Info</h3>
-				<i class="fa fa-phone-square contact-ico"></i>Call Us: 524-469-4891<br>
-				<i class="fa fa-envelope contact-ico"></i>info@neukinnis.com<br>
-				<i class="fa fa-map-marker contact-ico"></i>22 Avenue Park, Los Angeles
-			</div>
-			</div>
+	<footer>
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Useful Links</h3>
+			<a href="aboutus.html">About Us</a><br />
+			<a href="privacy.html">Privacy Policy</a>
+		</div>
+		<div class="col-md-6">
+			<h3>Contact Info</h3>
+			<i class="fa fa-phone-square contact-ico"></i>Call Us: 524-469-4891<br />
+			<i class="fa fa-envelope contact-ico"></i><a href="mailto:info@neukinnis.com">info@neukinnis.com</a><br />
+			<i class="fa fa-map-marker contact-ico"></i>22 Avenue Park, Los Angeles
 		</div>
 	</div>
-</div>
-
+	</footer>
+</div> <!--/container-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
