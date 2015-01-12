@@ -1,4 +1,4 @@
-//ajeff-aboutus.spec.js
+//jeff-aboutus.spec.js
 
 /* global casper */
 
