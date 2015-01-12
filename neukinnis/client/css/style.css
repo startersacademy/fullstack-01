@@ -14,6 +14,7 @@ i {
 .cust-prof {
 	width: 100%;
 	height: 100px;
+	line-height: 100px;
 	background: #CCCCCC;
 	text-align: center;
 	margin-bottom: 20px;
@@ -26,17 +27,7 @@ i {
 	margin-bottom: 20px;
 	padding: 10px;
 }
-@media (max-width: 991px) and (min-width: 769px) {
-	.team-mbr {
-		width: 50%;
-		margin: 20px auto;
-	}
-}
-@media (max-width: 768px) {
-	.team-mbr {
-		width: 100%;
-	}
-}
+
 .mbr-pic {
 	width: 100px;
 	height: 100px;
