@@ -1,4 +1,4 @@
-//test-name.spec.js
+//ajeff-aboutus.spec.js
 
 /* global casper */
 
@@ -30,10 +30,11 @@ casper.test.begin('About us page test', 3,
     test.assertExists('a[href="courses.html"]', 'Check existence of link to courses page');
   });
     casper.then(function(){
-    this.click('a[href="courses.html"]', "Navigates and clicks on link to courses page");
+    this.click('a[href="courses.html"]', 'Navigates and clicks on link to courses page');
   });
     casper.then(function(){
     test.assertTitle('Courses', 'Finds page title Courses');
+  });
   casper.run(function(){
     test.done();
   });

@@ -13,7 +13,6 @@ gulp.task('integrate', function () {
 
     casperChild.on('close', function (code) {
         var success = code === 0; // Will be 1 in the event of failure
-
-        // Do something with success here
+        console.log("Test has finished!");
     });
 });
