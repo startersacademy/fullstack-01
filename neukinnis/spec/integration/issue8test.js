@@ -22,7 +22,7 @@ casper.test.begin('Testing About the Courses page', 13, function(test){
         this.click('a[href="/courses.html"]');
     });
     casper.then(function(){
-        this.test.assertUrlMatch('/courses.html', 'currenty in the courses page');
+        this.test.assertUrlMatch('/courses.html', 'currently in the courses page');
         this.echo('Page title is: ' + this.getTitle());
         test.assertTitle(this.getTitle(), 'about the courses title is good');
     });
@@ -36,7 +36,7 @@ casper.test.begin('Testing About the Courses page', 13, function(test){
         this.click('a[href="/instructors.html"]');
     });
     casper.then(function(){
-        this.test.assertUrlMatch('/instructors.html', 'currenty in the instructors page');
+        this.test.assertUrlMatch('/instructors.html', 'currently in the instructors page');
         this.echo('Page title is: ' + this.getTitle());
         test.assertTitle(this.getTitle(), 'instructor title is good');
     });
@@ -44,7 +44,8 @@ casper.test.begin('Testing About the Courses page', 13, function(test){
         this.click('a[href="/courses.html"]');
     });
     casper.then(function(){
-        this.test.assertUrlMatch('/courses.html', 'currenty in the courses page');
+        this.test.assertUrlMatch('/courses.html', 'currently in the courses page');
+        this.echo('Page title is: ' + this.getTitle());
         this.test.assertExists('footer div', 'footer information found');
     });
     casper.then(function(){
