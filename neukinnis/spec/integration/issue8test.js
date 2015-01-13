@@ -29,7 +29,7 @@ casper.test.begin('Testing About the Courses page', 13, function(test){
     casper.then(function(){
         this.test.assertExists('.breadcrumb li a', 'breadcrumbs found');
         this.test.assertEval(function() {
-            return __utils__.findAll('.row .thumbnail').length >= 6;
+            return __utils__.findAll('.row .thumbnail img').length >= 6;
         }, 'there are at least 6 course images on the page');
     });
     casper.then(function(){
