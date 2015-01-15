@@ -54,3 +54,4 @@ docs/_build/
 target/
 
 .idea
+neukinnis/server/datasources.local.json
