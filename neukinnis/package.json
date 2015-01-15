@@ -4,7 +4,7 @@
   "main": "server/server.js",
   "scripts": {
     "pretest": "jshint .",
-    "test": "gulp integrate",
+    "test": "gulp test:all",
     "test-integration": "casperjs test spec/integration"
   },
   "dependencies": {
