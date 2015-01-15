@@ -4,7 +4,6 @@ var spawn = require('child_process').spawn,
 
 gulp.task('integrate', function () {
     var tests = ['./spec/integration'];
-
     var casperChild = spawn('casperjs.cmd', ['test'].concat(tests));
 
     casperChild.stdout.on('data', function (data) {
