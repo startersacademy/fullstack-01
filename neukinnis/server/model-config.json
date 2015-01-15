@@ -25,5 +25,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "account": {
+    "dataSource": "fullstack",
+    "public": true
   }
 }

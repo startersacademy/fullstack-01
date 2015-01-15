@@ -2,5 +2,9 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "fullstack": {
+    "name": "fullstack",
+    "connector": "mongodb"
   }
 }
