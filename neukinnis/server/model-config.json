@@ -26,8 +26,8 @@
     "dataSource": "db",
     "public": false
   },
-  "book": {
-    "dataSource": "fullstack",
+  "contact": {
+    "dataSource": "db",
     "public": true
   }
 }
