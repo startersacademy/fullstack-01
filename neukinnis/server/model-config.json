@@ -25,5 +25,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "book": {
+    "dataSource": "fullstack",
+    "public": true
   }
 }
