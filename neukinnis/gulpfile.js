@@ -1,6 +1,9 @@
+'use strict';
+
 var gulp = require('gulp');
-var casperJs = require('gulp-casperjs');
-gulp.task('integrate', function () {
-  gulp.src('./spec/integration/**')
-      .pipe(casperJs({command:'test'}));
+var casperjs = require('gulp-casperjs');
+
+gulp.task('integrate', function(){
+    gulp.src('./spec/integration/**')
+        .pipe(casperjs({command:'test'}));
 });
