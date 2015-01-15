@@ -39,6 +39,9 @@
     "gulp": "^3.8.10",
     "casperjs": "^1.1.0-beta3",
     "gulp-run": "^1.6.6",
-    "gulp-develop-server": "^0.2.5"
+    "gulp-develop-server": "^0.2.5",
+    "frisby": "^0.8.5",
+    "gulp-jasmine": "^1.0.1",
+    "gulp-sequence": "^0.3.1"
   }
 }
