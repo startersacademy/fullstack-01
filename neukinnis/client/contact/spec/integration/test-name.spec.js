@@ -10,21 +10,19 @@ I can:
 /* global casper */
 
 
-casper.test.begin('contact page navigates to home page ', 3,
-  function suite(test){
-  });
+casper.test.begin('Contact page navigates to home page ', 2,
+  function suite(test) {
+    casper.start('http://localhost:63342/fullstack-project-01/neukinnis/client/contact/contactus.html', function () {
+      test.assertTitle('Contact Us', 'contact us page title good');
+      test.assertExists('a[href="index.html"]', 'link found');
+    });
 
-//casper.start('http://localhost:3000/contact.html', function(){
-casper.start('http://localhost:63342/fullstack-project-01/neukinnis/client/contact/contact.html', function(){
-  test.assertTitle('Contact Us', 'contact us page  title good');
-  test.assertExists('.testedlink', 'link found');
-});
-casper.then(function(){
-  this.click('.testedlink');
-});
-casper.then(function(){
-  test.assertTitle('Home', 'home page title good');
-});
-casper.run(function(){
-  test.done();
-});
+    //casper.start('http://localhost:3000/contact.html', function(){
+
+    casper.then(function () {
+      this.click('a[href="index.html"]');
+    });
+    casper.run(function () {
+      test.done();
+    });
+  });
