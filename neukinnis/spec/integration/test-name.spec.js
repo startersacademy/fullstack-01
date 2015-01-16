@@ -12,7 +12,7 @@ I can:
 
 casper.test.begin('Contact page navigates to home page ', 2,
   function suite(test) {
-    casper.start('http://localhost:63342/fullstack-project-01/neukinnis/client/contactus.html', function () {
+    casper.start('http://localhost:3000/contact.html', function () {
       test.assertTitle('Contact Us', 'contact us page title good');
       test.assertExists('a[href="index.html"]', 'link found');
     });
