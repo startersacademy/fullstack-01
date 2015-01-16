@@ -8,8 +8,18 @@
       "required": true
     },
     "account_type": {
-      "type": "string",
-      "required": true
+      "federal": {
+        "type": "boolean",
+        "required": true
+      },
+      "enterprise": {
+        "type": "boolean",
+        "required": true
+      },
+      "commercial": {
+        "type": "boolean",
+        "required": true
+      }
     }
   },
   "validations": [],
