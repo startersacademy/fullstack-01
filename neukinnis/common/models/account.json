@@ -2,26 +2,20 @@
   "name": "account",
   "base": "PersistedModel",
   "idInjection": true,
+  "type": "object",
   "properties": {
-    "name": {
+    "cust_name": {
+      "id": "cust_name",
       "type": "string",
       "required": true
     },
     "account_type": {
-      "federal": {
-        "type": "boolean",
-        "required": true
-      },
-      "enterprise": {
-        "type": "boolean",
-        "required": true
-      },
-      "commercial": {
-        "type": "boolean",
-        "required": true
-      }
+      "id": "account_type",
+      "type": "string",
+      "required": true
     }
-  },
+    },
+  "additionalProperties": false,
   "validations": [],
   "relations": {},
   "acls": [],

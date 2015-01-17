@@ -8,15 +8,32 @@ var frisby = require('frisby');
 var url = 'http://localhost:3000/api/accounts/';
 var initialRecord = {
   "name": "Jeffrey",
-  "account_type": "enterprise"
+  "account_type": {
+    "properties": {
+      "federal": false,
+      "enterprise": true,
+      "commercial": false
+    }
+  }
 };
 var changedRecord = {
   "name": "Frances",
-  "account_type": "commercial"
+  "account_type": {
+    "properties": {
+      "federal": false,
+      "enterprise": true,
+      "commercial": false
+    }
+  }
 };
 var badRecord = {
-  "xname": "Test Person 1",
-  "xaccount_type": "federal"
+  "account_type": {
+    "properties": {
+      "federal": false,
+      "enterprise": true,
+      "commercial": false
+    }
+  }
 };
 
 // Create a record
@@ -33,6 +50,7 @@ function postRecord(){
 }
 
 // Read a record
+// Function is called in postRecord
 function getRecord(id){
   frisby.create('Get account using id')
     .get(url + id)
@@ -45,6 +63,7 @@ function getRecord(id){
 }
 
 // Update a record
+// Function is called in getRecord
 function putRecord(id){
   frisby.create('Put account using id')
     .put(url + id, changedRecord, {json: true})
@@ -55,17 +74,20 @@ function putRecord(id){
 
 // Send something that should trigger an error
 function postBadRecord(){
-  frisby.create('Enforce mandatory fields when creating')
+  frisby.create('Validation: Enforce mandatory fields when creating')
     .post(url, badRecord, {json: true})
     .expectStatus(422)
     .expectHeaderContains('Content-Type', 'application/json')
     .expectJSON({
       error: {
-        name: 'ValidationError',
+        name: 'Validation Error',
         details: {
           codes: {
             name: [
               'presence'
+            ],
+            account_type: [
+              'must be one of 3 account types: federal, enterprise, commerical'
             ]
           }}}})
     .toss();
