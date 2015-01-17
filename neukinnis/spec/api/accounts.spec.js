@@ -7,33 +7,39 @@ var frisby = require('frisby');
 // Set up variables for info you will use often
 var url = 'http://localhost:3000/api/accounts/';
 var initialRecord = {
-  "name": "Jeffrey",
-  "account_type": {
-    "properties": {
-      "federal": false,
-      "enterprise": true,
-      "commercial": false
-    }
-  }
+  "cust_name": "Jeff",
+  "account_type": "commercial"
 };
 var changedRecord = {
-  "name": "Frances",
-  "account_type": {
-    "properties": {
-      "federal": false,
-      "enterprise": true,
-      "commercial": false
-    }
-  }
+  "cust_name": "Frances",
+  "account_type": "enterprise"
 };
-var badRecord = {
-  "account_type": {
-    "properties": {
-      "federal": false,
-      "enterprise": true,
-      "commercial": false
-    }
-  }
+var emptyRecord = {
+  //no properties and values
+}
+var missingRecord = {
+  //missing cust_name
+  "account_type": "commercial"
+}
+var missingRecordTwo = {
+  "cust_name": "What is my account type?",
+  //missing account_type
+}
+var emptyPropertyValues = {
+  "cust_name": "",
+  "account_type": ""
+}
+var badPropertyName = {
+  "ihaveaname": "Mr. Fail",
+  "ihaveanaccount": "commercial"
+};
+var badPropertyValue = {
+  "ihaveaname": "Mr. Invalid",
+  "ihaveanaccount": "Seattle"
+};
+var badPropertyValueTwo = {
+  "ihaveaname": "Mr. Invalid Two",
+  "ihaveanaccount": ["commercial", "enterprise"]
 };
 
 // Create a record
@@ -50,7 +56,6 @@ function postRecord(){
 }
 
 // Read a record
-// Function is called in postRecord
 function getRecord(id){
   frisby.create('Get account using id')
     .get(url + id)
@@ -63,35 +68,45 @@ function getRecord(id){
 }
 
 // Update a record
-// Function is called in getRecord
 function putRecord(id){
   frisby.create('Put account using id')
     .put(url + id, changedRecord, {json: true})
     .expectStatus(200)
     .expectJSON(changedRecord)
+    .afterJSON(function(json){
+      deleteRecord(json.id);
+    })
+    .toss();
+}
+
+// Delete a record
+function deleteRecord(id) {
+  frisby.create('Delete account using id')
+    .delete(url + id, {json: false})
+    .expectStatus(204)
     .toss();
 }
 
 // Send something that should trigger an error
-function postBadRecord(){
+function postBadRecord(record){
   frisby.create('Validation: Enforce mandatory fields when creating')
-    .post(url, badRecord, {json: true})
+    .post(url, record, {json: true})
     .expectStatus(422)
     .expectHeaderContains('Content-Type', 'application/json')
     .expectJSON({
       error: {
-        name: 'Validation Error',
+        name: 'ValidationError',
         details: {
           codes: {
-            name: [
-              'presence'
-            ],
-            account_type: [
-              'must be one of 3 account types: federal, enterprise, commerical'
-            ]
           }}}})
     .toss();
 }
 
 postRecord();
-postBadRecord();
+postBadRecord(emptyRecord);
+postBadRecord(missingRecord);
+postBadRecord(missingRecordTwo);
+postBadRecord(emptyPropertyValues);
+postBadRecord(badPropertyName);
+postBadRecord(badPropertyValue);
+postBadRecord(badPropertyValueTwo);

@@ -5,17 +5,14 @@
   "type": "object",
   "properties": {
     "cust_name": {
-      "id": "cust_name",
       "type": "string",
       "required": true
     },
     "account_type": {
-      "id": "account_type",
       "type": "string",
       "required": true
     }
-    },
-  "additionalProperties": false,
+  },
   "validations": [],
   "relations": {},
   "acls": [],
