@@ -103,6 +103,7 @@ function postBadRecord(record){
 }
 
 postRecord();
+postBadRecord(initialRecord); //Validates unique name
 postBadRecord(emptyRecord);
 postBadRecord(missingRecord);
 postBadRecord(missingRecordTwo);
