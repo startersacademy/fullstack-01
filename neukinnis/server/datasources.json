@@ -5,6 +5,9 @@
   },
   "fullstack": {
     "name": "fullstack",
-    "connector": "mongodb"
+    "connector": "mongodb",
+    "host": "localhost",
+    "port": 27017,
+    "database": "neukinnis"
   }
 }
