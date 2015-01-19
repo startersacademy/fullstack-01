@@ -13,7 +13,7 @@ gulp.task('integrate', function(){
     .pipe(casperjs({command:'test'}));
 });
 
-gulp.task('integrate:win', function () {
+gulp.task('test:integrate:win', function () {
   var tests = ['./spec/integration'];
   var casperChild = spawn('casperjs.cmd', ['test'].concat(tests));
   casperChild.stdout.on('data', function (data) {
@@ -23,7 +23,6 @@ gulp.task('integrate:win', function () {
   casperChild.on('close', function (code) {
     console.log("Test has finished!");
   });
-
 });
 
 // Starts server for tasks that require a server
