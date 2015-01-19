@@ -1,6 +1,3 @@
 .idea
-<<<<<<< HEAD
-neukinnis/server/datasources.local.json
-=======
+server/datasources.local.json
 node_modules
->>>>>>> 5d1176858085aaa1bca536863fe967ee63ffd6e2
