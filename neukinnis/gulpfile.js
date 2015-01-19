@@ -20,4 +20,5 @@ gulp.task('integrate:win', function () {
   casperChild.on('close', function (code) {
     console.log("Test has finished!");
   });
+
 });
