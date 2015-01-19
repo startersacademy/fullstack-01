@@ -32,18 +32,15 @@
     "loopback-explorer": "^1.1.0"
   },
   "devDependencies": {
-<<<<<<< HEAD:package.json,
     "jshint": "^2.5.6",
     "frisby": "~0.8.5",
     "gulp-run": "~1.6.6",
     "gulp-sequence": "~0.3.1",
     "gulp-develop-server": "~0.2.5",
-=======
     "casperjs": "^1.1.0-beta3",
     "gulp": "^3.8.10",
     "gulp-casperjs": "0.0.4",
     "jshint": "^2.5.6",
     "strongloop": "^2.10.2"
->>>>>>> 5d1176858085aaa1bca536863fe967ee63ffd6e2:package.json
   }
 }
