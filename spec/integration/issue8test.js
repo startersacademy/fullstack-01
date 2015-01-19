@@ -1,7 +1,7 @@
 /* 
+ * Title: Casper Test Integration 
  * By: Frances Go
  * Date: Jan 2015
- * Title: Casper Test Integration 
  */
 
 // casper.test.begin(testTitle, numberOfTests, callback)
