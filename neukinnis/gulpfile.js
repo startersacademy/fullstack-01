@@ -3,15 +3,12 @@
 var gulp = require('gulp');
 var casperjs = require('gulp-casperjs');
 var spawn = require('child_process').spawn;
-var gulp = require('gulp');
 var gutil = require('gulp-util');
 
 gulp.task('integrate', function(){
   gulp.src('./spec/integration/**')
     .pipe(casperjs({command:'test'}));
 });
-
-
 
 gulp.task('integrate:win', function () {
   var tests = ['./spec/integration'];
@@ -21,7 +18,6 @@ gulp.task('integrate:win', function () {
   });
 
   casperChild.on('close', function (code) {
-    var success = code === 0; // Will be 1 in the event of failure
     console.log("Test has finished!");
   });
 });
