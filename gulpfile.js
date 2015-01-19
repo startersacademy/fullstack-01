@@ -8,18 +8,26 @@ var run = require ('gulp-run');
 var server = require('gulp-develop-server');
 var gulpSequence = require('gulp-sequence');
 
-gulp.task('integrate', function(){
-  gulp.src('./spec/integration/**')
-    .pipe(casperjs({command:'test'}));
+gulp.task('test:integration', function (cb) {
+ console.log('running integration tests');
+
+ var integrationTestGlob = './spec/integration/**';
+
+ gulp.src(integrationTestGlob)
+   .pipe(casperJs({command:'test'}))
+   .on('data', function(){})
+   .on('end', cb)
+   .on('error', cb);
 });
 
-gulp.task('test:integrate:win', function () {
+gulp.task('test:integrate:win', function (cb) {
   var tests = ['./spec/integration'];
   var casperChild = spawn('casperjs.cmd', ['test'].concat(tests));
   casperChild.stdout.on('data', function (data) {
     gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
   });
-
+  casperChild.on('end', cb);
+  casperChild.on('error', cb);
   casperChild.on('close', function (code) {
     console.log("Test has finished!");
   });
