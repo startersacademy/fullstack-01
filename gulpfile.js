@@ -20,16 +20,16 @@ gulp.task('test:integration', function (cb) {
    .on('error', cb);
 });
 
-gulp.task('test:integrate:win', function (cb) {
+gulp.task('test:integration:win', function (cb) {
   var tests = ['./spec/integration'];
   var casperChild = spawn('casperjs.cmd', ['test'].concat(tests));
   casperChild.stdout.on('data', function (data) {
     gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
-  });
-  casperChild.on('end', cb);
-  casperChild.on('error', cb);
-  casperChild.on('close', function (code) {
-    console.log("Test has finished!");
+  })
+  .on('end', cb)
+  .on('error', cb)
+  .on('close', function (code) {
+    console.log("Casper tests have finished!");
   });
 });
 
@@ -61,7 +61,7 @@ gulp.task('test:win-all',
   gulpSequence(
   'server:start',
   'test:api',
-  'test:integrate:win',
+  'test:integration:win',
   'server:stop'
   )
 );
