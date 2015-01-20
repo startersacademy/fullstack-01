@@ -63,7 +63,7 @@ gulp.task('test:api', function (cb) {
       .on('error', cb);
 });
 
-//'test:integration','server:stop'
+
 gulp.task('test:all',
   gulpSequence(
   'server:start',

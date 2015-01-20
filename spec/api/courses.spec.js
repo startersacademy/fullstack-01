@@ -9,22 +9,43 @@ var url = 'http://localhost:3000/api/courses/';
 
 var initialCourse = {
   "title": "Full Stack Dev I",
-  "courseType": "Computer Science",
+  "courseType": "video",
   "description": "Learn how to do single page apps advanced",
   "instructors": "Todd",
   "students": "Frances"
 };
 var changedCourse = {
   "title": "Front End Dev",
-  "courseType": "Computer Science",
+  "courseType": "instructor led",
   "description": "Learn front end dev",
   "instructors": "Sam",
+  "students": "Toby"
+};
+var secondCourse = {
+  "title": "Graphics",
+  "courseType": "instructor led",
+  "description": "Learn UX",
+  "instructors": "Tom",
+  "students": "Toby"
+};
+var thirdCourse = {
+  "title": "Art Making",
+  "courseType": "WBT",
+  "description": "Learn painting",
+  "instructors": "John",
+  "students": "Frances"
+};
+var fourthCourse = {
+  "title": "Videographer",
+  "courseType": "video",
+  "description": "Learn how to shoot videos",
+  "instructors": "Mike",
   "students": "Toby"
 };
 var noCourse = {
 };
 var noTitleCourse = {
-  "courseType": "Marketing",
+  "courseType": "WBT",
   "description": "How to market business",
   "instructors": "Mary",
   "students": "Frank"
@@ -37,27 +58,28 @@ var noCourseType = {
 };
 var noInstructors = {
   "title": "Front End Dev",
-  "courseType": "Computer Science",
+  "courseType": "WBT",
   "description": "Learn front end dev",
   "students": "Toby"
 };
 var noDescription = {
   "title": "Front End Dev",
-  "courseType": "Computer Science",
+  "courseType": "WBT",
   "instructors": "Sam",
   "students": "Toby"
 };
 var noStudents = {
   "title": "Front End Dev",
-  "courseType": "Computer Science",
+  "courseType": "WBT",
   "description": "Learn front end dev",
   "instructors": "Sam"
 };
-var badCourse = {
-  "title": "Bad Dev",
-  "courseType": "What class?",
-  "description": "Learn nothin",
-  "instructors": "Who"
+var marketCourse = {
+  "title": "Marketing 101",
+  "courseType": "marketing",
+  "description": "Learn how to market",
+  "instructors": "Todd",
+  "students": "Frances"
 };
 
 
@@ -73,6 +95,18 @@ function postCourse(){
     .afterJSON(function(json){
       getCourse(json.id);
     })
+    .toss();  // done
+}
+
+// Create a course
+function whichCourse(course){
+  frisby.create('Create a course with post')
+    .post(url, course, {json: true})
+
+    //Assertions
+    .expectStatus(200)  // 200 means success
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON(course)
     .toss();  // done
 }
 
@@ -113,7 +147,7 @@ function deleteCourse(id){
 // Send something that should trigger an error
 function postBadCourse(){
   frisby.create('Enforce mandatory fields when creating')
-    .post(url, badCourse, {json: true})
+    .post(url, noCourse, {json: true})
     .expectStatus(422)   // Semantic errors
     .expectHeaderContains('Content-Type', 'application/json')
     .expectJSON({
@@ -121,16 +155,28 @@ function postBadCourse(){
         name: 'ValidationError',
         details: {
           codes: {
-            name: [
+            title: [
+              'presence'
+            ],
+            courseType: [
+              'presence'
+            ],
+            description: [
+              'presence'
+            ],
+            instructors: [
+              'presence'
+            ],
+            students: [
               'presence'
             ]
           }}}})
     .toss();
 }
 
-function postBadTest(test){
-  frisby.create('Enforce mandatory fields when creating')
-    .post(url, test, {json: true})
+function postBadTitle(){
+  frisby.create('Enforce mandatory title when creating')
+    .post(url, noTitleCourse, {json: true})
     .expectStatus(422)   // Semantic errors
     .expectHeaderContains('Content-Type', 'application/json')
     .expectJSON({
@@ -138,15 +184,111 @@ function postBadTest(test){
         name: 'ValidationError',
         details: {
           codes: {
-            name: [
+            title: [
               'presence'
             ]
           }}}})
     .toss();
 }
 
+function postBadType(){
+  frisby.create('Enforce mandatory courseType when creating')
+    .post(url, noCourseType, {json: true})
+    .expectStatus(422)   // Semantic errors
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON({
+      error: {
+        name: 'ValidationError',
+        details: {
+          codes: {
+            courseType: [
+              'presence'
+            ]
+          }}}})
+    .toss();
+}
+
+function postBadInstructors(){
+  frisby.create('Enforce mandatory instructors when creating')
+    .post(url, noInstructors, {json: true})
+    .expectStatus(422)   // Semantic errors
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON({
+      error: {
+        name: 'ValidationError',
+        details: {
+          codes: {
+            instructors: [
+              'presence'
+            ]
+          }}}})
+    .toss();
+}
+
+function postBadDescription(){
+  frisby.create('Enforce mandatory description when creating')
+    .post(url, noDescription, {json: true})
+    .expectStatus(422)   // Semantic errors
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON({
+      error: {
+        name: 'ValidationError',
+        details: {
+          codes: {
+            description: [
+              'presence'
+            ]
+          }}}})
+    .toss();
+}
+
+function postBadStudents(){
+  frisby.create('Enforce mandatory students when creating')
+    .post(url, noStudents, {json: true})
+    .expectStatus(422)   // Semantic errors
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON({
+      error: {
+        name: 'ValidationError',
+        details: {
+          codes: {
+            students: [
+              'presence'
+            ]
+          }}}})
+    .toss();
+}
+
+function postWrongType(){
+  frisby.create('Enforce mandatory type must include -video, WBT, instructor led- when creating')
+    .post(url, marketCourse, {json: true})
+    .expectStatus(422)   // Semantic errors
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON({
+      error: {
+        name: 'ValidationError',
+        details: {
+          codes: {
+            courseType: [
+              'inclusion'
+            ]
+          }}}})
+    .toss();
+}
+
+
+/* Call tests */
 postCourse();
-//putCourse(12);
+whichCourse(secondCourse);
+whichCourse(thirdCourse);
+whichCourse(fourthCourse);
+//putCourse('id here');  // update
 //deleteCourse('54bda1c2b9984aeb84f37b83');
-//postBadCourse();
-//postBadTest(noTitleCourse);
+
+postBadCourse();
+postBadTitle();
+postBadType();
+postBadInstructors();
+postBadDescription();
+postBadStudents();
+postWrongType();
