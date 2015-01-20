@@ -9,17 +9,7 @@ var gulpSequence = require('gulp-sequence');
 
 gulp.task('test:integration', function (cb) {
  console.log('running integration tests');
-
- var integrationTestGlob = './spec/integration/**';
-
- gulp.src(integrationTestGlob)
-   .pipe(casperjs({command:'test'}))
-   .on('data', function(){})
-   .on('end', cb)
-   .on('error', cb);
-});
-
-gulp.task('test:integration:win', function (cb) {
+ if (process.platform === 'win32') {
   var tests = ['./spec/integration'];
   var casperChild = spawn('casperjs.cmd', ['test'].concat(tests));
   casperChild.stdout
@@ -29,6 +19,15 @@ gulp.task('test:integration:win', function (cb) {
   .on('close', function (code) {
     console.log('Casper tests have finished!');
   });
+ }
+ else {
+  var integrationTestGlob = './spec/integration/**';
+  gulp.src(integrationTestGlob)
+   .pipe(casperjs({command:'test'}))
+   .on('data', function(){})
+   .on('end', cb)
+   .on('error', cb);
+  }
 });
 
 // Starts server for tasks that require a server
@@ -60,16 +59,6 @@ gulp.task('test:all',
   'server:start',
   'test:api',
   'test:integration',
-  'server:stop'
-  )
-);
-
-// Run all specified tests with gulpSequence - Windows
-gulp.task('test:win-all',
-  gulpSequence(
-  'server:start',
-  'test:api',
-  'test:integration:win',
   'server:stop'
   )
 );
