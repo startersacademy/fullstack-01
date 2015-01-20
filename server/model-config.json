@@ -29,5 +29,9 @@
   "account": {
     "dataSource": "fullstack",
     "public": true
+  },
+  "student": {
+    "dataSource": "fullstack",
+    "public": true
   }
 }
