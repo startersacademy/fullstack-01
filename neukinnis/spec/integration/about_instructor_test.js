@@ -2,7 +2,7 @@
 
 /* global casper */
 
-casper.test.begin('page 1 navigates to page 2', 6,
+casper.test.begin('about instructors test', 6,
   function suite(test){
     casper.start('http://localhost:3000/about.html', function(){
       test.assertTitle('About Instructors', 'About Instructors title good');
