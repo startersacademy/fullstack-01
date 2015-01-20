@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-/* css from jeffereytu */
 
-body {
-=======
+/* css from jeffereytu */
 hr {
 	margin: 1em 0 2em;
-}
-#maincontent {
-	padding-top: 50px;
 }
 .row {
 	padding: 0 0 2em;
@@ -19,8 +13,8 @@ footer {
 footer ul {
 	list-style: none;
 	padding-left: 0;
-}body {
->>>>>>> origin/master
+}
+body {
   font-family: 'Open Sans', sans-serif;
   margin-top: 50px;
 }
@@ -69,7 +63,6 @@ i {
 footer {
   padding: 20px 0;
 }
-<<<<<<< HEAD
 
 /*#form-title {*/
   /*font-weight: bold;*/
@@ -102,6 +95,3 @@ footer {
   /*box-sizing: border-box;*/
 
 /*}*/
-
-=======
->>>>>>> origin/master
