@@ -2,7 +2,7 @@
 
 /* global casper */
 
-casper.test.begin('About Us - Navigation Test', 16, function suite(test){
+casper.test.begin('About Us - Navigation Test', function suite(test){
   casper.start('http://localhost:3000/aboutus.html', function(){
     test.assertTitle('About Us', 'Finds page title ' + this.getTitle());
     test.assertExists('a[href="/index.html"]', 'Checks existence of link to Home page');
