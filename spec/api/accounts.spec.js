@@ -7,7 +7,7 @@ var frisby = require('frisby');
 // Set up variables for info you will use often
 var url = 'http://localhost:3000/api/accounts/';
 var initialRecord = {
-  "cust_name": "Jeff",
+  "cust_name": "David",
   "account_type": "commercial"
 };
 var changedRecord = {
@@ -16,19 +16,19 @@ var changedRecord = {
 };
 var emptyRecord = {
   //no properties and values
-}
+};
 var missingRecord = {
   //missing cust_name
   "account_type": "commercial"
-}
+};
 var missingRecordTwo = {
   "cust_name": "What is my account type?",
   //missing account_type
-}
+};
 var emptyPropertyValues = {
   "cust_name": "",
   "account_type": ""
-}
+};
 var badPropertyName = {
   "ihaveaname": "Mr. Fail",
   "ihaveanaccount": "commercial"

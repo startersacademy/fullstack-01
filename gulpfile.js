@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var casperjs = require('gulp-casperjs');
 var spawn = require('child_process').spawn;
-var gutil = require('gulp-util');
 var run = require ('gulp-run');
 var server = require('gulp-develop-server');
 var gulpSequence = require('gulp-sequence');
@@ -14,7 +13,7 @@ gulp.task('test:integration', function (cb) {
  var integrationTestGlob = './spec/integration/**';
 
  gulp.src(integrationTestGlob)
-   .pipe(casperJs({command:'test'}))
+   .pipe(casperjs({command:'test'}))
    .on('data', function(){})
    .on('end', cb)
    .on('error', cb);
@@ -23,13 +22,12 @@ gulp.task('test:integration', function (cb) {
 gulp.task('test:integration:win', function (cb) {
   var tests = ['./spec/integration'];
   var casperChild = spawn('casperjs.cmd', ['test'].concat(tests));
-  casperChild.stdout.on('data', function (data) {
-    gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
-  })
+  casperChild.stdout
+  .on('data', function(){})
   .on('end', cb)
   .on('error', cb)
   .on('close', function (code) {
-    console.log("Casper tests have finished!");
+    console.log('Casper tests have finished!');
   });
 });
 
