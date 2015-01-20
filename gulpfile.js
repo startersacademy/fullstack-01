@@ -55,6 +55,16 @@ gulp.task('test:api', function (cb) {
 });
 
 // Run all specified tests with gulpSequence
+gulp.task('test:all',
+  gulpSequence(
+  'server:start',
+  'test:api',
+  'test:integration',
+  'server:stop'
+  )
+);
+
+// Run all specified tests with gulpSequence - Windows
 gulp.task('test:win-all',
   gulpSequence(
   'server:start',
