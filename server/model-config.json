@@ -25,5 +25,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "courses": {
+    "dataSource": "fullstack",
+    "public": true
   }
 }
