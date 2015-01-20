@@ -42,6 +42,20 @@ var fourthCourse = {
   "instructors": "Mike",
   "students": "Toby"
 };
+var fiveCourse = {
+  "title": "Piano",
+  "courseType": "instructor led",
+  "description": "Learn classical music",
+  "instructors": "Susan",
+  "students": "Frances"
+};
+var sixCourse = {
+  "title": "Writing 101",
+  "courseType": "video",
+  "description": "Learn how to write stories",
+  "instructors": "Mel",
+  "students": "Toby"
+};
 var noCourse = {
 };
 var noTitleCourse = {
@@ -282,6 +296,8 @@ postCourse();
 whichCourse(secondCourse);
 whichCourse(thirdCourse);
 whichCourse(fourthCourse);
+whichCourse(fiveCourse);
+whichCourse(sixCourse);
 //putCourse('id here');  // update
 //deleteCourse('54bda1c2b9984aeb84f37b83');
 
