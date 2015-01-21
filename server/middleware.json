@@ -30,14 +30,6 @@
     "loopback#token": {}
   },
   "parse": {
-    "parted": {
-      "params": {
-        "path": "$!../uploads",
-        "limit": 30720,
-        "diskLimit": 31457280,
-        "stream": false
-      }
-    }
   },
   "routes": {
     "loopback#status": {
