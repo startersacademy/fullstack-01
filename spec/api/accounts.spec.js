@@ -110,8 +110,8 @@ function postBadRecord(record){
 
 function postRelation(id){
   studentOne = {
-    "first_name": "Miranda",
-    "last_name": "Reed",
+    "firstName": "Miranda",
+    "lastName": "Reed",
     "accountId": id
   };
   frisby.create('Create a student under an account')
@@ -122,8 +122,8 @@ function postRelation(id){
     .afterJSON(function(json){
       studentId = json.id;
       studentOne = {
-        "first_name": "Miranda",
-        "last_name": "Reed",
+        "firstName": "Miranda",
+        "lastName": "Reed",
         "accountId": id,
         "id": studentId
       };
