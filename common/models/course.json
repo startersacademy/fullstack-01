@@ -14,18 +14,19 @@
     "description": {
       "type": "string",
       "required": true
-    },
-    "instructors": {
-      "type": "string",
-      "required": true
-    },
-    "students": {
-      "type": "string",
-      "required": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "students": {
+      "type": "hasAndBelongsToMany",
+      "model": "student"
+    },
+    "instructor": {
+      "type": "hasOne",
+      "model": "instructor"
+    }
+  },
   "acls": [],
   "methods": []
 }

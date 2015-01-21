@@ -1,4 +1,4 @@
-// spec/api/courses.spec.js
+// spec/api/course.spec.js
 
 /* jshint quotmark:false */
 
@@ -10,90 +10,61 @@ var url = 'http://localhost:3000/api/courses/';
 var initialCourse = {
   "title": "Full Stack Dev I",
   "courseType": "video",
-  "description": "Learn how to do single page apps advanced",
-  "instructors": "Todd",
-  "students": "Frances"
+  "description": "Learn how to do single page apps advanced"
 };
 var changedCourse = {
   "title": "Front End Dev",
   "courseType": "instructor led",
-  "description": "Learn front end dev",
-  "instructors": "Sam",
-  "students": "Toby"
+  "description": "Learn front end dev"
 };
 var secondCourse = {
   "title": "Graphics",
   "courseType": "instructor led",
-  "description": "Learn UX",
-  "instructors": "Tom",
-  "students": "Toby"
+  "description": "Learn UX"
 };
 var thirdCourse = {
   "title": "Art Making",
   "courseType": "WBT",
-  "description": "Learn painting",
-  "instructors": "John",
-  "students": "Frances"
+  "description": "Learn painting"
 };
 var fourthCourse = {
   "title": "Videographer",
   "courseType": "video",
-  "description": "Learn how to shoot videos",
-  "instructors": "Mike",
-  "students": "Toby"
+  "description": "Learn how to shoot videos"
 };
 var fiveCourse = {
   "title": "Piano",
   "courseType": "instructor led",
-  "description": "Learn classical music",
-  "instructors": "Susan",
-  "students": "Frances"
+  "description": "Learn classical music"
 };
 var sixCourse = {
   "title": "Writing 101",
   "courseType": "video",
-  "description": "Learn how to write stories",
-  "instructors": "Mel",
-  "students": "Toby"
+  "description": "Learn how to write stories"
 };
 var noCourse = {
 };
+var emptyCourse = {
+  "title": "",
+  "courseType": "",
+  "description": ""
+};
 var noTitleCourse = {
   "courseType": "WBT",
-  "description": "How to market business",
-  "instructors": "Mary",
-  "students": "Frank"
+  "description": "How to market business"
 };
 var noCourseType = {
   "title": "Marketing 101",
-  "description": "How to market business",
-  "instructors": "Mary",
-  "students": "Frank"
-};
-var noInstructors = {
-  "title": "Front End Dev",
-  "courseType": "WBT",
-  "description": "Learn front end dev",
-  "students": "Toby"
+  "description": "How to market business"
 };
 var noDescription = {
   "title": "Front End Dev",
-  "courseType": "WBT",
-  "instructors": "Sam",
-  "students": "Toby"
-};
-var noStudents = {
-  "title": "Front End Dev",
-  "courseType": "WBT",
-  "description": "Learn front end dev",
-  "instructors": "Sam"
+  "courseType": "WBT"
 };
 var marketCourse = {
   "title": "Marketing 101",
   "courseType": "marketing",
-  "description": "Learn how to market",
-  "instructors": "Todd",
-  "students": "Frances"
+  "description": "Learn how to market"
 };
 
 
@@ -159,9 +130,9 @@ function deleteCourse(id){
 
 
 // Send something that should trigger an error
-function postBadCourse(){
+function postBadCourse(badCourse){
   frisby.create('Enforce mandatory fields when creating')
-    .post(url, noCourse, {json: true})
+    .post(url, badCourse, {json: true})
     .expectStatus(422)   // Semantic errors
     .expectHeaderContains('Content-Type', 'application/json')
     .expectJSON({
@@ -176,12 +147,6 @@ function postBadCourse(){
               'presence'
             ],
             description: [
-              'presence'
-            ],
-            instructors: [
-              'presence'
-            ],
-            students: [
               'presence'
             ]
           }}}})
@@ -222,23 +187,6 @@ function postBadType(){
     .toss();
 }
 
-function postBadInstructors(){
-  frisby.create('Enforce mandatory instructors when creating')
-    .post(url, noInstructors, {json: true})
-    .expectStatus(422)   // Semantic errors
-    .expectHeaderContains('Content-Type', 'application/json')
-    .expectJSON({
-      error: {
-        name: 'ValidationError',
-        details: {
-          codes: {
-            instructors: [
-              'presence'
-            ]
-          }}}})
-    .toss();
-}
-
 function postBadDescription(){
   frisby.create('Enforce mandatory description when creating')
     .post(url, noDescription, {json: true})
@@ -256,26 +204,9 @@ function postBadDescription(){
     .toss();
 }
 
-function postBadStudents(){
-  frisby.create('Enforce mandatory students when creating')
-    .post(url, noStudents, {json: true})
-    .expectStatus(422)   // Semantic errors
-    .expectHeaderContains('Content-Type', 'application/json')
-    .expectJSON({
-      error: {
-        name: 'ValidationError',
-        details: {
-          codes: {
-            students: [
-              'presence'
-            ]
-          }}}})
-    .toss();
-}
-
-function postWrongType(){
+function postWrongType(wrongType){
   frisby.create('Enforce mandatory type must include -video, WBT, instructor led- when creating')
-    .post(url, marketCourse, {json: true})
+    .post(url, wrongType, {json: true})
     .expectStatus(422)   // Semantic errors
     .expectHeaderContains('Content-Type', 'application/json')
     .expectJSON({
@@ -285,6 +216,23 @@ function postWrongType(){
           codes: {
             courseType: [
               'inclusion'
+            ]
+          }}}})
+    .toss();
+}
+
+function postDuplicateTitle(sameTitle){
+  frisby.create('Enforce mandatory unique title when creating')
+    .post(url, sameTitle, {json: true})
+    .expectStatus(422)   // Semantic errors
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON({
+      error: {
+        name: 'ValidationError',
+        details: {
+          codes: {
+            title: [
+              'uniqueness'
             ]
           }}}})
     .toss();
@@ -301,10 +249,10 @@ whichCourse(sixCourse);
 //putCourse('id here');  // update
 //deleteCourse('54bda1c2b9984aeb84f37b83');
 
-postBadCourse();
+postBadCourse(noCourse);
+postBadCourse(emptyCourse);
 postBadTitle();
 postBadType();
-postBadInstructors();
 postBadDescription();
-postBadStudents();
-postWrongType();
+postWrongType(marketCourse);
+postDuplicateTitle(secondCourse);
