@@ -1,0 +1,23 @@
+{
+  "name": "course",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "courseType": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
