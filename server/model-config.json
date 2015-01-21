@@ -29,5 +29,9 @@
   "instructor": {
     "dataSource": "fullstack",
     "public": true
+  },
+  "course": {
+    "dataSource": "fullstack",
+    "public": true
   }
 }

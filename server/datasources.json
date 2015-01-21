@@ -4,10 +4,10 @@
     "connector": "memory"
   },
   "fullstack": {
-    "name": "fullstack",
-    "connector": "mongodb",
     "host": "localhost",
     "port": 27017,
-    "database": "neukinnis"
+    "database": "neukinnis",
+    "name": "fullstack",
+    "connector": "mongodb"
   }
 }

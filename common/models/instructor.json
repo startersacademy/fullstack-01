@@ -21,7 +21,12 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "courses": {
+      "type": "hasMany",
+      "model": "course"
+    }
+  },
   "acls": [],
   "methods": []
 }
