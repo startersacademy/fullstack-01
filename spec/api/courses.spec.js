@@ -247,7 +247,7 @@ whichCourse(fourthCourse);
 whichCourse(fiveCourse);
 whichCourse(sixCourse);
 //putCourse('id here');  // update
-//deleteCourse('54bda1c2b9984aeb84f37b83');
+//deleteCourse('54bf63fb7af8cdc664992a53');
 
 postBadCourse(noCourse);
 postBadCourse(emptyCourse);
