@@ -6,8 +6,9 @@
 var frisby = require('frisby');
 // Set up variables for info you will use often
 var url = 'http://localhost:3000/api/accounts/';
+var accountId, studentId, studentOne;
 var initialRecord = {
-  "cust_name": "David",
+  "cust_name": "Mitch",
   "account_type": "commercial"
 };
 var changedRecord = {
@@ -51,8 +52,9 @@ function postRecord(){
     .expectJSON(initialRecord)
     .afterJSON(function(json){
       getRecord(json.id);
+      postRelation(json.id);
     })
-    .toss();
+  .toss();
 }
 
 // Read a record
@@ -63,8 +65,9 @@ function getRecord(id){
     .expectJSON(initialRecord)
     .afterJSON(function(json){
       putRecord(json.id);
+      getRelation(json.id); //executes get on model relation
     })
-    .toss();
+  .toss();
 }
 
 // Update a record
@@ -81,6 +84,7 @@ function putRecord(id){
 
 // Delete a record
 function deleteRecord(id) {
+  deleteRelation(id)
   frisby.create('Delete account using id')
     .delete(url + id, {json: false})
     .expectStatus(204)
@@ -100,6 +104,49 @@ function postBadRecord(record){
           codes: {
           }}}})
     .toss();
+}
+
+// Tests for relations
+
+function postRelation(id){
+  studentOne = {
+    "first_name": "Miranda",
+    "last_name": "Reed",
+    "accountId": id
+  };
+  frisby.create('Create a student under an account')
+    .post(url + id + "/students", studentOne, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON(studentOne)
+    .afterJSON(function(json){
+      studentId = json.id;
+      studentOne = {
+        "first_name": "Miranda",
+        "last_name": "Reed",
+        "accountId": id,
+        "id": studentId
+      };
+    })
+  .toss();
+}
+
+function getRelation(id){
+  frisby.create('Get students under an account')
+  .get(url + id + "/students")
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'application/json')
+  .expectJSON([studentOne])
+  .afterJSON(function(json){
+  })
+  .toss();
+}
+
+function deleteRelation(id){
+  frisby.create('Delete a student using account id')
+  .delete(url + id + "/students", {json: false})
+  .expectStatus(204)
+  .toss();
 }
 
 postRecord();
