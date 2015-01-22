@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "main": "server/server.js",
   "scripts": {
-    "pretest": "jshint ."
+    "pretest": "jshint .",
+    "test": "gulp test"
   },
   "dependencies": {
     "loopback": "^2.8.0",
