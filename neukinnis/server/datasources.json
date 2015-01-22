@@ -2,5 +2,18 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "yes": {
+    "name": "yes",
+    "connector": "mongodb"
+  },
+  "fullstack": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "test",
+    "username": "tester",
+    "password": "tester",
+    "name": "fullstack",
+    "connector": "mongodb"
   }
 }
