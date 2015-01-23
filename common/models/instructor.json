@@ -11,10 +11,6 @@
       "type": "string",
       "required": true
     },
-    "courses": {
-      "type": "string",
-      "required": true
-    },
     "skills": {
       "type": "string",
       "required": true
