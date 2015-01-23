@@ -84,7 +84,7 @@ function putRecord(id){
 
 // Delete a record
 function deleteRecord(id) {
-  deleteRelation(id)
+  deleteRelation(id);
   frisby.create('Delete account using id')
     .delete(url + id, {json: false})
     .expectStatus(204)
