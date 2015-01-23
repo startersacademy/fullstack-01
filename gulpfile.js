@@ -35,25 +35,7 @@ gulp.task('test:integration', function (cb) {
   casperChild.stdout.on('data', function (data) {
     gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
   });
- }
- else {
-  var integrationTestGlob = './spec/integration/**';
-  gulp.src(integrationTestGlob)
-   .pipe(casperjs({command:'test'}))
-   .on('data', function(){})
-   .on('end', cb)
-   .on('error', cb);
-  }
-});
 
-// Starts server for tasks that require a server
-gulp.task('server:start', function(cb){
-  server.listen({path: '.', delay: 3000}, cb);
-});
-
-// Stops server after tasks have run
-gulp.task('server:stop', function(cb){
-  server.kill();
   casperChild.on('error', function (err) {
     cb(err);
   });
@@ -120,3 +102,4 @@ gulp.task('test', ['test:all']);
 
 gulp.task('default', ['server:start'], function(){
   gulp.watch(['./server/*.js', './server/*.json']).on('change', server.changed);
+});
