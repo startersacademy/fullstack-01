@@ -1,0 +1,6 @@
+node_modules/
+client/js/holder.js
+client/js/bootstrap.js
+client/js/bootstrap.min.js
+client/js/jquery.js
+client/js/jqBootstrapValidation.js
