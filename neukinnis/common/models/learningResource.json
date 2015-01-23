@@ -1,0 +1,24 @@
+{
+  "name": "learningResource",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "resourceType": {
+      "type":"string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "authors":{
+      "type": "string"
+    }
+},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
