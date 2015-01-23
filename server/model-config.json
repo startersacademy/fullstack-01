@@ -27,11 +27,11 @@
     "public": false
   },
   "account": {
-    "dataSource": "fullstack",
+    "dataSource": "db",
     "public": true
   },
   "student": {
-    "dataSource": "fullstack",
+    "dataSource": "db",
     "public": true
   }
 }
