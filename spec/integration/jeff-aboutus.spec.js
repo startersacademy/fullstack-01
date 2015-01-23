@@ -14,20 +14,6 @@ casper.test.begin('About Us - Navigation Test', function suite(test){
     test.assertTitle('Neukinnis', 'Finds page title ' + this.getTitle());
     this.back();
   });
-<<<<<<< HEAD
-  // casper.then(function(){
-  //   test.assertTitle('About Us', 'Returns to page ' + this.getTitle());
-  //   test.assertExists('a[href="/privacy.html"]', 'Check existence of link to Privacy page');
-  // });
-  // casper.then(function(){
-  //   this.click('a[href="/privacy.html"]');
-  // });
-  // casper.then(function(){
-  //   test.assertTitle('Privacy', 'Finds page title ' + this.getTitle());
-  //   this.back();
-  // });
-=======
->>>>>>> d2bd03a... removes commented out code
   casper.then(function(){
     test.assertTitle('About Us', 'Returns to page ' + this.getTitle());
     test.assertExists('a[href="/courses.html"]', 'Check existence of link to Courses page');
