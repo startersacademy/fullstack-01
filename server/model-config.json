@@ -27,15 +27,7 @@
     "public": false
   },
   "course": {
-    "dataSource": "fullstack",
-    "public": true
-  },
-  "student": {
-    "dataSource": "fullstack",
-    "public": true
-  },
-  "instructor": {
-    "dataSource": "fullstack",
+    "dataSource": "db",
     "public": true
   }
 }
