@@ -9,6 +9,6 @@ window.Backbone = require('./vendor').Backbone;
 
 // Additional modules go here
 
-
+/* global window require */
 // This should be the last line
 window.Backbone.history.start();
