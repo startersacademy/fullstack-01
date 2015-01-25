@@ -32,6 +32,3 @@ module.exports = function mountApps(server) {
   server.use('/spa', router);
 
 };
-
-
-
