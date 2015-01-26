@@ -14,15 +14,14 @@
     "description": {
       "type": "string",
       "required": true
+    },
+    "authors": {
+      "type": "array",
+      "required": true
     }
   },
   "validations": [],
-  "relations": {
-      "authors": {
-        "type": "belongsTo",
-        "model": "author"
-      }
-    },
+  "relations": {},
   "acls": [],
   "methods": []
 }
