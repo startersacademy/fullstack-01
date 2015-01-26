@@ -36,6 +36,12 @@
       padding: 20px;
       border-radius: 20px;
     }
+    .sty-authors {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 20px;
+      background: #F4D53C;
+    }
 </style>
 <div class="vertical-center">
   <div class="container">
@@ -48,13 +54,19 @@
         <input class="edit form-control" id="title" value="<%- title %>" placeholder="Title">
         <div class="div-space">
           <select id="resourceType" class="edit form-control">
+            <option value="" disabled>Resource Type</option>
             <option value="document">Document</option>
             <option value="link">Link</option>
             <option value="presentation">Presentation</option>
           </select>
+        <div class="div-space">
+          <input class="edit form-control" id="auth" value="<%- authors %>" placeholder="Authors">
         </div>
         <div class="div-space">
           <span class="resource-text"><%- resourceType %></span>
+            <%_.each(authors, function(val){ %>
+              <span class="sty-authors"><%= val %></span>
+            <% }); %>
         </div>
         <div class="div-space sty-desc">
           <span><%- description %></span>
