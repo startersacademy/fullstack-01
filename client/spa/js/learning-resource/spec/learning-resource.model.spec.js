@@ -21,7 +21,7 @@ describe('Learning resource model', function(){
     it('sets the correct default values', function(){
       expect(model.get('title')).toEqual('JavaScript Is Sexy');
       expect(model.get('resourceType')).toEqual('link');
-      expect(model.get('description')).toEqual('Learn JavaScript properly');
+      expect(model.get('description')).toEqual('Learn JavaScript properly.');
     });
   });
 });

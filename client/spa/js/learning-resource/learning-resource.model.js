@@ -5,9 +5,9 @@ var Backbone = require('../vendor/index').Backbone;
 module.exports = Backbone.Model.extend({
 
   defaults: {
-    title: 'null',
-    resourceType: 'null',
-    description: 'null'
+    title: 'JavaScript Is Sexy',
+    resourceType: 'link',
+    description: 'Learn JavaScript properly.'
   },
 
   urlRoot: '/api/learning-resources',
