@@ -63,12 +63,20 @@ describe('Learning resource view ', function(){
     it('updates the model', function(){
       view.$('.b-update').trigger('click');
     });
+
+    it('sees the success message', function(){
+      expect(view.$('#msg').html('Successfully updated'));
+    });
   });
 
   describe('when the user clicks on the Edit button ', function(){
 
     it('opens the input fields', function(){
       view.$('.b-edit').trigger('click');
+    });
+
+    it('sees at least one input field', function(){
+      view.$('.editing input');
     });
   });
 
