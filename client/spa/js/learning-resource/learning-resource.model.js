@@ -5,12 +5,12 @@ var Backbone = require('../vendor/index').Backbone;
 module.exports = Backbone.Model.extend({
 
   defaults: {
-    title: 'JavaScript Is Sexy',
-    resourceType: 'link',
-    description: 'Learn JavaScript properly'
+    title: 'null',
+    resourceType: 'null',
+    description: 'null'
   },
 
-  urlRoot: '/api/learning-resource',
+  urlRoot: '/api/learning-resources',
 
   initialize: function(){
     this.on('change', function(){
@@ -20,7 +20,29 @@ module.exports = Backbone.Model.extend({
 
   validate: function(attrs){
     if (!attrs.title){
-      return 'name cannot be empty';
+      return 'title cannot be empty';
     }
   }
 });
+
+var Resource = Backbone.Model.extend({
+  defaults: {
+    resourceType: null
+  }
+});
+
+var ResourceCollection = Backbone.Collection.extend({
+  model: Resource
+});
+
+var resourceCollection = new ResourceCollection([
+    {
+      resourceType: 'document'
+    },
+    {
+      resourceType: 'link'
+    },
+    {
+      resourceType: 'presentation'
+    }
+]);
