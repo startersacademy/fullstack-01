@@ -23,9 +23,9 @@ describe('Learning resource view ', function(){
     var Model = Backbone.Model.extend({});
     // Needs to have the fields required by the template
     model = new Model({
-      title: 'Contact <3',
-      resourceType: 'web',
-      description: 'me'
+      title: 'Crisis Averted',
+      resourceType: 'presentation',
+      description: 'You are welcome.'
     });
 
     view = new View({
@@ -41,7 +41,7 @@ describe('Learning resource view ', function(){
     });
 
     it('sets the correct class', function(){
-      expect(view.$el).toHaveClass('learn');
+      expect(view.$el).toHaveClass('learning-resource');
     });
   });
 
@@ -53,20 +53,22 @@ describe('Learning resource view ', function(){
 
     it('produces the correct HTML ', function(){
       view.render();
-      expect(view.$('h1').html()).toEqual('Contact &lt;3');
+      expect(view.$('#title').val()).toEqual('Crisis Averted');
     });
 
   });
 
-  xdescribe('when the user clicks on the Save button ', function(){
+  describe('when the user clicks on the Update button ', function(){
 
-    xit('updates the model', function(){
+    it('updates the model', function(){
+      view.$('.b-update').trigger('click');
     });
   });
 
-  xdescribe('when the user clicks on ... ', function(){
+  describe('when the user clicks on the Edit button ', function(){
 
-    xit('triggers the ... event', function(){
+    it('opens the input fields', function(){
+      view.$('.b-edit').trigger('click');
     });
   });
 
@@ -84,7 +86,7 @@ describe('Learning resource view ', function(){
     it('deletes the model', function(){
       // Must render for the event to be fired
       view.render();
-      view.$('.delete').trigger('click');
+      view.$('.b-delete').trigger('click');
 
       expect(view.destroy).toHaveBeenCalled();
       expect(model.destroy).toHaveBeenCalled();
