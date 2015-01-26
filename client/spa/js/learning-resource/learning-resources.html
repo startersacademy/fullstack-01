@@ -1,0 +1,79 @@
+<style type="text/css">
+    .edit, .b-cancel {
+      display: none; /* Hides input box*/
+    }
+    .editing span, .editing select, .editing .b-edit, .editing .sty-title, .editing .sty-desc {
+      display: none; /* Hides label text when .editing*/
+    }
+    .editing input, .editing select, .editing textarea, .editing .b-cancel {
+      display: inline; /* Shows input text box when .editing*/
+    }
+    .resource-text {
+      text-transform: capitalize;
+      background: #E3E3E3;
+      padding: 10px 20px;
+      border-radius: 20px;
+    }
+    .vertical-center {
+      min-height: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    .div-space {
+      margin: 25px 0;
+    }
+    .sty-title {
+      font-size: 1.5em;
+      background: #4F4D4D;
+      color: #FAFAFA;
+      padding: 5px 20px;
+      border-radius: 20px;
+    }
+    .sty-desc {
+      background: #F6F6F6;
+      width: 100%;
+      padding: 20px;
+      border-radius: 20px;
+    }
+    .label {
+
+    }
+</style>
+<div class="vertical-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <div id="msg" class="bg-success"></div>
+        <div class="div-space sty-title">
+          <span><%- title %></span>
+        </div>
+        <input class="edit form-control" id="title" value="<%- title %>" placeholder="Title">
+        <div class="div-space">
+          <select id="resourceType" class="edit form-control">
+            <option value="document">Document</option>
+            <option value="link">Link</option>
+            <option value="presentation">Presentation</option>
+          </select>
+        </div>
+        <div class="div-space">
+          <span class="resource-text"><%- resourceType %></span>
+        </div>
+        <div class="div-space sty-desc">
+          <span><%- description %></span>
+        </div>
+        <textarea class="edit form-control" id="desc" value="<%- description %>" placeholder="Description"><%- description %></textarea>
+        <div class="div-space">
+          <div class="pull-left">
+            <button class="b-delete btn btn-primary">Delete</button>
+          </div>
+          <div class="pull-right">
+            <button class="b-edit btn btn-primary">Edit</button>
+            <button class="b-cancel btn btn-primary">Cancel</button>
+            <button class="b-update btn btn-primary">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
