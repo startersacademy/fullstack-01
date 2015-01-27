@@ -16,16 +16,18 @@ describe('Learning resource view ', function(){
   var view;
 
   beforeEach(function(){
+    var Model = Backbone.Model.extend({});
+
     // Add some convenience tests for working with the DOM
     // Helper for toHaveClass
     jasmine.addMatchers(matchers);
 
-    var Model = Backbone.Model.extend({});
     // Needs to have the fields required by the template
     model = new Model({
       title: 'Crisis Averted',
       resourceType: 'presentation',
-      description: 'You are welcome.'
+      description: 'You are welcome.',
+      authors: ['Mary', 'Joe']
     });
 
     view = new View({
@@ -43,6 +45,7 @@ describe('Learning resource view ', function(){
     it('sets the correct class', function(){
       expect(view.$el).toHaveClass('learning-resource');
     });
+
   });
 
   describe('when the view is rendered ', function(){
@@ -58,27 +61,58 @@ describe('Learning resource view ', function(){
 
   });
 
-  describe('when the user clicks on the Update button ', function(){
-
-    it('updates the model', function(){
-      view.$('.b-update').trigger('click');
-    });
-
-    it('sees the success message', function(){
-      expect(view.$('#msg').html('Successfully updated'));
-    });
-  });
-
   describe('when the user clicks on the Edit button ', function(){
 
-    it('opens the input fields', function(){
-      view.$('.b-edit').trigger('click');
+    beforeEach(function(){
+      view.$('button .b-edit').trigger('click');
+      view.render();
     });
 
-    it('sees at least one input field', function(){
-      view.$('.editing input');
-    });
-  });
+    describe('and when the user inputs new information ', function(){
+
+      beforeEach(function(){
+        view.$('#title').val('changed title');
+        view.$('#desc').val('changed description');
+        view.$('#authors').val('sis');
+        view.$('#resourceType option:selected').val('link');
+        view.render();
+      });
+
+      describe('then clicks the cancel button', function(){
+
+        it('cancels the user input', function(){
+          view.$('button .b-cancel').trigger('click');
+        });
+
+        it('should see the initial information', function(){
+          view.render();
+          expect(view.$('#title').val()).toEqual('Crisis Averted');
+          expect(view.$('#desc').val()).toEqual('You are welcome.');
+          expect(view.$('#auth').val()).toContain('Joe');
+          expect(view.$('#resourceType option:selected').val()).toEqual('presentation');
+        });
+      });
+
+      describe('and then clicks on the Update button ', function(){
+
+        it('updates the model', function(){
+          view.$('button .b-update').trigger('click');
+          view.render();
+        });
+
+        it('should see the changed information', function(){
+          view.render();
+          expect(view.$('#title').val()).toEqual('changed title');
+          expect(view.$('#desc').val()).toEqual('changed description');
+          expect(view.$('#auth').val()).toContain('sis');
+          expect(view.$('#resourceType option:selected').val()).toEqual('link');
+        });
+
+      }); //describe update button
+
+    }); //describe new information
+
+  }); //describe edit button
 
   describe('when the user clicks on the Delete button ', function(){
 
@@ -95,7 +129,6 @@ describe('Learning resource view ', function(){
       // Must render for the event to be fired
       view.render();
       view.$('.b-delete').trigger('click');
-
       expect(view.destroy).toHaveBeenCalled();
       expect(model.destroy).toHaveBeenCalled();
     });
