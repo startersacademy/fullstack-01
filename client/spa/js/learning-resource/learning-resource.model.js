@@ -7,7 +7,8 @@ module.exports = Backbone.Model.extend({
   defaults: {
     title: 'JavaScript Is Sexy',
     resourceType: 'link',
-    description: 'Learn JavaScript properly.'
+    description: 'Learn JavaScript properly.',
+    authors: ['Mom', 'Dad']
   },
 
   urlRoot: '/api/learning-resources',
@@ -24,25 +25,3 @@ module.exports = Backbone.Model.extend({
     }
   }
 });
-
-var Resource = Backbone.Model.extend({
-  defaults: {
-    resourceType: null
-  }
-});
-
-var ResourceCollection = Backbone.Collection.extend({
-  model: Resource
-});
-
-var resourceCollection = new ResourceCollection([
-    {
-      resourceType: 'document'
-    },
-    {
-      resourceType: 'link'
-    },
-    {
-      resourceType: 'presentation'
-    }
-]);
