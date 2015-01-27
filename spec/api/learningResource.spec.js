@@ -18,6 +18,10 @@ var changedRecord = {
   "authors": "Jane Doe"
 };
 
+var badRecord = {
+  // empty record
+};
+
 //Create a record with Post
 function postRecord() {
   frisby.create('Create learningResource with post')
@@ -53,8 +57,34 @@ function putRecord(id){
     .toss();
 }
 
+// Test Validation
+function postBadRecord(){
+  frisby.create('Enforce mandatory fields when creating')
+    .post(url, badRecord, {json: true})
+    .expectStatus(422)
+    .expectHeaderContains('Content-Type', 'application/json')
+    .expectJSON({
+      error: {
+        name: 'ValidationError',
+        details: {
+          codes: {
+            title: [
+              'presence'
+            ]
+            //,
+            //resourceType: [
+            //  'presence'
+            //],
+            //description: [
+            //  'presence'
+            //]
+          }}}})
+    .toss();
+}
+
+// Post a record that will return an error
+
+
 postRecord();
-//getRecord();
-
-
+postBadRecord(badRecord);
 
