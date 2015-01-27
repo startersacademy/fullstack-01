@@ -30,6 +30,7 @@ module.exports = Backbone.View.extend({
   edit: function(){
     var resource = this.model.get('resourceType');
     this.$el.addClass('editing');
+    $('div .col-xs-6').addClass('sty-form');
   },
 
   cancel: function(){
@@ -41,6 +42,7 @@ module.exports = Backbone.View.extend({
     this.$('#desc').val(desc);
     this.$('#authors').val(auth);
     this.$('select option[value="'+type+'"]').attr('selected','selected');
+    $('div .col-xs-6').removeClass('sty-form');
     this.$el.removeClass('editing');
   },
 
@@ -48,7 +50,11 @@ module.exports = Backbone.View.extend({
     var title = this.$('#title').val().trim();
     var type = $('#resourceType option:selected').val();
     var desc = this.$('#desc').val().trim();
-    var auth = this.$('#auth').val().split(',');
+    // var auth = this.$('#auth').val();
+    var auth = [];
+    $.each(this.$('#auth').val().split(','), function(){
+      auth.push($.trim(this));
+    });
     this.model.save({
                       title: title,
                       resourceType: type,
@@ -56,6 +62,7 @@ module.exports = Backbone.View.extend({
                       authors: auth
                     });
     // this.render();
+    $('div .col-xs-6').removeClass('sty-form');
     this.$el.removeClass('editing');
     this.$('#msg').empty().fadeIn();
     this.$('#msg').html('Sucessfully updated').delay(2000).fadeOut('slow');
@@ -65,11 +72,13 @@ module.exports = Backbone.View.extend({
   render: function(){
     var context = this.model.toJSON();
     var value = this.model.get('resourceType');
-    var auth = this.model.get('authors').toString().split(',');
+    var auth = this.model.get('authors').toString().split(',').join(', ');
+    console.log(auth);
     this.$el.html(this.template(context));
     this.input = this.$('.editing');
     this.$('select option[value="'+value+'"]').attr('selected','selected');
     this.$('#auth').val(auth);
+    this.$('#author-dsp').text(auth);
     return this;
   },
 
