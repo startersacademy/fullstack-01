@@ -28,19 +28,19 @@ module.exports = Backbone.View.extend({
   },
 
   edit: function(){
-    // this.$('#title').
-    this.$el.addClass('editing');
     var resource = this.model.get('resourceType');
-    return this;
+    this.$el.addClass('editing');
   },
 
   cancel: function(){
     var title = this.model.get('title');
-    var resource = this.model.get('resourceType');
+    var type = this.model.get('resourceType');
     var desc = this.model.get('description');
+    var auth = this.model.get('authors');
     this.$('#title').val(title);
     this.$('#desc').val(desc);
-    this.$('select option[value="'+resource+'"]').attr('selected','selected');
+    this.$('#authors').val(auth);
+    this.$('select option[value="'+type+'"]').attr('selected','selected');
     this.$el.removeClass('editing');
   },
 
@@ -48,18 +48,28 @@ module.exports = Backbone.View.extend({
     var title = this.$('#title').val().trim();
     var type = $('#resourceType option:selected').val();
     var desc = this.$('#desc').val().trim();
-    this.model.save({title:title, resourceType:type, description:desc});
+    var auth = this.$('#auth').val().split(',');
+    this.model.save({
+                      title: title,
+                      resourceType: type,
+                      description: desc,
+                      authors: auth
+                    });
+    // this.render();
     this.$el.removeClass('editing');
     this.$('#msg').empty().fadeIn();
     this.$('#msg').html('Sucessfully updated').delay(2000).fadeOut('slow');
+
   },
 
   render: function(){
-    var value = this.model.get('resourceType');
     var context = this.model.toJSON();
+    var value = this.model.get('resourceType');
+    var auth = this.model.get('authors').toString().split(',');
     this.$el.html(this.template(context));
     this.input = this.$('.editing');
     this.$('select option[value="'+value+'"]').attr('selected','selected');
+    this.$('#auth').val(auth);
     return this;
   },
 
