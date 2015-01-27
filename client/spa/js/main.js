@@ -2,10 +2,10 @@
 
 window.Backbone = require('./vendor').Backbone;
 
-// Include your code
-//var Contact = require('./contact/contact.controller');
+// Include your code -- bundled into a package to run in the browser
+var Instructor = require('./instructor/instructor.controller');
 // Initialize it
-//window.contact = new Contact({router:true, container: 'body'});
+window.instructor = new Instructor({router:true, container: 'body'});
 
 // Additional modules go here
 

@@ -11,16 +11,34 @@ module.exports = Backbone.View.extend({
   template: _.template(template),
   events: {
     'click .delete': 'destroy'
+    //'click .edit': 'edit'
   },
   initialize: function(){
     this.listenTo(this.model, 'destroy', this.remove);
+    //this.model.on('change', this.render, this);
   },
   render: function(){
     var context = this.model.toJSON();
     this.$el.html(this.template(context));
+    //this.input = this.$('.edit');
+
     return this;
   },
   destroy: function(){
     this.model.destroy();
-  }
+  }/*,
+  edit: function(e){
+    this.$el.addClass('editing');
+    this.input.focus();
+
+    var value = this.input.val().trim();
+    if(value) {
+      this.model.save({firstName: value});
+    }
+    this.$el.removeClass('editing');
+    if(e.which == 13){
+      this.close();
+    }
+  }*/
+
 });
