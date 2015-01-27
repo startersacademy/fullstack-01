@@ -112,26 +112,27 @@ describe('Learning resource view ', function(){
 
     }); //describe new information
 
+    describe('when the user clicks on the Delete button ', function(){
+
+      beforeEach(function(){
+        // Must call through otherwise the actual view function won't be called
+        spyOn(view, 'destroy').and.callThrough();
+        // Must delegateEvents for the spy on a DOM event to work
+        view.delegateEvents(); //allow bubbling
+
+        spyOn(model, 'destroy');
+      });
+
+      it('deletes the model', function(){
+        // Must render for the event to be fired
+        view.render();
+        view.$('.b-delete').trigger('click');
+        expect(view.destroy).toHaveBeenCalled();
+        expect(model.destroy).toHaveBeenCalled();
+      });
+
+    }); //describe delete button
+
   }); //describe edit button
 
-  describe('when the user clicks on the Delete button ', function(){
-
-    beforeEach(function(){
-      // Must call through otherwise the actual view function won't be called
-      spyOn(view, 'destroy').and.callThrough();
-      // Must delegateEvents for the spy on a DOM event to work
-      view.delegateEvents(); //allow bubbling
-
-      spyOn(model, 'destroy');
-    });
-
-    it('deletes the model', function(){
-      // Must render for the event to be fired
-      view.render();
-      view.$('.b-delete').trigger('click');
-      expect(view.destroy).toHaveBeenCalled();
-      expect(model.destroy).toHaveBeenCalled();
-    });
-  });
-
-});
+}); //describe suite
