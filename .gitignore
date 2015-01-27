@@ -1,3 +1,4 @@
 .idea
-server/datasources.local.json
 node_modules
+server/datasources.local.json
+server/model-config.local.json
