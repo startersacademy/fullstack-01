@@ -1,11 +1,11 @@
 <style type="text/css">
-    .edit, .b-cancel, .b-update, .div-space-edit{
+    .edit, .b-cancel, .b-update, .b-delete, .div-space-edit{
       display: none; /* Hides input box*/
     }
     .editing .b-edit, .editing .div-space-read {
       display: none; /* Hides styled text when .editing*/
     }
-    .editing .b-update, .editing .div-space-edit {
+    .editing .b-update, .editing .b-delete, .editing .div-space-edit {
       display: block; /* Shows input text box when .editing*/
     }
     .editing .b-cancel, .editing .b-update {
@@ -32,28 +32,35 @@
       padding: 30px 20px;
     }
     .sty-authors {
-      /*display: inline-block;*/
-      /*background: #F4D53C;*/
     }
     .sty-resource-auth {
       font-size: .6em;
       color: #B7B7B7;
     }
-    div[class^="div-space"], .ctrl {
-      /*margin: 25px 0;*/
+    div[class^="div-space-edit"], .ctrl {
+      margin: 20px 0;
     }
     div[class^="div-space-read"], .ctrl {
       margin: 0px 0;
     }
     div .txt-help {
-      margin: 10px 0px;
+      margin: 12px 0px;
     }
     .ctrl {
-      margin-top: 20px;
+      margin: 30px 0px 20px 0px;
     }
     #msg {
       display: none;
+      position: fixed;
       padding: 8px 12px;
+    }
+    .b-edit {
+      float: right;
+      margin-left: 10px;
+    }
+    .sty-form {
+      background: #EFEFEF;
+      padding: 30px;
     }
 </style>
 <div class="vertical-center">
@@ -61,10 +68,11 @@
     <div class="row">
       <div class="col-xs-6 col-xs-offset-3">
         <div class="div-space-read sty-title">
+          <button class="b-edit btn btn-primary">Edit</button>
           <span><%- title %></span>
           <div class="sty-resource-auth">
             <span class="sty-resource"><%- resourceType %></span>
-            <span class="sty-authors">by: <%- authors %></span>
+            <span class="sty-authors">by: <span id="author-dsp"></span></span>
           </div>
         </div>
         <div class="div-space-edit">
@@ -74,7 +82,6 @@
         <div class="div-space-edit">
           <div class="txt-help">Resource Type: </div>
           <select id="resourceType" class="form-control">
-            <option value="" disabled>Resource Type</option>
             <option value="document">Document</option>
             <option value="link">Link</option>
             <option value="presentation">Presentation</option>
@@ -102,11 +109,11 @@
             <button class="b-delete btn btn-primary">Delete</button>
           </div>
           <div class="pull-right">
-            <span id="msg" class="btn alert-success"></span>
-            <button class="b-edit btn btn-primary">Edit</button>
+            <!-- <button class="b-edit btn btn-primary">Edit</button> -->
             <button class="b-cancel btn btn-primary">Cancel</button>
             <button class="b-update btn btn-primary">Update</button>
           </div>
+          <span id="msg" class="btn alert-success"></span>
         </div>
       </div>
     </div>
