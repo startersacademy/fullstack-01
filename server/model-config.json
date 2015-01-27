@@ -25,5 +25,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "student": {
+    "dataSource": "db",
+    "public": true
   }
 }
