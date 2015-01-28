@@ -70,15 +70,15 @@ describe('Learning resource view ', function(){
 
     describe('and when the user inputs new information ', function(){
 
-      beforeEach(function(){
-        view.$('#title').val('changed title');
-        view.$('#desc').val('changed description');
-        view.$('#authors').val('sis');
-        view.$('#resourceType option:selected').val('link');
-        view.render();
-      });
-
       describe('then clicks the cancel button', function(){
+
+        beforeEach(function(){
+          view.$('#title').val('changed title');
+          view.$('#desc').val('changed description');
+          view.$('#authors').val('sis');
+          view.$('#resourceType option:selected').val('link');
+          view.render();
+        });
 
         it('cancels the user input', function(){
           view.$('button .b-cancel').trigger('click');
@@ -94,6 +94,13 @@ describe('Learning resource view ', function(){
       });
 
       describe('and then clicks on the Update button ', function(){
+
+        beforeEach(function(){
+          view.$('#title').val('changed title');
+          view.$('#desc').val('changed description');
+          view.$('#authors').val('sis');
+          view.$('#resourceType option:selected').val('link');
+        });
 
         it('updates the model', function(){
           view.$('button .b-update').trigger('click');
