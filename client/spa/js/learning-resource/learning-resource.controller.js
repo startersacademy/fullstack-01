@@ -26,12 +26,14 @@ module.exports = Backbone.Controller.extend({
   // },
 
   showLearningResource: function(learningResourceId, cb){
-    this.fetchModel(learningResourceId, function(err){
+    this.fetchModel(learningResourceId, function(err, model){
       var view;
 
       if (err){
         view = this.renderError();
       } else {
+        this.view.destroy();
+        this.view = new View({model: model});
         view = this.renderView();
       }
 
