@@ -43,9 +43,15 @@ module.exports = Backbone.View.extend({
     this.$('#authors').val(auth);
     this.$('select option[value="'+type+'"]').attr('selected','selected');
     $('div .col-xs-6').removeClass('sty-form');
-    $('#msg').empty().fadeIn().addClass('alert-warning')
-                 .html('Changes cancelled')
-                 .delay(2000).fadeOut('slow');
+    $('#msg').empty()
+             .addClass('alert-warning')
+             .html('Changes cancelled')
+             .fadeIn().delay(2000).fadeOut('slow')
+             .queue(function(remove){
+                $('#msg').removeClass('alert-warning');
+                remove();
+             });
+    $('div .col-xs-6').removeClass('sty-form');
     this.$el.removeClass('editing');
   },
 
@@ -53,7 +59,6 @@ module.exports = Backbone.View.extend({
     var title = this.$('#title').val().trim();
     var type = $('#resourceType option:selected').val();
     var desc = this.$('#desc').val().trim();
-    // var auth = this.$('#auth').val();
     var auth = [];
     $.each(this.$('#auth').val().split(','), function(){
       auth.push($.trim(this));
@@ -66,17 +71,27 @@ module.exports = Backbone.View.extend({
                     },
                     {
                       success: function(model, response){
-                        $('#msg').empty().fadeIn().addClass('alert-success')
-                                         .html('Sucessfully updated')
-                                         .delay(2000).fadeOut('slow');
+                        $('#msg').empty()
+                                 .addClass('alert-success')
+                                 .html('Sucessfully updated')
+                                 .fadeIn().delay(2000).fadeOut('slow')
+                                 .queue(function(remove){
+                                    $('#msg').removeClass('alert-success');
+                                    remove();
+                                 });
+
                       },
                       error: function(model, response){
-                        $('#msg').empty().fadeIn().addClass('alert-danger')
-                                         .html('Sucessfully updated')
-                                         .delay(2000).fadeOut('slow');
+                        $('#msg').empty()
+                                 .addClass('alert-danger')
+                                 .html('Error when saving')
+                                 .fadeIn().delay(2000).fadeOut('slow')
+                                 .queue(function(remove){
+                                    $('#msg').removeClass('alert-danger');
+                                    remove();
+                                 });
                       }
                     });
-    // this.render();
     $('div .col-xs-6').removeClass('sty-form');
     this.$el.removeClass('editing');
 
@@ -86,7 +101,6 @@ module.exports = Backbone.View.extend({
     var context = this.model.toJSON();
     var value = this.model.get('resourceType');
     var auth = this.model.get('authors').toString().split(',').join(', ');
-    console.log(auth);
     this.$el.html(this.template(context));
     this.input = this.$('.editing');
     this.$('select option[value="'+value+'"]').attr('selected','selected');
