@@ -70,14 +70,13 @@ function postBadRecord(){
           codes: {
             title: [
               'presence'
+            ],
+            resourceType: [
+              'presence'
+            ],
+            description: [
+              'presence'
             ]
-            //,
-            //resourceType: [
-            //  'presence'
-            //],
-            //description: [
-            //  'presence'
-            //]
           }}}})
     .toss();
 }
