@@ -43,6 +43,9 @@ module.exports = Backbone.View.extend({
     this.$('#authors').val(auth);
     this.$('select option[value="'+type+'"]').attr('selected','selected');
     $('div .col-xs-6').removeClass('sty-form');
+    $('#msg').empty().fadeIn().addClass('alert-warning')
+                 .html('Changes cancelled')
+                 .delay(2000).fadeOut('slow');
     this.$el.removeClass('editing');
   },
 
@@ -60,12 +63,22 @@ module.exports = Backbone.View.extend({
                       resourceType: type,
                       description: desc,
                       authors: auth
+                    },
+                    {
+                      success: function(model, response){
+                        $('#msg').empty().fadeIn().addClass('alert-success')
+                                         .html('Sucessfully updated')
+                                         .delay(2000).fadeOut('slow');
+                      },
+                      error: function(model, response){
+                        $('#msg').empty().fadeIn().addClass('alert-danger')
+                                         .html('Sucessfully updated')
+                                         .delay(2000).fadeOut('slow');
+                      }
                     });
     // this.render();
     $('div .col-xs-6').removeClass('sty-form');
     this.$el.removeClass('editing');
-    this.$('#msg').empty().fadeIn();
-    this.$('#msg').html('Sucessfully updated').delay(2000).fadeOut('slow');
 
   },
 
