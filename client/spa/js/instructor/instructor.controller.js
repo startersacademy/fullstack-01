@@ -31,14 +31,14 @@ module.exports = Backbone.Controller.extend({
     this.model.set({id: instructorId});
     this.model.fetch({
       success: function(model, response, options){
-//console.log(model);
-cb(null, model);
-},
-error: function(model, response, options){
-//console.error(response);
-cb(response, model);
-}
-});
+        //console.log(model);
+        cb(null, model);
+      },
+      error: function(model, response, options){
+        //console.error(response);
+        cb(response, model);
+      }
+    });
   },
   renderToContainer: function(view){
     return $(this.options.container).html(view);
