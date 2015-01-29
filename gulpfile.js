@@ -47,8 +47,12 @@ gulp.task('test:integration', function (cb) {
     {stdio: 'inherit'});
 
   casperChild.on('close', function (code) {
+    // need to format this error properly
     if (code) {
-      onError(code);
+      var err = {
+        err: code
+      };
+      onError(err);
     } else {
       cb();
     }
