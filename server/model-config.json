@@ -25,5 +25,13 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "account": {
+    "dataSource": "db",
+    "public": true
+  },
+  "student": {
+    "dataSource": "db",
+    "public": true
   }
 }
