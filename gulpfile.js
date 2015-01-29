@@ -40,8 +40,9 @@ gulp.task('test:integration', function (cb) {
     cb(err);
   });
 
-  casperChild.on('close', function () {
-    cb();
+  casperChild.on('close', function (code) {
+    var success = code === 0;
+    cb(success);
   });
 });
 
