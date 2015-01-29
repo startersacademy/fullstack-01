@@ -52,13 +52,10 @@ gulp.task('test:integration', function (cb) {
 
       var err = {
         err: {
-          toString: function(){
-            return 'inside integration test failure';
-          },
-          showStack: false
+          msg: 'Integration test failure'
         },
         toString: function(){
-          return 'outside integration test failure';
+          return err.err.msg;
         },
         showStack: false
       };
