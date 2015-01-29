@@ -44,7 +44,7 @@ gulp.task('test:integration', function (cb) {
   casperChild.on('close', function (code) {
     console.log('casper close code: ' + code);
     var success = code === 0;
-    cb(code);
+    cb();
   });
 });
 
