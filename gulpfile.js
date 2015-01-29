@@ -8,7 +8,12 @@ var server = require('gulp-develop-server');
 var jasmine = require('gulp-jasmine');
 var karma = require('karma').server;
 var jshint = require('gulp-jshint');
-
+var stopServer = function(code){
+  setTimeout(function(){
+    server.kill();
+    process.exit(code);
+  }, 5000);
+};
 
 // Starts server for tasks that require a server
 gulp.task('server:start', function(cb){
@@ -17,8 +22,7 @@ gulp.task('server:start', function(cb){
 
 // Stops server after tasks have run
 gulp.task('server:stop', function(){
-  server.kill();
-  process.exit();
+  stopServer();
 });
 
 
@@ -27,21 +31,21 @@ gulp.task('test:integration', function (cb) {
   var tests = ['./spec/integration'];
   var isWindows = process.platform === 'win32';
   var casperCmd = 'casperjs';
+
+
   if(isWindows){
     casperCmd = 'casperjs.cmd';
   }
+
   var casperChild = spawn(casperCmd, ['test'].concat(tests));
 
-  casperChild.stdout.on('data', function (data) {
-    gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
-  });
-
   casperChild.on('error', function (err) {
-    cb(err);
+    stopServer(err.status);
+    cb(err.status);
   });
 
-  casperChild.on('close', function (code) {
-    cb(code);
+  casperChild.on('close', function () {
+    cb();
   });
 });
 
