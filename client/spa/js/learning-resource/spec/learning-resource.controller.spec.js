@@ -61,17 +61,17 @@ describe('Learning resource controller', function(){
         expect(err).toBeNull();
         expect(controller.model.get('title')).toEqual('JavaScript Is Sexy');
       };
-      controller.showLearningResource(1, cb); //what is this 1
+      controller.showLearningResource(1, cb);
     });
 
-    it('with a valid resource type, renders the view', function(){
+    it('with a valid learning resource, renders the view', function(){
       spyOn(controller.model, 'fetch').and.callFake(success);
       spyOn(controller.view, 'render').and.callFake(function(){
-        controller.view.$el = 'fake render';
+        controller.view.$el = 'fake render'; //not sure why this is done
         return controller.view;
       });
       var cb = function(err, view){
-        expect($('body')).toHaveText('fake render');
+        expect($('body')).toHaveText('JavaScript Is Sexy');
         expect(view.cid).toEqual(controller.view.cid);
       };
       controller.showLearningResource(1, cb);
