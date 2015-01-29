@@ -49,10 +49,9 @@ gulp.task('test:integration', function (cb) {
   casperChild.on('close', function (code) {
     // need to format this error properly
     if (code) {
-      var err = {
-          message: 'test failure'
-      };
-      
+
+      var err = {message: 'test failure'};
+
       onError(err);
     } else {
       cb();
