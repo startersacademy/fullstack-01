@@ -52,6 +52,7 @@ gulp.task('test:integration', function (cb) {
       var err = {
           message: 'test failure'
       };
+      
       onError(err);
     } else {
       cb();
