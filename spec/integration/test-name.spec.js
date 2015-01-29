@@ -14,11 +14,11 @@ casper.test.begin('Contact page navigates to home page ', 2,
   function suite(test) {
     casper.start('http://localhost:3000/contactus.html', function (){
       test.assertTitle('Contact Us', 'Contact Us page title good');
-      test.assertExists('a[href="index.html"]', 'Home Page link found');
+      test.assertExists('a[href="/index.html"]', 'Home Page link found');
     });
 
     casper.then(function () {
-      this.click('a[href="index.html"]');
+      this.click('a[href="/index.html"]');
       //test.assertTitle('Home', 'home page title good')
     });
     casper.run(function () {
