@@ -50,7 +50,17 @@ gulp.task('test:integration', function (cb) {
     // need to format this error properly
     if (code) {
 
-      var err = 'test failure';
+      var err = {
+        err: {
+          toString: function(){
+            return 'integration test failure';
+          },
+          showStack: false
+        },
+        toString: function(){
+          return 'integration test failure';
+        }
+      };
 
       onError(err);
     } else {
