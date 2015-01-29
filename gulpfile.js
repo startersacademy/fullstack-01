@@ -10,10 +10,18 @@ var karma = require('karma').server;
 var jshint = require('gulp-jshint');
 
 // Starts server for tasks that require a server
-gulp.task('server:start', function(cb){
-  server.listen({path: '.', delay: 3000}, cb);
+gulp.task('server:start', function(done){
+  server.listen({path: '.', delay: 3000}, done);
 });
 
+gulp.task('server:restart', function(){
+  server.changed(function(){
+    // This will need to change for gulp v4
+    gulp.run('test:server-unit');
+  });
+});
+
+// Stops the server and the process in case of error
 var stopServer = function(code){
   gutil.log('Stopping server');
   server.kill(function(){
@@ -22,20 +30,19 @@ var stopServer = function(code){
 };
 
 // Stops server after tasks have run
-gulp.task('server:stop', function(cb){
-  server.kill(function(){
-    cb();
-  });
+gulp.task('server:stop', function(done){
+  server.kill(done);
 });
 
 
 // Runs integration tests with casperjs and phantomjs
-gulp.task('test:integration', function (cb) {
+gulp.task('test:integration', function (done) {
   var tests = ['spec/integration'];
   var isWindows = process.platform === 'win32';
   var casperCmd = 'casperjs';
   var onError = function(code){
-    cb(code);
+    done(code);
+    // Gulp doesn't handle the error properly so clean up properly
     stopServer(1);
   };
 
@@ -47,9 +54,9 @@ gulp.task('test:integration', function (cb) {
     {stdio: 'inherit'});
 
   casperChild.on('close', function (code) {
-    // need to format this error properly
     if (code) {
-
+      // If there is an error, format the error object for gulp
+      // Gulp depends on the this structure
       var err = {
         err: {
           msg: 'Integration test failure'
@@ -59,10 +66,10 @@ gulp.task('test:integration', function (cb) {
         },
         showStack: false
       };
-
       onError(err);
     } else {
-      cb();
+      // Everything is good
+      done();
     }
   });
 });
@@ -100,6 +107,7 @@ gulp.task('test:server-unit', function () {
     .pipe(jasmine());
 });
 
+// Runs lint tests with jshint
 gulp.task('test:lint', function(){
   return gulp.src([
     'apps/**/*.js',
@@ -110,6 +118,7 @@ gulp.task('test:lint', function(){
     .pipe(jshint.reporter('default'));
 });
 
+// Runs entire test suite
 gulp.task('test:all',
   gulpSequence(
     'server:start',
@@ -120,11 +129,17 @@ gulp.task('test:all',
     'test:integration',
     'server:stop'));
 
-gulp.task('test', ['test:all'], function(cb){
-  cb();
+// Shortcut to run the entire test suite
+gulp.task('test', ['test:all'], function(done){
+  // Using the callback before process.exit helps log seem finished
+  done();
   process.exit();
 });
 
+// Restarts server on code changes
 gulp.task('default', ['server:start'], function(){
-  gulp.watch(['./server/*.js', './server/*.json']).on('change', server.changed);
+  gulp.watch(['./server/*.js', './server/*.json'], function(){
+    // This will need to change for gulp v4
+    gulp.run('server:restart');
+  });
 });
