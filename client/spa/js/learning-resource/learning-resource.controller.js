@@ -32,7 +32,7 @@ module.exports = Backbone.Controller.extend({
       if (err){
         view = this.renderError();
       } else {
-        // this.view.destroy();
+        this.view.remove();
         this.view = new View({model: model});
         view = this.renderView();
       }
