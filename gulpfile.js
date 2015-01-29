@@ -43,7 +43,8 @@ gulp.task('test:integration', function (cb) {
     casperCmd = 'casperjs.cmd';
   }
 
-  var casperChild = spawn(casperCmd, ['test'].concat(tests), {stdio: 'inherit'});
+  var casperChild = spawn(casperCmd, ['test'].concat(tests),
+    {stdio: 'inherit'});
 
   casperChild.on('close', function (code) {
     if (code) {
