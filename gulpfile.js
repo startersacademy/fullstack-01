@@ -33,32 +33,13 @@ gulp.task('test:integration', function (cb) {
   var casperChild = spawn(casperCmd, ['test'].concat(tests));
 
   casperChild.stdout.on('data', function (data) {
-    gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
+    gutil.log(data.toString().slice(0, -1)); // Remove \n
   });
 
-  casperChild.stdout.on('end', function (data) {
-    gutil.log('CasperJS:', data); // Remove \n
-    gutil.log('OUT END');
-  });
-
-  casperChild.stderr.on('data', function (data) {
-    gutil.log('CasperJS ERROR:', data.toString().slice(0, -1)); // Remove \n
-  });
-
-  casperChild.stderr.on('end', function (data) {
-    gutil.log('CasperJS:', data); // Remove \n
-    gutil.log('ERR END');
-  });
-
-  casperChild.on('error', function (err) {
-    console.log('casper error code: ' + err);
-    cb(err);
-  });
-
-  casperChild.on('close', function (code) {
+  casperChild.on('exit', function (code) {
     console.log('casper close code: ' + code);
     var success = code === 0;
-    cb();
+    cb(code);
   });
 });
 
