@@ -37,10 +37,12 @@ gulp.task('test:integration', function (cb) {
   });
 
   casperChild.on('error', function (err) {
+    console.log('casper error code: ' + err);
     cb(err);
   });
 
   casperChild.on('close', function (code) {
+    console.log('casper close code: ' + code);
     var success = code === 0;
     cb();
   });
