@@ -64,8 +64,8 @@ describe('Learning resource view ', function(){
   describe('when the user clicks on the Edit button ', function(){
 
     beforeEach(function(){
-      view.$('button .b-edit').trigger('click');
       view.render();
+      view.$('button.b-edit').trigger('click');
     });
 
     describe('and when the user inputs new information ', function(){
@@ -73,15 +73,16 @@ describe('Learning resource view ', function(){
       describe('then clicks the cancel button', function(){
 
         beforeEach(function(){
+          view.render();
           view.$('#title').val('changed title');
           view.$('#desc').val('changed description');
           view.$('#authors').val('sis');
           view.$('#resourceType option:selected').val('link');
-          view.render();
         });
 
         it('cancels the user input', function(){
-          view.$('button .b-cancel').trigger('click');
+          view.render();
+          view.$('button.b-cancel').trigger('click');
         });
 
         it('should see the initial information', function(){
@@ -89,30 +90,29 @@ describe('Learning resource view ', function(){
           expect(view.$('#title').val()).toEqual('Crisis Averted');
           expect(view.$('#desc').val()).toEqual('You are welcome.');
           expect(view.$('#auth').val()).toContain('Joe');
-          expect(view.$('#resourceType option:selected').val()).toEqual('presentation');
+          expect(view.$('#resourceType option:selected')
+                     .val()).toEqual('presentation');
         });
       });
 
       describe('and then clicks on the Update button ', function(){
 
         beforeEach(function(){
+          view.render();
           view.$('#title').val('changed title');
           view.$('#desc').val('changed description');
           view.$('#authors').val('sis');
           view.$('#resourceType option:selected').val('link');
+          spyOn(view, 'save').and.callThrough();
+          view.delegateEvents();
+          spyOn(model, 'save');
         });
 
         it('updates the model', function(){
-          view.$('button .b-update').trigger('click');
           view.render();
-        });
-
-        it('should see the changed information', function(){
-          view.render();
-          expect(view.$('#title').val()).toEqual('changed title');
-          expect(view.$('#desc').val()).toEqual('changed description');
-          expect(view.$('#auth').val()).toContain('sis');
-          expect(view.$('#resourceType option:selected').val()).toEqual('link');
+          view.$('button.b-update').trigger('click');
+          expect(view.save).toHaveBeenCalled();
+          expect(model.save).toHaveBeenCalled();
         });
 
       }); //describe update button
@@ -133,7 +133,7 @@ describe('Learning resource view ', function(){
       it('deletes the model', function(){
         // Must render for the event to be fired
         view.render();
-        view.$('.b-delete').trigger('click');
+        view.$('button.b-delete').trigger('click');
         expect(view.destroy).toHaveBeenCalled();
         expect(model.destroy).toHaveBeenCalled();
       });
