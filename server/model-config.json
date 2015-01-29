@@ -25,5 +25,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "learningResource": {
+    "dataSource": "fullstack",
+    "public": true
   }
 }
