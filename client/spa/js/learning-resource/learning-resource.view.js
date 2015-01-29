@@ -29,20 +29,17 @@ module.exports = Backbone.View.extend({
 
   edit: function(){
     var resource = this.model.get('resourceType');
-    this.$el.addClass('editing');
-    $('div .col-xs-6').addClass('sty-form');
+    this.$el.addClass('editing'); //displays input fields
+    $('#form-area').addClass('sty-form'); //add bg color of form
   },
 
   cancel: function(){
-    var title = this.model.get('title');
-    var type = this.model.get('resourceType');
-    var desc = this.model.get('description');
-    var auth = this.model.get('authors');
-    this.$('#title').val(title);
-    this.$('#desc').val(desc);
-    this.$('#authors').val(auth);
-    this.$('select option[value="'+type+'"]').attr('selected','selected');
-    $('div .col-xs-6').removeClass('sty-form');
+    this.$('#title').val(this.model.get('title'));
+    this.$('#desc').val(this.model.get('description'));
+    this.$('#authors').val(this.model.get('authors'));
+    this.$('select option[value="'+this.model.get('resourceType')+'"]')
+        .attr('selected','selected');
+    $('#form-area').removeClass('sty-form'); //remove bg color of form
     $('#msg').empty()
              .addClass('alert-warning')
              .html('Changes cancelled')
@@ -51,59 +48,66 @@ module.exports = Backbone.View.extend({
                 $('#msg').removeClass('alert-warning');
                 remove();
              });
-    $('div .col-xs-6').removeClass('sty-form');
     this.$el.removeClass('editing');
   },
 
   save: function(){
-    var title = this.$('#title').val().trim();
-    var type = $('#resourceType option:selected').val();
-    var desc = this.$('#desc').val().trim();
+    var view = this;
     var auth = [];
     $.each(this.$('#auth').val().split(','), function(){
       auth.push($.trim(this));
     });
-    this.model.save({
-                      title: title,
-                      resourceType: type,
-                      description: desc,
-                      authors: auth
-                    },
-                    {
-                      success: function(model, response){
-                        $('#msg').empty()
-                                 .addClass('alert-success')
-                                 .html('Sucessfully updated')
-                                 .fadeIn().delay(2000).fadeOut('slow')
-                                 .queue(function(remove){
-                                    $('#msg').removeClass('alert-success');
-                                    remove();
-                                 });
-
-                      },
-                      error: function(model, response){
-                        $('#msg').empty()
-                                 .addClass('alert-danger')
-                                 .html('Error when saving')
-                                 .fadeIn().delay(2000).fadeOut('slow')
-                                 .queue(function(remove){
-                                    $('#msg').removeClass('alert-danger');
-                                    remove();
-                                 });
-                      }
-                    });
-    $('div .col-xs-6').removeClass('sty-form');
-    this.$el.removeClass('editing');
-
+    var attributes = {
+      title: this.$('#title').val().trim(),
+      resourceType: $('#resourceType option:selected').val(),
+      desc: this.$('#desc').val().trim(),
+      authors: auth
+    };
+    var options = {
+      success: function(){
+        $('#form-area').removeClass('sty-form');
+        view.$el.removeClass('editing');
+        $('#msg').empty()
+                 .addClass('alert-success')
+                 .html('Sucessfully updated')
+                 .fadeIn().delay(2000).fadeOut('slow')
+                 .queue(function(remove){
+                    $('#msg').removeClass('alert-success');
+                    remove();
+                  });
+      },
+      error: function(model, error){
+        //server response errors if no validations specified
+      }
+    };
+    this.model.save(attributes, options);
+    if (this.model.validationError) {
+      $('#msg').empty()
+         .addClass('alert-danger')
+         .html(this.model.validationError)
+         .fadeIn().delay(2000).fadeOut('slow')
+         .queue(function(remove){
+            $('#msg').removeClass('alert-danger');
+            remove();
+      });
+    }
   },
+
+  // showErrors: function(errors){
+  //   _.each(errors, function(error) {
+  //     var controlGroup = this.$('.' + error.name);
+  //     controlGroup.addClass('error');
+  //     controlGroup.find('body').append(error.message);
+  //   }, this);
+  // },
 
   render: function(){
     var context = this.model.toJSON();
-    var value = this.model.get('resourceType');
     var auth = this.model.get('authors').toString().split(',').join(', ');
     this.$el.html(this.template(context));
     this.input = this.$('.editing');
-    this.$('select option[value="'+value+'"]').attr('selected','selected');
+    this.$('select option[value="'+this.model.get('resourceType')+'"]')
+        .attr('selected','selected');
     this.$('#auth').val(auth);
     this.$('#author-dsp').text(auth);
     return this;

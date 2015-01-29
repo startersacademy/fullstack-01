@@ -20,8 +20,15 @@ module.exports = Backbone.Model.extend({
   },
 
   validate: function(attrs){
-    if (!attrs.title){
-      return 'title cannot be empty';
+
+    if (!attrs.title) {
+      return 'Title cannot be empty';
+    }
+    if (!attrs.description) {
+      return 'Description cannot be empty';
+    }
+    if (!attrs.authors) {
+      return 'Authors cannot be empty';
     }
   }
 });
