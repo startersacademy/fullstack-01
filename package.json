@@ -54,5 +54,6 @@
     "karma-browserify": "^2.0.0",
     "jasmine-core": "^2.1.3",
     "jasmine-jquery-matchers": "0.0.1"
-  }
+  },
+  "repository": "https://github.com/startersacademy/fullstack-project-01"
 }
