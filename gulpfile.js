@@ -37,7 +37,7 @@ gulp.task('test:integration', function (cb) {
   });
 
   casperChild.stdout.on('end', function (data) {
-    gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
+    gutil.log('CasperJS:', data); // Remove \n
     gutil.log('OUT END');
   });
 
@@ -46,7 +46,7 @@ gulp.task('test:integration', function (cb) {
   });
 
   casperChild.stderr.on('end', function (data) {
-    gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
+    gutil.log('CasperJS:', data); // Remove \n
     gutil.log('ERR END');
   });
 
