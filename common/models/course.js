@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(course) {
   course.validatesInclusionOf('courseType', {
     in: ['video', 'WBT', 'instructor led'],
@@ -5,8 +7,8 @@ module.exports = function(course) {
   });
   course.validatesUniquenessOf('id', {
     message: 'must be unique id'
-  })
+  });
   course.validatesUniquenessOf('title', {
     message: 'must be unique title'
-  })
+  });
 };
