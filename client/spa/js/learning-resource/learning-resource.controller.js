@@ -14,8 +14,6 @@ module.exports = Backbone.Controller.extend({
 
   initialize: function(){
     this.options.container = this.options.container || 'body';
-    this.model = new Model();
-    this.view = new View({model: this.model});
   },
 
   // list: function(){
@@ -32,7 +30,7 @@ module.exports = Backbone.Controller.extend({
       if (err){
         view = this.renderError();
       } else {
-        this.view.remove();
+        if (this.view) this.view.remove();
         this.view = new View({model: model});
         view = this.renderView();
       }
@@ -45,7 +43,8 @@ module.exports = Backbone.Controller.extend({
   },
 
   fetchModel: function(learningResourceId, cb){
-    this.model.set({id: learningResourceId});
+    this.model = new Model();
+    if (learningResourceId) this.model.set({id: learningResourceId});
 
     this.model.fetch({
       success: function(model, response, options){
