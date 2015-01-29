@@ -8,44 +8,49 @@ var server = require('gulp-develop-server');
 var jasmine = require('gulp-jasmine');
 var karma = require('karma').server;
 var jshint = require('gulp-jshint');
-var stopServer = function(code){
-  setTimeout(function(){
-    server.kill();
-    process.exit(code);
-  }, 5000);
-};
 
 // Starts server for tasks that require a server
 gulp.task('server:start', function(cb){
   server.listen({path: '.', delay: 3000}, cb);
 });
 
+var stopServer = function(code){
+  gutil.log('Stopping server');
+  server.kill(function(){
+    process.exit(code);
+  });
+};
+
 // Stops server after tasks have run
-gulp.task('server:stop', function(){
-  stopServer();
+gulp.task('server:stop', function(cb){
+  server.kill(function(){
+    cb();
+  });
 });
 
 
 // Runs integration tests with casperjs and phantomjs
 gulp.task('test:integration', function (cb) {
-  var tests = ['./spec/integration'];
+  var tests = ['spec/integration'];
   var isWindows = process.platform === 'win32';
   var casperCmd = 'casperjs';
-
+  var onError = function(code){
+    cb(code);
+    stopServer(code);
+  };
 
   if(isWindows){
     casperCmd = 'casperjs.cmd';
   }
 
-  var casperChild = spawn(casperCmd, ['test'].concat(tests));
+  var casperChild = spawn(casperCmd, ['test'].concat(tests), {stdio: 'inherit'});
 
-  casperChild.on('error', function (err) {
-    stopServer(err.status);
-    cb(err.status);
-  });
-
-  casperChild.on('close', function () {
-    cb();
+  casperChild.on('close', function (code) {
+    if (code) {
+      onError(code);
+    } else {
+      cb();
+    }
   });
 });
 
@@ -102,7 +107,10 @@ gulp.task('test:all',
     'test:integration',
     'server:stop'));
 
-gulp.task('test', ['test:all']);
+gulp.task('test', ['test:all'], function(cb){
+  cb();
+  process.exit();
+});
 
 gulp.task('default', ['server:start'], function(){
   gulp.watch(['./server/*.js', './server/*.json']).on('change', server.changed);
