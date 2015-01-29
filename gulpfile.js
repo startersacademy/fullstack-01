@@ -35,7 +35,7 @@ gulp.task('test:integration', function (cb) {
   var isWindows = process.platform === 'win32';
   var casperCmd = 'casperjs';
   var onError = function(code){
-    cb(1);
+    cb(code);
     stopServer(1);
   };
 
