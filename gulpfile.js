@@ -94,7 +94,6 @@ gulp.task('test:all',
     'test:lint',
     'test:server-unit',
     'test:api',
-    'test:unit',
     'test:integration',
     'server:stop'));
 
