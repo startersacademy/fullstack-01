@@ -1,3 +1,4 @@
+/karma.conf.js
 node_modules/
 client/js/holder.js
 client/js/bootstrap.js
