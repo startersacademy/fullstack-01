@@ -14,6 +14,7 @@ module.exports = Backbone.Controller.extend({
 
   initialize: function(){
     this.options.container = this.options.container || 'body';
+    this.model = new Model();
   },
 
   // list: function(){
@@ -25,6 +26,7 @@ module.exports = Backbone.Controller.extend({
 
   showLearningResource: function(learningResourceId, cb){
     this.fetchModel(learningResourceId, function(err, model){
+      console.log(model);
       var view;
 
       if (err){
@@ -43,8 +45,8 @@ module.exports = Backbone.Controller.extend({
   },
 
   fetchModel: function(learningResourceId, cb){
-    this.model = new Model();
-    if (learningResourceId) this.model.set({id: learningResourceId});
+    // this.model = new Model(); //initialize model to allow property setting
+    this.model.set({id: learningResourceId});
 
     this.model.fetch({
       success: function(model, response, options){
