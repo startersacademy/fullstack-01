@@ -9,39 +9,68 @@ var jasmine = require('gulp-jasmine');
 var karma = require('karma').server;
 var jshint = require('gulp-jshint');
 
-
 // Starts server for tasks that require a server
-gulp.task('server:start', function(cb){
-  server.listen({path: '.', delay: 3000}, cb);
+gulp.task('server:start', function(done){
+  server.listen({path: '.', delay: 3000}, done);
 });
 
+gulp.task('server:restart', function(){
+  server.changed(function(){
+    // This will need to change for gulp v4
+    gulp.run('test:server-unit');
+  });
+});
+
+// Stops the server and the process in case of error
+var stopServer = function(code){
+  gutil.log('Stopping server');
+  server.kill(function(){
+    process.exit(code);
+  });
+};
+
 // Stops server after tasks have run
-gulp.task('server:stop', function(){
-  server.kill();
-  process.exit();
+gulp.task('server:stop', function(done){
+  server.kill(done);
 });
 
 
 // Runs integration tests with casperjs and phantomjs
-gulp.task('test:integration', function (cb) {
-  var tests = ['./spec/integration'];
+gulp.task('test:integration', function (done) {
+  var tests = ['spec/integration'];
   var isWindows = process.platform === 'win32';
   var casperCmd = 'casperjs';
+  var onError = function(code){
+    done(code);
+    // Gulp doesn't handle the error properly so clean up properly
+    stopServer(1);
+  };
+
   if(isWindows){
     casperCmd = 'casperjs.cmd';
   }
-  var casperChild = spawn(casperCmd, ['test'].concat(tests));
 
-  casperChild.stdout.on('data', function (data) {
-    gutil.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
-  });
+  var casperChild = spawn(casperCmd, ['test'].concat(tests),
+    {stdio: 'inherit'});
 
-  casperChild.on('error', function (err) {
-    cb(err);
-  });
-
-  casperChild.on('close', function () {
-    cb();
+  casperChild.on('close', function (code) {
+    if (code) {
+      // If there is an error, format the error object for gulp
+      // Gulp depends on the this structure
+      var err = {
+        err: {
+          msg: 'Integration test failure'
+        },
+        toString: function(){
+          return err.err.msg;
+        },
+        showStack: false
+      };
+      onError(err);
+    } else {
+      // Everything is good
+      done();
+    }
   });
 });
 
@@ -78,6 +107,7 @@ gulp.task('test:server-unit', function () {
     .pipe(jasmine());
 });
 
+// Runs lint tests with jshint
 gulp.task('test:lint', function(){
   return gulp.src([
     'apps/**/*.js',
@@ -88,18 +118,27 @@ gulp.task('test:lint', function(){
     .pipe(jshint.reporter('default'));
 });
 
+// Runs entire test suite
 gulp.task('test:all',
   gulpSequence(
     'server:start',
     'test:lint',
     'test:server-unit',
     'test:api',
-    'test:unit',
     'test:integration',
     'server:stop'));
 
-gulp.task('test', ['test:all']);
+// Shortcut to run the entire test suite
+gulp.task('test', ['test:all'], function(done){
+  // Using the callback before process.exit helps log seem finished
+  done();
+  process.exit();
+});
 
+// Restarts server on code changes
 gulp.task('default', ['server:start'], function(){
-  gulp.watch(['./server/*.js', './server/*.json']).on('change', server.changed);
+  gulp.watch(['./server/*.js', './server/*.json'], function(){
+    // This will need to change for gulp v4
+    gulp.run('server:restart');
+  });
 });
