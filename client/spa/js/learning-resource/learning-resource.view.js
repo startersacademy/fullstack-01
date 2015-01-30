@@ -61,7 +61,7 @@ module.exports = Backbone.View.extend({
     var attributes = {
       title: this.$('#title').val().trim(),
       resourceType: $('#resourceType option:selected').val(),
-      desc: this.$('#desc').val().trim(),
+      description: this.$('#desc').val().trim(),
       authors: auth
     };
     var options = {
