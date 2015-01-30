@@ -207,7 +207,7 @@ function postBadDescription(){
 }
 
 function postWrongType(wrongType){
-  frisby.create('Enforce mandatory type must include -video, WBT, instructor led- when creating')
+  frisby.create('Enforce mandatory type when creating')
     .post(url, wrongType, {json: true})
     .expectStatus(422)   // Semantic errors
     .expectHeaderContains('Content-Type', 'application/json')
