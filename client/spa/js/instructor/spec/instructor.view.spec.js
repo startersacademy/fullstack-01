@@ -28,24 +28,6 @@ describe('Instructor view ', function(){
       skills: 'C++'
     });
 
-    /*model2 = new Model{
-      firstName: 'Tom',
-      lastName: 'Shell',
-      skills: 'Scripting'
-    });
-
-    model3 = new Model{
-      firstName: 'Emily',
-      lastName: 'Row',
-      skills: 'Diving'
-    });
-
-    view = new View({
-      model: model,
-      model2: model2,
-      model3: model3
-    });*/
-
     view = new View({
       model: model
     });

@@ -21,7 +21,7 @@ describe('Instructor model ', function(){
     });
   });
 
-  describe('when updating the model ', function(){
+  describe('when updating the model for firstName ', function(){
     var errorSpy;
     beforeEach(function(){
       errorSpy = jasmine.createSpy('Invalid');
@@ -31,12 +31,12 @@ describe('Instructor model ', function(){
       model.on('invalid', errorSpy);
       model.save();
     });
-    it('does not save when instructor is empty ', function(){
+    it('does not save when firstName is empty ', function(){
       expect(errorSpy).toHaveBeenCalled();
       expect(errorSpy).toHaveBeenCalledWith(
         model,
-        'instructor cannot be empty',
-        { validate: true, validationError: 'instructor cannot be empty'}
+        'firstName cannot be empty',
+        { validate: true, validationError: 'firstName cannot be empty'}
       );
     });
 

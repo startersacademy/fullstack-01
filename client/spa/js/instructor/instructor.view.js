@@ -5,40 +5,55 @@ var $ = require('../vendor/index').$;
 var fs = require('fs'); //will be replaced by brfs in the browser
 // readFileSync will be evaluated statically so errors can't be caught
 var template = fs.readFileSync(__dirname + '/instructor.html', 'utf8');
+var editTemplate = fs.readFileSync(__dirname + '/editInstructor.html', 'utf8');
 
 module.exports = Backbone.View.extend({
   className: 'instructor',
   template: _.template(template),
+  editTemplate: _.template(editTemplate),
   events: {
-    'click .delete': 'destroy'
-    //'click .edit': 'edit'
+    'click .delete': 'destroy',
+    'click .edit': 'edit',
+    'click .save': 'save',
+    'click .cancel': 'cancel'
   },
   initialize: function(){
     this.listenTo(this.model, 'destroy', this.remove);
-    //this.model.on('change', this.render, this);
+    this.listenTo(this.model, 'change', this.render);
   },
   render: function(){
     var context = this.model.toJSON();
     this.$el.html(this.template(context));
-    //this.input = this.$('.edit');
 
     return this;
   },
   destroy: function(){
     this.model.destroy();
-  }/*,
+  },
   edit: function(e){
-    this.$el.addClass('editing');
-    this.input.focus();
+    var context = this.model.toJSON();
+    this.$el.html(this.editTemplate(context));
+  },
+  save: function(e) {
+    var formData = {
+      firstName: this.$('#firstName').val().trim(),
+      lastName: this.$('#lastName').val().trim(),
+      skills: this.$('#skills').val().trim()
+    };
+    var validate = {
+      success: function() {
+        $('#result').addClass('success')
+                    .html('Successfully updated instructor')
+                    .fadeIn().delay(4000).fadeOut();
+      },
+      error: function(model, error) {
 
-    var value = this.input.val().trim();
-    if(value) {
-      this.model.save({firstName: value});
-    }
-    this.$el.removeClass('editing');
-    if(e.which == 13){
-      this.close();
-    }
-  }*/
+      }
+    };
 
+    this.model.save(formData, validate);
+  },
+  cancel: function() {
+    this.render();
+  },
 });

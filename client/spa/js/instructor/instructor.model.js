@@ -3,6 +3,9 @@
 var Backbone = require('../vendor/index').Backbone;
 module.exports = Backbone.Model.extend({
   defaults: {
+    firstName: '',
+    lastName: '',
+    skills: ''
   },
   urlRoot: '/api/instructors',
   initialize: function(){
@@ -11,8 +14,14 @@ module.exports = Backbone.Model.extend({
     });
   },
   validate: function(attrs){
-    if (!attrs.instructor){
-      return 'instructor cannot be empty';
+    if (!attrs.firstName){
+      return 'firstName cannot be empty';
+    }
+    if (!attrs.lastName){
+      return 'lastName cannot be empty';
+    }
+    if (!attrs.skills){
+      return 'skills cannot be empty';
     }
   }
 });
