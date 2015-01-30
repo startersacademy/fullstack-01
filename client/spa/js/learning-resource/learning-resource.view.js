@@ -54,7 +54,8 @@ module.exports = Backbone.View.extend({
   save: function(){
     var view = this;
     var auth = [];
-    $.each(this.$('#auth').val().split(','), function(){
+    if (this.$('#auth').val() === '') auth = null;
+    else $.each(this.$('#auth').val().split(','), function(){
       auth.push($.trim(this));
     });
     var attributes = {
