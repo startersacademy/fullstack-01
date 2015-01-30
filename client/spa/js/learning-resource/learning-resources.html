@@ -52,6 +52,8 @@
     #msg {
       display: none;
       position: fixed;
+      top: 10px;
+      right: 10px;
       padding: 8px 12px;
     }
     .b-edit {
@@ -65,8 +67,9 @@
 </style>
 <div class="vertical-center">
   <div class="container">
+  <span id="msg" class="btn"></span>
     <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
+      <div id="form-area" class="col-xs-8 col-xs-offset-2">
         <div class="div-space-read sty-title">
           <button class="b-edit btn btn-primary">Edit</button>
           <span><%- title %></span>
@@ -113,9 +116,8 @@
             <button class="b-cancel btn btn-primary">Cancel</button>
             <button class="b-update btn btn-primary">Update</button>
           </div>
-          <span id="msg" class="btn"></span>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </div> <!-- /row -->
+  </div> <!-- /container -->
+</div> <!-- /vertical-center -->
