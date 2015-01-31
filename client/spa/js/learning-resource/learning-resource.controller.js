@@ -14,48 +14,27 @@ module.exports = Backbone.Controller.extend({
 
   initialize: function(){
     this.options.container = this.options.container || 'body';
-    this.model = new Model();
   },
 
-  // list: function(){
-  //   this.resourceList = new Model();
-  //   this.resourceListView = new View();
-  //   this.resourceList.fetch();
-  //   $('body').html(this.resourceListView.render.el);
-  // },
-
-  showLearningResource: function(learningResourceId, cb){
-    this.fetchModel(learningResourceId, function(err, model){
-      console.log(model);
-      var view;
-
-      if (err){
-        view = this.renderError();
-      } else {
-        if (this.view) this.view.remove();
-        this.view = new View({model: model});
-        view = this.renderView();
-      }
-
-      if (cb){
-        cb(err, view);
-      }
-
-    }.bind(this));
+  initializeModel: function(attributes){
+    this.model = new Model(attributes);
+    this.view = new View({model: this.model});
   },
 
-  fetchModel: function(learningResourceId, cb){
-    // this.model = new Model(); //initialize model to allow property setting
-    this.model.set({id: learningResourceId});
+  showLearningResource: function(learningResourceId){
+    var self = this;
+    var view = this.view;
+
+    if (this.view) this.view.destroy(); //do i need this?
+
+    this.initializeModel({id: learningResourceId});
 
     this.model.fetch({
-      success: function(model, response, options){
-        //console.log(model);
-        cb(null, model);
+      success: function(){
+        view = self.renderView();
       },
-      error: function(model, response, options){
-        //console.error(response);
-        cb(response, model);
+      error: function() {
+        view = self.renderError();
       }
     });
   },
