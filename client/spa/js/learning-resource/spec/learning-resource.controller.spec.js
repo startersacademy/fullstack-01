@@ -4,6 +4,7 @@ spyOn
 */
 
 // Get the code you want to test
+var Backbone = require('../../vendor/index').Backbone;
 var Controller = require('../learning-resource.controller');
 var $ = require('jquery');
 var matchers = require('jasmine-jquery-matchers');
@@ -41,50 +42,43 @@ describe('Learning resource controller', function(){
     });
   });
 
-  describe('when calling showLearningResource', function(){
+  describe('when calling a model', function(){
 
     beforeEach(function(){
       jasmine.addMatchers(matchers);
+      spyOn(controller, 'initializeModel').and.callThrough();
+      spyOn(controller, 'showLearningResource').and.callThrough();
+      spyOn(controller, 'renderView').and.callThrough();
+      spyOn(controller, 'renderError').and.callThrough();
     });
 
     var success = function(callbacks){
-      controller.model.set({'title': 'JavaScript Is Sexy', 'resourceType':'link', 'description': 'Learn JavaScript properly.'});
+      controller.model.set({
+        'title': 'World Wide Web',
+        'resourceType':'presentation',
+        'description': 'Internet',
+        'authors': ['Mi'],
+      });
       callbacks.success(controller.model);
     };
-    var err = function(callbacks){
+    var error = function(callbacks){
       callbacks.error('error', controller.model);
     };
 
     it('with a valid learning resource id, fetches the model', function(){
+      controller.showLearningResource(123);
       spyOn(controller.model, 'fetch').and.callFake(success);
-      var cb = function(err, view){
-        expect(err).toBeNull();
-        expect(controller.model.get('title')).toEqual('JavaScript Is Sexy');
-      };
-      controller.showLearningResource(1, cb);
+      expect(controller.initializeModel).toHaveBeenCalled();
+      expect(controller.renderView).toHaveBeenCalled();
+      expect(controller.renderError).not.toHaveBeenCalled();
     });
 
-    it('with a valid learning resource, renders the view', function(){
-      spyOn(controller.model, 'fetch').and.callFake(success);
-      spyOn(controller.view, 'render').and.callFake(function(){
-        controller.view.$el = 'fake render'; //not sure why this is done
-        return controller.view;
-      });
-      var cb = function(err, view){
-        expect($('body')).toHaveText('JavaScript Is Sexy');
-        expect(view.cid).toEqual(controller.view.cid);
-      };
-      controller.showLearningResource(1, cb);
-    });
-
-    it('with an invalid resource type, renders an error message', function(){
-      spyOn(controller.model, 'fetch').and.callFake(err);
-      var cb = function(err, view){
-        expect(err).toBeTruthy();
-        expect($('body')).toHaveText(
-          'There was a problem rendering this learning resource.');
-      };
-      controller.showLearningResource(1, cb);
+    it('with a invalid learning resource id, fetches the model', function(){
+      controller.showLearningResource('x');
+      spyOn(controller.model, 'fetch').and.callFake(error);
+      expect(controller.initializeModel).toHaveBeenCalled();
+      expect(controller.renderError).toHaveBeenCalled();
+      expect(controller.renderView).not.toHaveBeenCalled();
     });
 
   });
