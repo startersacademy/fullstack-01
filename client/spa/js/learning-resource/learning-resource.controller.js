@@ -25,7 +25,7 @@ module.exports = Backbone.Controller.extend({
     var self = this;
     var view = this.view;
 
-    if (this.view) this.view.destroy(); //do i need this?
+    if (this.view) this.view.remove(); //do i need this?
 
     this.initializeModel({id: learningResourceId});
 
