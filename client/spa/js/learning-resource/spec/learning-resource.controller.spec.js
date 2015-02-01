@@ -66,7 +66,7 @@ describe('Learning resource controller', function(){
     };
 
     it('with a valid learning resource id, fetches the model', function(){
-      controller.showLearningResource(123);
+      controller.initializeModel(123);
       spyOn(controller.model, 'fetch').and.callFake(success);
       expect(controller.initializeModel).toHaveBeenCalled();
       expect(controller.renderView).toHaveBeenCalled();
@@ -74,12 +74,19 @@ describe('Learning resource controller', function(){
     });
 
     it('with a invalid learning resource id, fetches the model', function(){
-      controller.showLearningResource('x');
+      controller.initializeModel('x');
       spyOn(controller.model, 'fetch').and.callFake(error);
       expect(controller.initializeModel).toHaveBeenCalled();
       expect(controller.renderError).toHaveBeenCalled();
       expect(controller.renderView).not.toHaveBeenCalled();
     });
+
+    // it('with no learning resource id, does not fetch model', function(){
+    //   controller.initializeModel();
+    //   console.log(this.model);
+    //   spyOn(controller.model, 'fetch');
+    //   expect(controller.model.context).toBeUndefined();
+    // });
 
   });
 
