@@ -1,4 +1,4 @@
-/* global window require */
+/* global window, require */
 
 window.Backbone = require('./vendor').Backbone;
 
