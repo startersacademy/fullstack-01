@@ -35,6 +35,8 @@ module.exports = Backbone.View.extend({
     this.$el.html(this.editTemplate(context));
   },
   save: function(e) {
+    e.preventDefault(); // if there's no changes, do not do anything
+
     var formData = {
       firstName: this.$('#firstName').val().trim(),
       lastName: this.$('#lastName').val().trim(),
