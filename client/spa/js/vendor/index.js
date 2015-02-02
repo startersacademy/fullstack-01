@@ -1,17 +1,38 @@
 'use strict';
+/** @module client/vendor */
+/** @namespace Backbone */
+/** @namespace Backbone.View */
 
-// Expose underscore
+/**
+ * Expose underscore
+ */
 exports._ = require('underscore');
 
-var Backbone = require('backbone');
-// Patch backbone as necessary
+/**
+ * Expose jQuery
+ */
+exports.$ = require('jquery');
 
+
+
+var Backbone = require('backbone');
+
+/**
+ * Patch Backbone with controller functionality
+ * @type {root.Backbone.Controller}
+ * @name Backbone.Controller
+ */
 var Controller = require('backbone.controller');
 
-// Assign and expose jquery reference since we are using browserify
-Backbone.$ = exports.$ = require('jquery');
+/**
+ * Make jQuery available to Backbone
+ */
+Backbone.$ = exports.$;
 
-// Help prevent 'ghost views'
+/**
+ * Patch Backbone.View with close function to prevent 'ghost' views
+ * @lends Backbone.View
+ */
 Backbone.View.prototype.close = function(){
   if (this.beforeClose) {
     this.beforeClose();
@@ -20,5 +41,7 @@ Backbone.View.prototype.close = function(){
   this.unbind();
 };
 
-// Expose Backbone
+/**
+ * Expose Backbone
+ */
 exports.Backbone = Backbone;

@@ -142,3 +142,21 @@ gulp.task('default', ['server:start'], function(){
     gulp.run('server:restart');
   });
 });
+
+gulp.task('doc', function(done){
+  var jsdoc = require('gulp-jsdoc');
+  var rimraf = require('rimraf');
+
+  rimraf('./doc/dist', function(err){
+    if (err) {
+      done(err);
+    }
+    gulp.src(['./server/**/*.js', './client/spa/js/vendor/index.js', 'README.md'])
+      .pipe(jsdoc.parser({plugins: ['plugins/markdown']}))
+      .pipe(jsdoc.generator('./doc/dist'));
+    done();
+  });
+
+
+
+});

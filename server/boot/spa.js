@@ -1,18 +1,35 @@
 'use strict';
-
+/**
+ * Mounts a single page application on route /spa
+ * @namespace server/boot/mountApps
+ * @param {Object} server - The loopback (express) application on which the route will be mounted
+ * @exports mountApps
+ */
 module.exports = function mountApps(server) {
 
+  var router = server.loopback.Router();
+  var staticMiddleware = server.loopback.static;
+
+  server.use('/spa', setUpRouter(router, staticMiddleware));
+
+};
+
+/**
+ * Sets up paths for single page application
+ * @param {Object} router - express router
+ * @param {function} staticMiddleware - middleware to handle requests to files
+ * @requires path
+ * @requires browserify
+ * @requires brfs
+ * @returns router
+ */
+function setUpRouter(router, staticMiddleware){
   var path = require('path');
   var browserify = require('browserify-middleware');
   var brfs = require('brfs');
 
-  // Set up paths
   var clientPath = path.join(__dirname, '../..', '/client/');
   var clientRelativePath = '/client/';
-
-
-  // Set up router
-  var router = server.loopback.Router();
 
   router.get('/index', function(req, res){
     res.sendFile(path.join(clientPath, 'spa-index.html'));
@@ -25,13 +42,11 @@ module.exports = function mountApps(server) {
     }
   ));
 
-  router.use('/', server.loopback.static(clientRelativePath));
+  router.use('/', staticMiddleware(clientRelativePath));
 
+  return router;
+}
 
-  // Mount the router on the app
-  server.use('/spa', router);
-
-};
 
 
 
