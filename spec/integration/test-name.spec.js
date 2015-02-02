@@ -1,3 +1,5 @@
+'use strict';
+
 //test-name.spec.js
 /*
 Acceptance Criteria:
@@ -16,7 +18,6 @@ casper.test.begin('Contact page navigates to home page ', 2,
       test.assertTitle('Contact Us', 'Contact Us page title good');
       test.assertExists('a[href="/index.html"]', 'Home Page link found');
     });
-
     casper.then(function () {
       this.click('a[href="/index.html"]');
       //test.assertTitle('Home', 'home page title good')

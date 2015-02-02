@@ -1,15 +1,17 @@
+'use strict';
+
 /*
  * Title: Casper Test Integration
  * By: Frances Go
  * Date: Jan 2015
  */
 
-/* global casper, __utils__ */
+ /* global casper, __utils__ */
 
 // casper.test.begin(testTitle, numberOfTests, callback)
-casper.test.begin('Testing About the Courses page', 13, function(test){
+casper.test.begin('Testing About the Courses page', 21, function(test){
   casper.start('http://localhost:3000/courses.html', function(){
-    this.test.assertUrlMatch('courses.html',
+    this.test.assertUrlMatch('/courses.html',
                              'currently in the courses page');
     test.assertTitle('About the Courses', 'about the courses title is good');
   });
@@ -25,7 +27,8 @@ casper.test.begin('Testing About the Courses page', 13, function(test){
     this.click('a[href="/courses.html"]');
   });
   casper.then(function(){
-    this.test.assertUrlMatch('courses.html', 'currently in the courses page');
+    this.test.assertUrlMatch('/courses.html',
+                             'currently in the courses page');
     this.echo('Page title is: ' + this.getTitle());
     test.assertTitle(this.getTitle(), 'about the courses title is good');
   });
@@ -45,18 +48,54 @@ casper.test.begin('Testing About the Courses page', 13, function(test){
     test.assertTitle(this.getTitle(), 'instructor title is good');
   });
   casper.then(function(){
-    this.click('a[href="/courses.html"]');
+    this.back();
   });
   casper.then(function(){
-    this.test.assertUrlMatch('courses.html',
+    this.test.assertUrlMatch('/courses.html',
                              'currently in the courses page');
     this.echo('Page title is: ' + this.getTitle());
     this.test.assertExists('footer div', 'footer information found');
   });
   casper.then(function(){
     this.test.assertEval(function() {
-        return __utils__.findAll('.row h3 a').length >= 6;
+      return __utils__.findAll('.row h3 a').length >= 6;
     }, 'there are at least 6 course title links on the page');
+  });
+  casper.then(function(){
+    this.click('a[href="/contactus.html"]');
+  });
+  casper.then(function(){
+    this.test.assertUrlMatch('/contactus.html',
+                             'currently in the contact us page');
+    this.echo('Page title is: ' + this.getTitle());
+    test.assertTitle('Contact Us', 'contact us title is good');
+  });
+  casper.then(function(){
+    this.back();
+  });
+  casper.then(function(){
+    this.test.assertUrlMatch('/courses.html',
+                             'currently in the courses page');
+    test.assertTitle('About the Courses',
+     'about the courses title is good');
+  });
+  casper.then(function(){
+    this.click('a[href="/aboutus.html"]');
+  });
+  casper.then(function(){
+    this.test.assertUrlMatch('/aboutus.html',
+                             'currently in the about us page');
+    this.echo('Page title is: ' + this.getTitle());
+    test.assertTitle('About Us', 'about us title is good');
+  });
+  casper.then(function(){
+    this.back();
+  });
+  casper.then(function(){
+    this.test.assertUrlMatch('/courses.html',
+                             'currently in the courses page');
+    test.assertTitle('About the Courses',
+     'about the courses title is good');
   });
   casper.run(function(){
     test.done();

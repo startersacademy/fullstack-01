@@ -1,3 +1,5 @@
+'use strict';
+
 //test-name.spec.js
 
 /* global casper */
@@ -10,9 +12,8 @@ casper.test.begin('page 1 navigates to page 2', 6,
       test.assertExists('a[href="/instructors.html"]',
                         ' instructors link found');
       test.assertExists('a[href="/contactus.html"]', ' contact link found');
-      test.assertExists('a[href="/courses.html"]', '  link found');
+      test.assertExists('a[href="/courses.html"]', ' link found');
       test.assertExists('a[href="/aboutus.html"]', ' index link found');
-
     });
     /*casper.then(function(){
       this.click('.testedlink');
@@ -23,4 +24,4 @@ casper.test.begin('page 1 navigates to page 2', 6,
     casper.run(function(){
       test.done();
     });
-  });
+});
