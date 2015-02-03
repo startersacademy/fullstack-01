@@ -27,7 +27,6 @@ describe('Learning resource controller', function(){
 
     it('has the expected routes', function(){
       expect(controller.routes).toEqual(jasmine.objectContaining({
-        'learning-resource/:': 'list',
         'learning-resource/:id': 'showLearningResource'
       }));
     });
@@ -49,44 +48,43 @@ describe('Learning resource controller', function(){
       spyOn(controller, 'initializeModel').and.callThrough();
       spyOn(controller, 'showLearningResource').and.callThrough();
       spyOn(controller, 'renderView').and.callThrough();
-      spyOn(controller, 'renderError').and.callThrough();
+      // spyOn(controller, 'renderError').and.callThrough();
     });
 
-    var success = function(callbacks){
-      controller.model.set({
-        'title': 'World Wide Web',
-        'resourceType':'presentation',
-        'description': 'Internet',
-        'authors': ['Mi'],
+    it('with a valid id, fetches the model successfully', function(){
+      spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+        controller.model.set({'title': 'boil eggs'});
       });
-      callbacks.success(controller.model);
-    };
-    var error = function(callbacks){
-      callbacks.error('error', controller.model);
-    };
-
-    it('with a valid learning resource id, fetches the model', function(){
-      controller.initializeModel(123);
-      spyOn(controller.model, 'fetch').and.callFake(success);
+      controller.showLearningResource(123);
+      expect(controller.showLearningResource).toHaveBeenCalled();
       expect(controller.initializeModel).toHaveBeenCalled();
+      expect(controller.model.get('title')).toEqual('boil eggs');
+    });
+
+    it('with a valid id, renders the view', function(){
+      spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+        controller.model.set({'title': 'boil eggs'});
+      });
+      controller.showLearningResource(123);
+      spyOn(Backbone.View.prototype, 'render').and.callFake(function(params){
+        controller.view.$el = 'fake render';
+        return controller.view.$el;
+      });
+      console.log(controller.view.$el);
       expect(controller.renderView).toHaveBeenCalled();
       expect(controller.renderError).not.toHaveBeenCalled();
+      expect($('body')).toHaveText('fake render');
+
     });
 
-    it('with a invalid learning resource id, fetches the model', function(){
-      controller.initializeModel('x');
-      spyOn(controller.model, 'fetch').and.callFake(error);
-      expect(controller.initializeModel).toHaveBeenCalled();
-      expect(controller.renderError).toHaveBeenCalled();
+    xit('with a invalid id, fetches the model with error', function(){
+      spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+        params.error(controller.renderError);
+      });
+      controller.showLearningResource('monster');
       expect(controller.renderView).not.toHaveBeenCalled();
+      expect(controller.renderError).toHaveBeenCalled();
     });
-
-    // it('with no learning resource id, does not fetch model', function(){
-    //   controller.initializeModel();
-    //   console.log(this.model);
-    //   spyOn(controller.model, 'fetch');
-    //   expect(controller.model.context).toBeUndefined();
-    // });
 
   });
 
