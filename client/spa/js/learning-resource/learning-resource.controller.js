@@ -24,12 +24,9 @@ module.exports = Backbone.Controller.extend({
     var self = this;
     var view = this.view;
 
-    /*
-    view check may be unnecessary since
-    initializeModel is always creating a new view
-    */
-
-    // if (view) view.remove();
+    //Ensures that what the view put in the DOM is removed and
+    //any events the view had listenTo'd are removed.
+    if (view) view.remove();
 
     this.initializeModel({id: learningResourceId});
 

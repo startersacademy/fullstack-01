@@ -53,6 +53,37 @@ describe('Learning resource controller', function(){
       spyOn(controller, 'renderError').and.callThrough();
     });
 
+    describe('when viewing id the first time', function(){
+      beforeEach(function(){
+        spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+          params.success();
+        });
+        controller.showLearningResource(123);
+      });
+
+      it('does not have a previous view to remove', function(){
+        spyOn(controller.view, 'remove').and.callThrough();
+        expect(controller.view.remove).not.toHaveBeenCalled();
+      });
+
+    });
+
+    describe('when switching to a different id', function(){
+      beforeEach(function(){
+        spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+          params.success();
+        });
+        controller.showLearningResource(123);
+        controller.showLearningResource(222);
+      });
+
+      it('does has a previous view to remove', function(){
+        spyOn(controller.view, 'remove').and.callThrough();
+        expect(controller.view.remove).toHaveBeenCalled();
+      });
+
+    });
+
     describe('with a valid learning resource id', function(){
       beforeEach(function(){
         spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
