@@ -24,7 +24,8 @@ module.exports = Backbone.Controller.extend({
     var self = this;
     var view = this.view;
 
-    if (this.view) this.view.remove(); //do i need this?
+    //checks previous view and removes
+    if (view) view.remove();
 
     this.initializeModel({id: learningResourceId});
 
