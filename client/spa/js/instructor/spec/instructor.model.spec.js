@@ -21,8 +21,9 @@ describe('Instructor model ', function(){
     });
   });
 
-  describe('when updating the model for firstName ', function(){
+  describe('when updating the model for instructor ', function(){
     var errorSpy;
+
     beforeEach(function(){
       errorSpy = jasmine.createSpy('Invalid');
       model = new Model({
@@ -31,6 +32,7 @@ describe('Instructor model ', function(){
       model.on('invalid', errorSpy);
       model.save();
     });
+
     it('does not save when firstName is empty ', function(){
       expect(errorSpy).toHaveBeenCalled();
       expect(errorSpy).toHaveBeenCalledWith(
@@ -58,10 +60,11 @@ describe('Instructor model ', function(){
       eventSpy = jasmine.createSpy('Change Event');
       model = new Model({
         id: 1,
-        lastName: 'Thomas'
+        firstName: 'Mike',
+        lastName: 'Foster'
       });
       model.on('foo', eventSpy);
-      model.set({lastName: 'changed'});
+      model.set({firstName: 'changed', lastName: 'changed'});
     });
 
     it('triggers the custom event foo', function(){

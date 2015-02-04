@@ -10,22 +10,22 @@ var url = 'http://localhost:3000/api/instructors/';
 var initialRecord = {
   "firstName": "Jeff",
   "lastName": "Thomas",
-  "skills": "C++"
+  "skills": "C++, Java"
 };
 var secondInstructor = {
   "firstName": "Tom",
   "lastName": "Shell",
-  "skills": "Scripting"
+  "skills": "Server, Scripting"
 };
 var thirdInstructor = {
   "firstName": "Emily",
   "lastName": "Row",
-  "skills": "Diving"
+  "skills": "Scuba, Diving"
 };
 var changedRecord = {
   "firstName": "Jeff",
   "lastName": "Thomas",
-  "skills": "C++"
+  "skills": "C++, Java"
 };
 var emptyRecord = {
   //no properties and values
@@ -36,7 +36,7 @@ var missingRecord = {
 };
 var missingRecordTwo = {
   "firstName": "Jeff",
-  "skills": "C++"
+  "skills": "C++, Java"
 };
 var missingRecordThree = {
   "firstName": "Jeff",
@@ -45,7 +45,7 @@ var missingRecordThree = {
 var emptyPropertyValues = {
   "firstName": "",
   "lastName": "",
-  "skills": ""
+  "skills": "C++, Java"
 };
 
 

@@ -55,7 +55,8 @@ module.exports = Backbone.View.extend({
 
     this.model.save(formData, validate);
   },
-  cancel: function() {
+  cancel: function(e) {
+    e.preventDefault();  // prevent event bubbling
     this.render();
-  },
+  }
 });

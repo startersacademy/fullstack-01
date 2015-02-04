@@ -14,18 +14,21 @@ describe('Instructor view ', function(){
 
   var model;
   var view;
+  var Model;
 
   beforeEach(function(){
 
     // Add some convenience tests for working with the DOM
     jasmine.addMatchers(matchers);
-    var Model = Backbone.Model.extend({});
+    Model = Backbone.Model.extend({});
+
+    spyOn(Model.prototype, 'save');
 
     // Needs to have the fields required by the template
     model = new Model({
       firstName: 'Jeff',
       lastName: 'Thomas',
-      skills: 'C++'
+      skills: 'C++, Java'
     });
 
     view = new View({
@@ -58,17 +61,63 @@ describe('Instructor view ', function(){
     });
   });
 
-  xdescribe('when the user clicks on the Save button ', function(){
-    xit('updates the model', function(){
+  describe('when the user clicks on the Edit button ', function(){
+    beforeEach(function(){
+      // do all spyOn before rendering
+      spyOn(view, 'save').and.callThrough();
+      spyOn(view, 'cancel').and.callThrough();
+      // call delegate after spyOn
+      view.delegateEvents();
+      view.render();
+      view.$('.edit').trigger('click');
     });
-  });
 
-  xdescribe('when the user clicks on ... ', function(){
-    xit('triggers the ... event', function(){
+    describe('when the user enters new instructor information ', function(){
+
+      describe('when user clicks on the cancel button', function(){
+
+        beforeEach(function(){
+          view.$('.cancel').trigger('click');
+        });
+
+        it('cancels the user input', function(){
+          expect(view.cancel).toHaveBeenCalled();
+        });
+      });
+
+      describe('when user clicks on the save button', function(){
+        beforeEach(function(){
+          view.$('#firstName').val('changed firstName');
+          view.$('#lastName').val('changed lastName');
+          view.$('#skills').val('changed skills');
+
+          view.$('.save').trigger('click');
+        });
+
+        it('updates the model', function(){
+          expect(view.save).toHaveBeenCalled();
+          expect(Model.prototype.save).toHaveBeenCalled();
+        });
+
+      });
+
     });
-  });
+
+    xdescribe('when the user clicks on the Save button ', function(){
+      xit('updates the model', function(){
+
+      });
+    });
+
+    xdescribe('when the user clicks on ... ', function(){
+      xit('triggers the ... event', function(){
+      });
+    });
+
+  });  // end edit/update test
 
   describe('when the user clicks on the Delete button ', function(){
+
     beforeEach(function(){
 
       // Must call through otherwise the actual view function won't be called
@@ -85,7 +134,8 @@ describe('Instructor view ', function(){
       view.$('.delete').trigger('click');
       expect(view.destroy).toHaveBeenCalled();
       expect(model.destroy).toHaveBeenCalled();
-    });
-  });
+    });  // end delete model test
 
-});
+  }); // end delete
+
+});  // end entire suite
