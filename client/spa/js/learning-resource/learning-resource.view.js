@@ -94,14 +94,6 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  // showErrors: function(errors){
-  //   _.each(errors, function(error) {
-  //     var controlGroup = this.$('.' + error.name);
-  //     controlGroup.addClass('error');
-  //     controlGroup.find('body').append(error.message);
-  //   }, this);
-  // },
-
   render: function(){
     var context = this.model.toJSON();
     var auth = this.model.get('authors').toString().split(',').join(', ');
