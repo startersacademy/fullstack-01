@@ -30,7 +30,6 @@
     "loopback#token": {}
   },
   "parse": {
-
   },
   "routes": {
     "loopback#status": {

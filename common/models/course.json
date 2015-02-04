@@ -17,7 +17,16 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "student": {
+      "type": "hasAndBelongsToMany",
+      "model": "student"
+    },
+    "instructor": {
+      "type": "hasOne",
+      "model": "instructor"
+    }
+  },
   "acls": [],
   "methods": []
 }
