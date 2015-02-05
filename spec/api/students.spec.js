@@ -23,7 +23,7 @@ frisby.create('Create contact with post')
   {json: true})
 .expectStatus(200)
   .afterJSON(function(json){
-    getRecord(json.id)
+    getRecord(json.id);
   }
 )
 .toss();
@@ -66,7 +66,7 @@ function testCourse(id){
     .afterJSON(function(json){
       deleteRecord(json.id);
     })
-    .toss()
+    .toss();
 }
 
 function deleteRecord(id){
