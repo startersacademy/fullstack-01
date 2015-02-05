@@ -26,6 +26,18 @@
     "dataSource": "db",
     "public": false
   },
+  "course": {
+    "dataSource": "db",
+    "public": true
+  },
+  "account": {
+    "dataSource": "db",
+    "public": true
+  },
+  "student": {
+    "dataSource": "db",
+    "public": true
+  },
   "contact": {
     "dataSource": "db",
     "public": true
