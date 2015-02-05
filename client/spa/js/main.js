@@ -4,8 +4,10 @@ window.Backbone = require('./vendor').Backbone;
 
 // Include your code
 var Contact = require('./contact/contact.controller');
+var Contacts = require('./contact/contacts.controller');
 // Initialize it
 window.contact = new Contact({router:true, container: 'body'});
+window.contacts = new Contacts({router:true, container: 'body'});
 
 // Additional modules go here
 

@@ -8,7 +8,7 @@ var View = require('./contact.view');
 module.exports = Backbone.Controller.extend({
 
   routes: {
-    'contacts/:id': 'showContact'
+    'contacts/:id': 'showContact',
   },
 
   initialize: function(){
