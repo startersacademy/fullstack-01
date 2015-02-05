@@ -53,7 +53,6 @@ describe('Contacts controller', function(){
       beforeEach(function(){
         spyOn(Backbone.Collection.prototype, 'fetch').and.callFake(
           function(options){
-            //controller.collection.add({id: 1, name: 'test', contactType: 'web'});
             options.success();
           }
         );
