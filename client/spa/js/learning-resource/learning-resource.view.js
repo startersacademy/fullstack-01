@@ -36,7 +36,7 @@ module.exports = Backbone.View.extend({
   cancel: function(){
     this.$('#title').val(this.model.get('title'));
     this.$('#desc').val(this.model.get('description'));
-    this.$('#authors').val(this.model.get('authors'));
+    this.$('#auth').val(this.model.get('authors'));
     this.$('select option[value="'+this.model.get('resourceType')+'"]')
         .attr('selected','selected');
     $('#form-area').removeClass('sty-form'); //remove bg color of form
