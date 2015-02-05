@@ -8,7 +8,7 @@ var Collection = require('../contacts.collection');
 
 // Test suite
 console.log('test contacts.collection');
-describe('Contact collection ', function(){
+describe('Contacts collection ', function(){
 
   var collection;
   var modelA;
@@ -56,7 +56,7 @@ describe('Contact collection ', function(){
 
   });
 
-  describe('when the collection gets a sort event', function(){
+  describe('when a sort event is triggered', function(){
 
     beforeEach(function(){
       collection = new Collection();

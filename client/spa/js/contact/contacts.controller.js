@@ -18,8 +18,8 @@ module.exports = Backbone.Controller.extend({
 
   getCollection: function(){
     if (!this.collection){
-      var C = Collection.extend({model: Model});
-      this.collection = new C();
+      Collection = Collection.extend({model: Model});
+      this.collection = new Collection();
     }
     return this.collection;
   },

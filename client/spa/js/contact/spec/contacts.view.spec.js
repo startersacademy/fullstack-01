@@ -36,20 +36,24 @@ describe('Contacts view ', function(){
     });
   });
 
-  describe('when the view is instantiated ', function(){
+  describe('when the view is instantiated ', function() {
 
-    beforeEach(function(){
-      spyOn(view, 'render').and.callThrough();
-    });
-
-    it('creates the correct element', function(){
+    it('creates the correct element', function () {
       // Element has to be uppercase
       expect(view.el.nodeName).toEqual('DIV');
     });
 
-    it('sets the correct class', function(){
+    it('sets the correct class', function () {
       view.render();
       expect(view.$el).toHaveClass('contacts');
+    });
+
+  });
+
+  describe('when collection events happen', function(){
+
+    beforeEach(function () {
+      spyOn(view, 'render').and.callThrough();
     });
 
     it('renders when something is added to the collection', function(){
@@ -69,12 +73,12 @@ describe('Contacts view ', function(){
 
   });
 
-  describe('when the view is rendered ', function(){
+  describe('when the view is rendered', function(){
 
-    it('returns the view object ', function(){
+    it('returns the view object', function(){
       expect(view.render()).toEqual(view);
     });
-    it('produces the correct HTML ', function(){
+    it('produces the correct HTML', function(){
       view.render();
       expect(view.$('h1').html()).toEqual('Contacts');
       expect(view.$('.contact')[0]).toHaveText('Contact <3');

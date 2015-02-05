@@ -2,7 +2,6 @@
 
 var Backbone = require('../vendor/index').Backbone;
 var _ = require('../vendor/index')._;
-var $ = require('../vendor/index').$;
 
 var fs = require('fs'); //will be replaced by brfs in the browser
 
