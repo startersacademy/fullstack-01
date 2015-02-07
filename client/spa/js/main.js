@@ -3,9 +3,9 @@
 window.Backbone = require('./vendor').Backbone;
 
 // Include your code
-//var Contact = require('./contact/contact.controller');
+var Account = require('./account/account.controller');
 // Initialize it
-//window.contact = new Contact({router:true, container: 'body'});
+window.account = new Account({router:true, container: 'body'});
 
 // Additional modules go here
 
