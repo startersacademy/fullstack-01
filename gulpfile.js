@@ -129,6 +129,7 @@ gulp.task('test:lint', function(){
     'apps/**/*.js',
     'server/**/*.js',
     'spec/**/*.js',
+    'client/spa/**/*.js',
     '!client/js/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));

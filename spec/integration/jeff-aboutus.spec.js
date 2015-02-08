@@ -1,3 +1,5 @@
+'use strict';
+
 //jeff-aboutus.spec.js
 
 /* global casper */
