@@ -69,17 +69,20 @@ describe('Learning resource controller', function(){
     });
 
     describe('when switching to a different id', function(){
-      beforeEach(function(){
+
+      beforeEach(function(done){
         spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
           params.success();
+          done();
         });
         controller.showLearningResource(123);
-        controller.showLearningResource(222);
       });
 
       it('does has a previous view to remove', function(){
-        spyOn(controller.view, 'remove').and.callThrough();
-        expect(controller.view.remove).toHaveBeenCalled();
+        var oldView = controller.view;
+        spyOn(oldView, 'destroy');
+        controller.showLearningResource(222);
+        expect(oldView.destroy).toHaveBeenCalled();
       });
 
     });

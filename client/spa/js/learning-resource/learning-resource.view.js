@@ -108,6 +108,6 @@ module.exports = Backbone.View.extend({
 
   destroy: function(){
     this.model.destroy();
-    $('body').html('Successfully deleted.');
+    this.remove();
   }
 });

@@ -26,7 +26,7 @@ module.exports = Backbone.Controller.extend({
 
     //Ensures that what the view put in the DOM is removed and
     //any events the view had listenTo'd are removed.
-    if (view) view.remove();
+    if (view) view.destroy();
 
     this.initializeModel({id: learningResourceId});
 
