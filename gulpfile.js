@@ -36,85 +36,34 @@ gulp.task('server:stop', function(done){
 });
 
 
+// Spawns a process on windows
+function windowsSpawn(executable, args, options){
+  return spawn('cmd.exe', ['/c', executable].concat(args), options);
+}
+
 // Runs integration tests with casperjs and phantomjs
+// Using casper with gulp and windows is not intuitive. Change this at your own
+// risk.
 gulp.task('test:integration', function (done) {
   var tests = ['spec/integration'];
-  var isWindows = process.platform === 'win32';
-  var casperCmd = 'casperjs';
-  var onError = function(code){
-    done(code);
-    // Gulp doesn't handle the error properly so clean up properly
-    stopServer(1);
-  };
-
-  var casperChild;
-
-  if(isWindows){
-    casperCmd = 'casperjs.cmd';
-    casperChild = winSpawn(casperCmd, ['test'].concat(tests),
-    {}, function(){
-      console.log('callback');
-    });
-  }
-  else {
-    casperChild = spawn(casperCmd, ['test'].concat(tests),
-    {stdio: 'inherit'});
-  }
-
-  casperChild.on('close', function (code) {
-    if (code) {
-      console.log('error');
-      // If there is an error, format the error object for gulp
-      // Gulp depends on the this structure
-      var err = {
-        err: {
-          msg: 'Integration test failure'
-        },
-        toString: function(){
-          return err.err.msg;
-        },
-        showStack: false
-      };
-      onError(err);
-    } else {
-      // Everything is good
-      console.log('close');
-      done();
-    }
-  });
-  console.log('task end');
-});
-
-//integration1
-gulp.task('test:integration:alt1', function (done) {
-  var tests = ['spec/integration'];
-  var casperCmd = 'casperjs';
   var casperChild;
   var onError = function(code){
     done(code);
     // Gulp doesn't handle the error properly so clean up properly
     stopServer(1);
-  };
-  var windowsSpawn = function(executable, args, options){
-    return spawn('cmd.exe',
-      ['/c', executable].concat(args), options);
   };
 
   if(process.platform === 'win32'){
-    casperChild = windowsSpawn(casperCmd, ['test'].concat(tests),
-      {});
+    // Don't inherit stdio here since it causes problems
+    casperChild = windowsSpawn('casperjs', ['test'].concat(tests));
+    // Must handle data here for the tests to execute within the task
+    // Handle this only for windows
+    casperChild.stdout.on('data', function(data){
+      gutil.log('CasperJS:', data.toString().slice(0, -1)); // remove \n
+    });
   } else {
-    casperChild = spawn(casperCmd, ['test'].concat(tests),
-      {stdio: 'inherit'});
+    casperChild = spawn('casperjs', ['test'].concat(tests), {stdio: 'inherit'});
   }
-
-  // console.log(casperChild);
-  casperChild.stdout.on('data', function (data) {
-    console.log('CasperJS:', data.toString().slice(0, -1)); // Remove \n
-   });
-  casperChild.on('error', function(params){
-    console.log(params);
-  });
 
   casperChild.on('close', function (code) {
     if (code) {
@@ -192,7 +141,7 @@ gulp.task('test:all',
     'test:lint',
     'test:server-unit',
     'test:api',
-    'test:integration:alt1',
+    'test:integration',
     'server:stop'));
 
 // Shortcut to run the entire test suite
