@@ -7,7 +7,7 @@ var $ = require('../vendor/index').$;
 var fs = require('fs'); //will be replaced by brfs in the browser
 
 // readFileSync will be evaluated statically so errors can't be caught
-var template = fs.readFileSync(__dirname + '/learning-resources.html', 'utf8');
+var template = fs.readFileSync(__dirname + '/learning-resource.html', 'utf8');
 
 module.exports = Backbone.View.extend({
 
