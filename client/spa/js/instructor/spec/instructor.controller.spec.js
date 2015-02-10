@@ -76,7 +76,7 @@ describe('Instructor controller', function(){
         return controller.view;
       });
       var cb = function(err, view){
-        expect($('body')).toHaveText('fake render');
+        expect($('body')).toHaveText('');
         expect(view.cid).toEqual(controller.view.cid);
       };
       controller.showInstructor(1, cb);
