@@ -17,6 +17,10 @@ module.exports = Backbone.Controller.extend({
   showInstructor: function(instructorId, cb){
     this.fetchModel(instructorId, function(err){
       var view;
+
+      this.remove();
+      this.view = new View({model: this.model});
+
       if (err){
         view = this.renderError();
       } else {
@@ -25,6 +29,7 @@ module.exports = Backbone.Controller.extend({
       if (cb){
         cb(err, view);
       }
+
     }.bind(this));
   },
   fetchModel: function(instructorId, cb){

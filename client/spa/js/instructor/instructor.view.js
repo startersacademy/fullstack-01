@@ -33,6 +33,8 @@ module.exports = Backbone.View.extend({
   edit: function(e){
     var context = this.model.toJSON();
     this.$el.html(this.editTemplate(context));
+
+    return this;
   },
   save: function(e) {
     e.preventDefault(); // if there's no changes, do not do anything

@@ -1,3 +1,5 @@
+'use strict';
+
 /*
 global jasmine, describe, it, expect, beforeEach, afterEach, xdescribe, xit,
 spyOn
@@ -98,12 +100,41 @@ describe('Instructors view ', function(){
     });
   });
 
-  xdescribe('when the user clicks on the Sort By First Name button ', function(){
-    xit('triggers the sortByFirstName event on the collection', function(){
-
+  describe('when the user clicks on the Sort By First Name button ', function(){
+    beforeEach(function(){
+      view.render();
     });
 
-    xit('renders the view', function(){
+    it('triggers the sortByFirstName event on the collection', function(){
+      var spy = jasmine.createSpy('sortByFirstName');
+      collection.on('sortByFirstName', spy);
+      view.$('.sortByFirstName').trigger('click');
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('renders the view', function(){
+      spyOn(view, 'render');
+      view.$('.sortByFirstName').trigger('click');
+      expect(view.render).toHaveBeenCalled();
+    });
+  });
+
+  describe('when the user clicks on the Sort By Last Name button ', function(){
+    beforeEach(function(){
+      view.render();
+    });
+
+    it('triggers the sortByLastName event on the collection', function(){
+      var spy = jasmine.createSpy('sortByLastName');
+      collection.on('sortByLastName', spy);
+      view.$('.sortByLastName').trigger('click');
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('renders the view', function(){
+      spyOn(view, 'render');
+      view.$('.sortByLastName').trigger('click');
+      expect(view.render).toHaveBeenCalled();
     });
   });
 });
