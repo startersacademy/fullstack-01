@@ -118,7 +118,7 @@ gulp.task('test:unit:tdd', function (done) {
 
 
 // Runs server unit tests with jasmine 2.1
-gulp.task('test:server-unit', function () {
+gulp.task('test:unit:server', function () {
   return gulp.src('server/**/*.spec.js')
     .pipe(jasmine());
 });
@@ -140,7 +140,8 @@ gulp.task('test:all',
   gulpSequence(
     'server:start',
     'test:lint',
-    'test:server-unit',
+    'test:unit',
+    'test:unit:server',
     'test:api',
     'test:integration',
     'server:stop'));
