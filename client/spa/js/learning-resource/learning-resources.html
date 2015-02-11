@@ -5,6 +5,13 @@
     border: 1px solid #4F4D4D;
     color: #FAFAFA;
   }
+  .lrs-tbl-header th a:visited, .lrs-tbl-header th a {
+    color: #FAFAFA;
+  }
+  .lrs-tbl tr td {
+    background: #FBFBFB;
+  }
+
   .lrs-tbl-h-n {
     width: 5%;
   }
@@ -27,17 +34,17 @@
 <div class="container">
   <h3>Learning Resources</h3>
   <div class="table-responsive">
-    <table class="table table-hover table-bordered">
+    <table class="lrs-tbl table table-bordered">
       <tr class="lrs-tbl-header">
-        <th class="lrs-tbl-h-n">#</th>
-        <th class="lrs-tbl-h-t">Title</th>
-        <th class="lrs-tbl-h-rt">Type</th>
-        <th class="lrs-tbl-h-a">Authors</th>
-        <th class="lrs-tbl-h-d">Description</th>
+        <!-- <th class="lrs-tbl-h-n">#</th> -->
+        <th class="lrs-tbl-h-t"><a class="sortByTitle">Title</a></th>
+        <th class="lrs-tbl-h-rt"><a class="sortByResourceType">Type</a></th>
+        <th class="lrs-tbl-h-a"><a class="sortByAuthors">Authors</th>
+        <th class="lrs-tbl-h-d"><a class="sortByDescription">Description</th>
       </tr>
       <% _.each( models, function( model ){ %>
       <tr>
-        <td></td>
+        <!-- <td></td> -->
         <td><%- model.attributes.title %></td>
         <td><%- model.attributes.resourceType %></td>
         <td><%- model.attributes.authors %></td>
@@ -47,27 +54,3 @@
     </table>
   </div>
 </div>
-
-
-<!-- <div class="vertical-center">
-<% _.each( models, function( model ){ %>
-  <div class="container">
-    <div class="row">
-      <div id="form-area" class="col-xs-8 col-xs-offset-2">
-        <span id="msg" class="btn"></span>
-        <div class="div-space-read sty-title">
-          <button class="b-edit btn btn-primary">Edit</button>
-          <span><%- model.attributes.title %></span>
-          <div class="sty-resource-auth">
-            <span class="sty-resource"><%- model.attributes.resourceType %></span>
-            <span class="sty-authors">by: <span id="author-dsp"></span></span>
-          </div>
-        </div>
-        <div class="div-space-read sty-desc">
-          <span><%- model.attributes.description %></span>
-        </div>
-      </div> -->
-    <!-- </div> /row -->
-  <!-- </div> /container -->
-<!-- </div> /vertical-center -->
-<!-- <% }); %> -->
