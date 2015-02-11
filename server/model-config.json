@@ -41,9 +41,5 @@
   "student": {
     "dataSource": "db",
     "public": true
-  },
-  "contact": {
-    "dataSource": "db",
-    "public": true
   }
 }
