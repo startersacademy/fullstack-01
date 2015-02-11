@@ -119,3 +119,37 @@ header.carousel .fill {
 .txt-mbr-desc {
   font-size: 14px;
 }
+
+/*---Learning Resources---*/
+/*Collection*/
+  .lrs-tbl-header{
+    font-weight: bold;
+    background: #4F4D4D;
+    border: 1px solid #4F4D4D;
+    color: #FAFAFA;
+  }
+  .lrs-tbl-header th a:visited, .lrs-tbl-header th a {
+    color: #FAFAFA;
+  }
+  .lrs-tbl tr td {
+    background: #FBFBFB;
+  }
+
+  .lrs-tbl-h-n {
+    width: 5%;
+  }
+  .lrs-tbl-h-rt {
+    width: 10%;
+  }
+  .lrs-tbl-h-t {
+    width: 20%;
+  }
+  .lrs-tbl-h-a {
+    width: 10%;
+  }
+  .lrs-tbl-h-d {
+    width: 30%;
+  }
+  .borderless {
+    border: none;
+  }
