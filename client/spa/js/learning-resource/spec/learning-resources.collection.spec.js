@@ -17,9 +17,25 @@ describe('Learning resources collection ', function(){
 
   beforeEach(function(){
     // Set up test data
-    modelA = {id: 2, title: 'A', resourceType: 'link', description: 'reading', authors: 'mom'};
-    modelB = {id: 0, title: 'M', resourceType: 'presentation', description: 'mixing', authors: 'bro'};
-    modelC = {id: 1, title: 'X', resourceType: 'document', description: 'listing', authors: 'hass'};
+    modelA = {
+      id: 2,
+      title: 'A',
+      resourceType: 'link',
+      description: 'reading',
+      authors: 'mom'
+    };
+    modelB = {id: 0,
+      title: 'M',
+      resourceType: 'presentation',
+      description: 'mixing',
+      authors: 'bro'
+    };
+    modelC = {id: 1,
+      title: 'X',
+      resourceType: 'document',
+      description: 'listing',
+      authors: 'hass'
+    };
 
   });
 
@@ -48,45 +64,59 @@ describe('Learning resources collection ', function(){
 
   });
 
-  // describe('when the collection interacts with the server', function(){
+  describe('when the collection interacts with the server', function(){
 
-  //   it('fetches from the correct url', function(){
-  //     collection = new Collection();
-  //     expect(collection.url).toEqual('/api/learning-resources/');
-  //   });
+    it('fetches from the correct url', function(){
+      collection = new Collection();
+      expect(collection.url).toEqual('/api/learning-resources/');
+    });
 
-  // });
+  });
 
-  // describe('when a sort event is triggered', function(){
+  describe('when a sort event is triggered', function(){
 
-  //   beforeEach(function(){
-  //     collection = new Collection();
+    beforeEach(function(){
+      collection = new Collection();
 
-  //     collection.add([
-  //         modelC,
-  //         modelB,
-  //         modelA
-  //       ],
-  //       {silent: false} // Set to true to suppress add event
-  //     );
+      collection.add([
+          modelC,
+          modelB,
+          modelA
+        ],
+        {silent: false} // Set to true to suppress add event
+      );
 
-  //   });
+    });
 
-  //   it('sorts by id', function(){
-  //     collection.trigger('sortByName');
-  //     expect(collection.at(0).get('id')).toEqual(modelA.id);
-  //     expect(collection.at(1).get('id')).toEqual(modelB.id);
-  //     expect(collection.at(2).get('id')).toEqual(modelC.id);
-  //   });
+    it('sorts by title', function(){
+      collection.trigger('sortByTitle');
+      expect(collection.at(0).get('title')).toEqual(modelA.title);
+      expect(collection.at(1).get('title')).toEqual(modelB.title);
+      expect(collection.at(2).get('title')).toEqual(modelC.title);
+    });
 
-  //   it('sorts by name', function(){
-  //     collection.trigger('sortById');
-  //     expect(collection.at(0).get('id')).toEqual(modelB.id);
-  //     expect(collection.at(1).get('id')).toEqual(modelC.id);
-  //     expect(collection.at(2).get('id')).toEqual(modelA.id);
-  //   });
+    it('sorts by resource type', function(){
+      collection.trigger('sortByResourceType');
+      expect(collection.at(0).get('resourceType')).toEqual(modelC.resourceType);
+      expect(collection.at(1).get('resourceType')).toEqual(modelA.resourceType);
+      expect(collection.at(2).get('resourceType')).toEqual(modelB.resourceType);
+    });
 
-  // });
+    it('sorts by authors', function(){
+      collection.trigger('sortByAuthors');
+      expect(collection.at(0).get('authors')).toEqual(modelB.authors);
+      expect(collection.at(1).get('authors')).toEqual(modelC.authors);
+      expect(collection.at(2).get('authors')).toEqual(modelA.authors);
+    });
+
+    it('sorts by description', function(){
+      collection.trigger('sortByDescription');
+      expect(collection.at(0).get('description')).toEqual(modelC.description);
+      expect(collection.at(1).get('description')).toEqual(modelB.description);
+      expect(collection.at(2).get('description')).toEqual(modelA.description);
+    });
+
+  });
 
 });
 
