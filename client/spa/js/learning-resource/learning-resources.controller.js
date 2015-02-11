@@ -36,7 +36,6 @@ module.exports = Backbone.Controller.extend({
     var self = this;
     this.getCollection().fetch({
       success: function(collection, response, options){
-        console.log(collection);
         self.getView();
         self.renderView();
       },

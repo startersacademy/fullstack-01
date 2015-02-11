@@ -94,7 +94,7 @@ describe('Learning resources controller', function(){
         controller.showLearningResources();
         var returnedView = controller.renderView.calls.mostRecent().object.view;
         expect(returnedView).toEqual(controller.view);
-        expect($('body h1')).toHaveText('Contacts');
+        expect($('body h3')).toHaveText('Learning Resources');
       });
 
     });
