@@ -16,7 +16,10 @@ module.exports = Backbone.View.extend({
 
   events:{
     'click .sortById': 'sortById',
-    'click .sortByName': 'sortByName'
+    'click .sortByTitle': 'sortByTitle',
+    'click .sortByResourceType': 'sortByResourceType',
+    'click .sortByAuthors': 'sortByAuthors',
+    'click .sortByDescription': 'sortByDescription'
   },
 
   initialize: function() {
@@ -42,8 +45,23 @@ module.exports = Backbone.View.extend({
     this.render();
   },
 
-  sortByName: function(){
-    this.collection.trigger('sortByName');
+  sortByTitle: function(){
+    this.collection.trigger('sortByTitle');
+    this.render();
+  },
+
+  sortByResourceType: function(){
+    this.collection.trigger('sortByResourceType');
+    this.render();
+  },
+
+  sortByAuthors: function(){
+    this.collection.trigger('sortByAuthors');
+    this.render();
+  },
+
+  sortByDescription: function(){
+    this.collection.trigger('sortByDescription');
     this.render();
   }
 
