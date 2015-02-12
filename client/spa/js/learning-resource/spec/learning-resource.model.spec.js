@@ -24,4 +24,27 @@ describe('Learning resource model', function(){
       expect(model.get('description')).toEqual('Learn JavaScript properly.');
     });
   });
+
+  describe('when saving value', function(){
+
+    beforeEach(function(){
+      model = new Model();
+    });
+
+    it('with an empty title sees validation error', function(){
+      model.save({title:''});
+      expect(model.validationError).toEqual('Title cannot be empty');
+    });
+
+    it('with an empty description sees validation error', function(){
+      model.save({description:''});
+      expect(model.validationError).toEqual('Description cannot be empty');
+    });
+
+    it('with empty authors sees validation error', function(){
+      model.save({authors:''});
+      expect(model.validationError).toEqual('Authors cannot be empty');
+    });
+  });
+
 });

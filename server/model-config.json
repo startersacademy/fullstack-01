@@ -26,11 +26,11 @@
     "dataSource": "db",
     "public": false
   },
-  "course": {
+  "learning-resource": {
     "dataSource": "db",
     "public": true
   },
-  "learning-resource": {
+  "course": {
     "dataSource": "db",
     "public": true
   },

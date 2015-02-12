@@ -6,6 +6,7 @@ spyOn
 // Get the code you want to test
 var Backbone = require('../../vendor/index').Backbone;
 var Controller = require('../learning-resource.controller');
+var View = require('../learning-resource.view');
 var $ = require('jquery');
 var matchers = require('jasmine-jquery-matchers');
 
@@ -41,51 +42,110 @@ describe('Learning resource controller', function(){
     });
   });
 
-  describe('when calling a model', function(){
+  describe('when calling showLearningResource', function(){
 
     beforeEach(function(){
       jasmine.addMatchers(matchers);
-      spyOn(controller, 'initializeModel').and.callThrough();
+      //callThrough not necessary if not checking results
       spyOn(controller, 'showLearningResource').and.callThrough();
+      spyOn(controller, 'initializeModel').and.callThrough();
       spyOn(controller, 'renderView').and.callThrough();
-      // spyOn(controller, 'renderError').and.callThrough();
+      spyOn(controller, 'renderError').and.callThrough();
     });
 
-    it('with a valid id, fetches the model successfully', function(){
-      spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
-        controller.model.set({'title': 'boil eggs'});
+    describe('when viewing id the first time', function(){
+      beforeEach(function(){
+        spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+          params.success();
+        });
+        controller.showLearningResource(123);
       });
-      controller.showLearningResource(123);
-      expect(controller.showLearningResource).toHaveBeenCalled();
-      expect(controller.initializeModel).toHaveBeenCalled();
-      expect(controller.model.get('title')).toEqual('boil eggs');
-    });
 
-    it('with a valid id, renders the view', function(){
-      spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
-        controller.model.set({'title': 'boil eggs'});
+      it('does not have a previous view to remove', function(){
+        spyOn(controller.view, 'remove').and.callThrough();
+        expect(controller.view.remove).not.toHaveBeenCalled();
       });
-      controller.showLearningResource(123);
-      spyOn(Backbone.View.prototype, 'render').and.callFake(function(params){
-        controller.view.$el = 'fake render';
-        return controller.view.$el;
-      });
-      console.log(controller.view.$el);
-      expect(controller.renderView).toHaveBeenCalled();
-      expect(controller.renderError).not.toHaveBeenCalled();
-      expect($('body')).toHaveText('fake render');
 
     });
 
-    xit('with a invalid id, fetches the model with error', function(){
-      spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
-        params.error(controller.renderError);
+    describe('when switching to a different id', function(){
+
+      beforeEach(function(done){
+        spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+          params.success();
+          done();
+        });
+        controller.showLearningResource(123);
       });
-      controller.showLearningResource('monster');
-      expect(controller.renderView).not.toHaveBeenCalled();
-      expect(controller.renderError).toHaveBeenCalled();
+
+      it('does has a previous view to remove', function(){
+        var oldView = controller.view;
+        spyOn(oldView, 'destroy');
+        controller.showLearningResource(222);
+        expect(oldView.destroy).toHaveBeenCalled();
+      });
+
     });
 
-  });
+    describe('with a valid learning resource id', function(){
+      beforeEach(function(){
+        spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+          params.success();
+        });
+        controller.showLearningResource(123);
+      });
 
-});
+      it('fetches the model successfully', function(){
+        expect(controller.initializeModel).toHaveBeenCalled();
+        expect(controller.model.attributes.id).toEqual(123);
+      });
+
+      it('renders the view', function(){
+        expect(controller.renderView).toHaveBeenCalled();
+        expect(controller.view.model.attributes.id).toEqual(123);
+      });
+    });
+
+    describe('with an invalid learning resource id', function(){
+      beforeEach(function(){
+        spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+          params.error();
+        });
+        controller.showLearningResource('zzz');
+      });
+
+      it('fetches the model successfully', function(){
+        //showLearningResource will initializeModel everytime
+        expect(controller.initializeModel).toHaveBeenCalled();
+        expect(controller.model.attributes.id).toEqual('zzz');
+      });
+
+      it('fails to render the view', function(){
+        expect(controller.renderError).toHaveBeenCalled();
+        expect($('body')).toHaveText('There was a problem');
+      });
+    });
+
+    describe('with no learning resource id', function(){
+      beforeEach(function(){
+        spyOn(Backbone.Model.prototype, 'fetch').and.callFake(function(params){
+          params.error();
+        });
+        controller.showLearningResource();
+      });
+
+      it('fetches the undefined model', function(){
+        expect(controller.initializeModel).toHaveBeenCalledWith({id:undefined});
+        expect(controller.model.attributes.id).toBe(undefined);
+      });
+
+      it('fails to render the view', function(){
+        expect(controller.renderError).toHaveBeenCalled();
+        expect($('body')).toHaveText('There was a problem');
+      });
+
+    });//no learning resource id
+
+  });//calling showLearningResource
+
+});//learning resource controller

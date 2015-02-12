@@ -36,7 +36,7 @@ module.exports = Backbone.View.extend({
   cancel: function(){
     this.$('#title').val(this.model.get('title'));
     this.$('#desc').val(this.model.get('description'));
-    this.$('#authors').val(this.model.get('authors'));
+    this.$('#auth').val(this.model.get('authors'));
     this.$('select option[value="'+this.model.get('resourceType')+'"]')
         .attr('selected','selected');
     $('#form-area').removeClass('sty-form'); //remove bg color of form
@@ -94,14 +94,6 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  // showErrors: function(errors){
-  //   _.each(errors, function(error) {
-  //     var controlGroup = this.$('.' + error.name);
-  //     controlGroup.addClass('error');
-  //     controlGroup.find('body').append(error.message);
-  //   }, this);
-  // },
-
   render: function(){
     var context = this.model.toJSON();
     var auth = this.model.get('authors').toString().split(',').join(', ');
@@ -116,6 +108,6 @@ module.exports = Backbone.View.extend({
 
   destroy: function(){
     this.model.destroy();
-    $('body').html('Successfully deleted.');
+    this.remove();
   }
 });
