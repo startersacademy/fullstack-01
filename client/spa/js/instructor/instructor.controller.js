@@ -7,7 +7,7 @@ var View = require('./instructor.view');
 
 module.exports = Backbone.Controller.extend({
   routes: {
-    'instructor/:id': 'showInstructor'
+    'instructors/:id': 'showInstructor'
   },
   initialize: function(){
     this.options.container = this.options.container || 'body';

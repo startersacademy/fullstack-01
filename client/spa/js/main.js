@@ -2,10 +2,12 @@
 
 window.Backbone = require('./vendor').Backbone;
 
-// Include your code -- bundled into a package to run in the browser
+// Include your code
 var Instructor = require('./instructor/instructor.controller');
+var Resource = require('./learning-resource/learning-resource.controller');
 // Initialize it
 window.instructor = new Instructor({router:true, container: 'body'});
+window.resource = new Resource({router:true, container: 'body'});
 
 // Additional modules go here
 

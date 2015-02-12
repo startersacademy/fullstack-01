@@ -103,17 +103,6 @@ describe('Instructor view ', function(){
 
     });
 
-    xdescribe('when the user clicks on the Save button ', function(){
-      xit('updates the model', function(){
-
-      });
-    });
-
-    xdescribe('when the user clicks on ... ', function(){
-      xit('triggers the ... event', function(){
-      });
-    });
-
   });  // end edit/update test
 
   describe('when the user clicks on the Delete button ', function(){
