@@ -5,6 +5,7 @@ var spawn = require('child_process').spawn;
 var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 var server = require('gulp-develop-server');
+var cover = require('gulp-coverage');
 var jasmine = require('gulp-jasmine');
 var karma = require('karma').server;
 var jshint = require('gulp-jshint');
@@ -88,7 +89,14 @@ gulp.task('test:integration', function (done) {
 // Runs api tests with frisbyjs and jasmine-node
 gulp.task('test:api', function () {
   return gulp.src('./spec/api/**')
-    .pipe(jasmine());
+    .pipe(cover.instrument({
+      pattern: ['common/**', 'server/**', 'spec/api/**'],
+      debugDirectory: 'debug'
+    }))
+    .pipe(jasmine())
+    .pipe(cover.gather())
+    .pipe(cover.format({outFile: 'api-coverage.html'}))
+    .pipe(gulp.dest('reports'));
 });
 
 // Runs unit tests with karma
