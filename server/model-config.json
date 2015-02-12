@@ -26,6 +26,10 @@
     "dataSource": "db",
     "public": false
   },
+  "course": {
+    "dataSource": "db",
+    "public": true
+  },
   "learning-resource": {
     "dataSource": "db",
     "public": true
