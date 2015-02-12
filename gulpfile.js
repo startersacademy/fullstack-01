@@ -149,6 +149,13 @@ gulp.task('test:all',
     'test:integration',
     'server:stop'));
 
+// Runs entire test suite
+gulp.task('test:api-with-server',
+  gulpSequence(
+    'server:start',
+    'test:api',
+    'server:stop'));
+
 // Shortcut to run the entire test suite
 gulp.task('test', ['test:all'], function(done){
   // Using the callback before process.exit helps log seem finished
