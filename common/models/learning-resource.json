@@ -1,5 +1,5 @@
 {
-  "name": "course",
+  "name": "learning-resource",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
@@ -7,26 +7,21 @@
       "type": "string",
       "required": true
     },
-    "courseType": {
+    "resourceType": {
       "type": "string",
       "required": true
     },
     "description": {
       "type": "string",
       "required": true
+    },
+    "authors": {
+      "type": "array",
+      "required": true
     }
   },
   "validations": [],
-  "relations": {
-    "student": {
-      "type": "hasAndBelongsToMany",
-      "model": "student"
-    },
-    "instructor": {
-      "type": "hasOne",
-      "model": "instructor"
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": []
 }

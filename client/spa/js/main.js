@@ -1,11 +1,12 @@
-/* global window require */
+/* global window, require */
 
 window.Backbone = require('./vendor').Backbone;
 
 // Include your code
-//var Contact = require('./contact/contact.controller');
+var Resource = require('./learning-resource/learning-resource.controller');
+
 // Initialize it
-//window.contact = new Contact({router:true, container: 'body'});
+window.resource = new Resource({router:true, container: 'body'});
 
 // Additional modules go here
 
