@@ -84,16 +84,14 @@ describe('Instructor model ', function(){
     });
 
     it('does not save when firstName and lastName are empty ', function(){
-      model.set('firstName', null);
-      model.set('lastName', null);
+      model.set({firstName:null, lastName:null});
       model.save();
       expect(model.validationError).toEqual(['firstName cannot be empty',
                                              'lastName cannot be empty']);
     });
 
     it('does not save when firstName and skills are empty ', function(){
-      model.set('firstName', null);
-      model.set('skills', null);
+      model.set({firstName:null, skills:null});
       model.save();
       expect(model.validationError).toEqual(['firstName cannot be empty',
                                              'skills cannot be empty']);
@@ -106,8 +104,7 @@ describe('Instructor model ', function(){
     });
 
     it('does not save when lastName and skills are empty ', function(){
-      model.set('lastName', null);
-      model.set('skills', null);
+      model.set({lastName:null, skills:null});
       model.save();
       expect(model.validationError).toEqual(['lastName cannot be empty',
                                              'skills cannot be empty']);
@@ -120,9 +117,7 @@ describe('Instructor model ', function(){
     });
 
     it('does not save when all fields are empty ', function(){
-      model.set('firstName', null);
-      model.set('lastName', null);
-      model.set('skills', null);
+      model.set({firstName:null, lastName:null, skills:null});
       model.save();
       expect(model.validationError).toEqual(['firstName cannot be empty',
                                              'lastName cannot be empty',
