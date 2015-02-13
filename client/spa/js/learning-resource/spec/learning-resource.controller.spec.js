@@ -28,7 +28,7 @@ describe('Learning resource controller', function(){
 
     it('has the expected routes', function(){
       expect(controller.routes).toEqual(jasmine.objectContaining({
-        'learning-resource/:id': 'showLearningResource'
+        'learning-resources/:id': 'showLearningResource'
       }));
     });
 

@@ -8,7 +8,7 @@ var View = require('./learning-resource.view');
 module.exports = Backbone.Controller.extend({
 
   routes: {
-    'learning-resource/:id': 'showLearningResource'
+    'learning-resources/:id': 'showLearningResource'
   },
 
   initialize: function(){
