@@ -8,6 +8,7 @@ var fs = require('fs'); //will be replaced by brfs in the browser
 
 // readFileSync will be evaluated statically so errors can't be caught
 var template = fs.readFileSync(__dirname + '/student.html', 'utf8');
+var editTemplate = fs.readFileSync(__dirname + '/editStudent.html', 'utf8');
 
 module.exports = Backbone.View.extend({
 
@@ -15,12 +16,18 @@ module.exports = Backbone.View.extend({
 
   template: _.template(template),
 
+  editTemplate: _.template(editTemplate),
+
   events: {
-    'click .delete': 'destroy'
+    'click .s-delete': 'destroy',
+    'click .s-edit': 'edit',
+    'click .s-save': 'save',
+    'click .s-cancel': 'cancel'
   },
 
   initialize: function(){
     this.listenTo(this.model, 'destroy', this.remove);
+    this.listenTo(this.model, 'change', this.render);
   },
 
   render: function(){
@@ -30,8 +37,40 @@ module.exports = Backbone.View.extend({
   },
 
   destroy: function(){
-    this.$e1.html('<p>There was a problem destroying this student</p>');
     this.model.destroy();
+  },
+
+  edit: function(e){
+    var context = this.model.toJSON();
+    this.$el.html(this.editTemplate(context));
+
+    return this;
+  },
+
+  save: function(e) {
+    e.preventDefault(); // if there's no changes, do not do anything
+
+    var formData = {
+      firstName: this.$('#firstName').val().trim(),
+      lastName: this.$('#lastName').val().trim()
+    };
+    var validate = {
+      success: function() {
+        $('#result').addClass('success')
+                    .html('Successfully updated student')
+                    .fadeIn().delay(4000).fadeOut();
+      },
+      error: function(model, error) {
+
+      }
+    };
+
+    this.model.save(formData, validate);
+  },
+
+  cancel: function(e) {
+    e.preventDefault();  // prevent event bubbling
+    this.render();
   }
 
 });
