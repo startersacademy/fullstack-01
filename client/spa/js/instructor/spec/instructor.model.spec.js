@@ -17,61 +17,111 @@ describe('Instructor model ', function(){
       model = new Model();
     });
 
-    xit('initializes with custom logic', function(){
+    it('has the expected routes', function(){
+      expect(model.urlRoot).toEqual('/api/instructors');
     });
   });
 
-  describe('when updating the model for instructor ', function(){
+  describe('when updating the model for instructor with errorSpy ', function(){
     var errorSpy;
 
     beforeEach(function(){
       errorSpy = jasmine.createSpy('Invalid');
       model = new Model({
-        id: 1
+        id: 1,
+        firstName: 'Jeff',
+        lastName: 'Thomas',
+        skills: 'C++, Java'
       });
       model.on('invalid', errorSpy);
-      model.save();
     });
 
     it('does not save when firstName is empty ', function(){
+      model.set('firstName', null);
+      model.save();
       expect(errorSpy).toHaveBeenCalled();
-      expect(errorSpy).toHaveBeenCalledWith(
-        model,
-        'firstName cannot be empty',
-        { validate: true, validationError: 'firstName cannot be empty'}
-      );
+      expect(errorSpy.calls.mostRecent().args[0]).toBe(model);
+      expect(errorSpy.calls.mostRecent().args[1][0]).toEqual(
+        'firstName cannot be empty');
     });
 
-    // Use if you have transformation logic on set
-    xit('sets the values correctly ', function(){
-
+    it('does not save when lastName is empty ', function(){
+      model.set('lastName', null);
+      model.save();
+      expect(errorSpy).toHaveBeenCalled();
+      expect(errorSpy.calls.mostRecent().args[0]).toBe(model);
+      expect(errorSpy.calls.mostRecent().args[1][0]).toEqual(
+        'lastName cannot be empty');
     });
 
-    // Use if you have transformation logic on get
-    xit('retrieves the correct values ', function(){
-
+    it('does not save when skills is empty ', function(){
+      model.set('skills', null);
+      model.save();
+      expect(errorSpy).toHaveBeenCalled();
+      expect(errorSpy.calls.mostRecent().args[0]).toBe(model);
+      expect(errorSpy.calls.mostRecent().args[1][0]).toEqual(
+        'skills cannot be empty');
     });
   });
 
-  describe('when changing the state of the model ', function(){
-    var eventSpy;
+  describe('when changing the state of the model without errorSpy', function(){
 
     beforeEach(function(){
-      eventSpy = jasmine.createSpy('Change Event');
+
       model = new Model({
         id: 1,
         firstName: 'Mike',
-        lastName: 'Foster'
+        lastName: 'Foster',
+        skills: 'reading'
       });
-      model.on('foo', eventSpy);
-      model.set({firstName: 'changed', lastName: 'changed'});
+
     });
 
-    it('triggers the custom event foo', function(){
-      expect(eventSpy).toHaveBeenCalled();
-      expect(eventSpy).toHaveBeenCalledWith(
-        'bar'
-        );
+    it('does not save when firstName is empty ', function(){
+      model.set('firstName', null);
+      model.save();
+      expect(model.validationError).toEqual(['firstName cannot be empty']);
+    });
+
+    it('does not save when firstName and lastName are empty ', function(){
+      model.set({firstName:null, lastName:null});
+      model.save();
+      expect(model.validationError).toEqual(['firstName cannot be empty',
+                                             'lastName cannot be empty']);
+    });
+
+    it('does not save when firstName and skills are empty ', function(){
+      model.set({firstName:null, skills:null});
+      model.save();
+      expect(model.validationError).toEqual(['firstName cannot be empty',
+                                             'skills cannot be empty']);
+    });
+
+    it('does not save when lastName is empty ', function(){
+      model.set('lastName', null);
+      model.save();
+      expect(model.validationError).toEqual(['lastName cannot be empty']);
+    });
+
+    it('does not save when lastName and skills are empty ', function(){
+      model.set({lastName:null, skills:null});
+      model.save();
+      expect(model.validationError).toEqual(['lastName cannot be empty',
+                                             'skills cannot be empty']);
+    });
+
+    it('does not save when skills is empty ', function(){
+      model.set('skills', null);
+      model.save();
+      expect(model.validationError).toEqual(['skills cannot be empty']);
+    });
+
+    it('does not save when all fields are empty ', function(){
+      model.set({firstName:null, lastName:null, skills:null});
+      model.save();
+      expect(model.validationError).toEqual(['firstName cannot be empty',
+                                             'lastName cannot be empty',
+                                             'skills cannot be empty']);
     });
   });
 });

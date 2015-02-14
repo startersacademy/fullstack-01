@@ -69,7 +69,7 @@ describe('Instructor view ', function(){
       // call delegate after spyOn
       view.delegateEvents();
       view.render();
-      view.$('.edit').trigger('click');
+      view.$('.i-edit').trigger('click');
     });
 
     describe('when the user enters new instructor information ', function(){
@@ -77,7 +77,7 @@ describe('Instructor view ', function(){
       describe('when user clicks on the cancel button', function(){
 
         beforeEach(function(){
-          view.$('.cancel').trigger('click');
+          view.$('.i-cancel').trigger('click');
         });
 
         it('cancels the user input', function(){
@@ -91,7 +91,7 @@ describe('Instructor view ', function(){
           view.$('#lastName').val('changed lastName');
           view.$('#skills').val('changed skills');
 
-          view.$('.save').trigger('click');
+          view.$('.i-save').trigger('click');
         });
 
         it('updates the model', function(){
@@ -101,17 +101,6 @@ describe('Instructor view ', function(){
 
       });
 
-    });
-
-    xdescribe('when the user clicks on the Save button ', function(){
-      xit('updates the model', function(){
-
-      });
-    });
-
-    xdescribe('when the user clicks on ... ', function(){
-      xit('triggers the ... event', function(){
-      });
     });
 
   });  // end edit/update test
@@ -131,7 +120,7 @@ describe('Instructor view ', function(){
     it('deletes the model', function(){
       // Must render for the event to be fired
       view.render();
-      view.$('.delete').trigger('click');
+      view.$('.i-delete').trigger('click');
       expect(view.destroy).toHaveBeenCalled();
       expect(model.destroy).toHaveBeenCalled();
     });  // end delete model test

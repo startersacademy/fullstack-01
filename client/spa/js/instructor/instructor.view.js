@@ -12,10 +12,10 @@ module.exports = Backbone.View.extend({
   template: _.template(template),
   editTemplate: _.template(editTemplate),
   events: {
-    'click .delete': 'destroy',
-    'click .edit': 'edit',
-    'click .save': 'save',
-    'click .cancel': 'cancel'
+    'click .i-delete': 'destroy',
+    'click .i-edit': 'edit',
+    'click .i-save': 'save',
+    'click .i-cancel': 'cancel'
   },
   initialize: function(){
     this.listenTo(this.model, 'destroy', this.remove);

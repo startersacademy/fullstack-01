@@ -25,7 +25,7 @@ describe('Instructor controller', function(){
 
     it('has the expected routes', function(){
       expect(controller.routes).toEqual(jasmine.objectContaining({
-        'instructor/:id': 'showInstructor'
+        'instructors/:id': 'showInstructor'
       }));
     });
 
@@ -89,7 +89,7 @@ describe('Instructor controller', function(){
         expect($('body')).toHaveText(
           'There was a problem rendering this instructor');
       };
-      controller.showInstructor(1, cb);
+      controller.showInstructor('whatid', cb);
     });
   });
 });

@@ -14,14 +14,16 @@ module.exports = Backbone.Model.extend({
     });
   },
   validate: function(attrs){
+    var errors = [];
     if (!attrs.firstName){
-      return 'firstName cannot be empty';
+      errors.push('firstName cannot be empty');
     }
     if (!attrs.lastName){
-      return 'lastName cannot be empty';
+      errors.push('lastName cannot be empty');
     }
     if (!attrs.skills){
-      return 'skills cannot be empty';
+      errors.push('skills cannot be empty');
     }
+    return errors;
   }
 });
