@@ -1,11 +1,8 @@
 'use strict';
-
 var Backbone = require('../vendor/index').Backbone;
 var _ = require('../vendor/index')._;
 var $ = require('../vendor/index').$;
-
 var fs = require('fs'); //will be replaced by brfs in the browser
-
 // readFileSync will be evaluated statically so errors can't be caught
 var template = fs.readFileSync(__dirname + '/student.html', 'utf8');
 var editTemplate = fs.readFileSync(__dirname + '/editStudent.html', 'utf8');
@@ -19,10 +16,10 @@ module.exports = Backbone.View.extend({
   editTemplate: _.template(editTemplate),
 
   events: {
-    'click .s-delete': 'destroy',
-    'click .s-edit': 'edit',
-    'click .s-save': 'save',
-    'click .s-cancel': 'cancel'
+    'click .delete': 'destroy',
+    'click .modify': 'modify',
+    'click .save': 'save',
+    'click .cancel': 'cancel'
   },
 
   initialize: function(){
@@ -40,7 +37,7 @@ module.exports = Backbone.View.extend({
     this.model.destroy();
   },
 
-  edit: function(e){
+  modify: function(e){
     var context = this.model.toJSON();
     this.$el.html(this.editTemplate(context));
 
@@ -74,4 +71,3 @@ module.exports = Backbone.View.extend({
   }
 
 });
-
