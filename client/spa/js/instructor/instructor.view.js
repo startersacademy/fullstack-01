@@ -38,24 +38,23 @@ module.exports = Backbone.View.extend({
   },
   save: function(e) {
     e.preventDefault(); // if there's no changes, do not do anything
-
     var formData = {
       firstName: this.$('#firstName').val().trim(),
       lastName: this.$('#lastName').val().trim(),
       skills: this.$('#skills').val().trim()
     };
-    var validate = {
+    var options = {
       success: function() {
         $('#result').addClass('success')
                     .html('Successfully updated instructor')
                     .fadeIn().delay(4000).fadeOut();
       },
       error: function(model, error) {
-
+        console.log('error');
       }
     };
-
-    this.model.save(formData, validate);
+    this.model.save(formData, options);
+    console.log(this.model);
   },
   cancel: function(e) {
     e.preventDefault();  // prevent event bubbling
