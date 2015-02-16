@@ -7,8 +7,8 @@ module.exports = Backbone.Collection.extend({
   url: '/api/students/',
 
   initialize: function(){
-    this.on('sortByFirstName', this.sortById);
-    this.on('sortByLastName', this.sortByTitle);
+    this.on('sortByFirstName', this.sortByFirstName);
+    this.on('sortByLastName', this.sortByLastName);
     this.trigger('sortByFirstName');
     this.trigger('sortByLastName');
   },
