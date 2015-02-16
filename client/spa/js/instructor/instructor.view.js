@@ -44,21 +44,34 @@ module.exports = Backbone.View.extend({
       lastName: this.$('#lastName').val().trim(),
       skills: this.$('#skills').val().trim()
     };
-    var validate = {
+    var check = {
       success: function() {
         $('#result').addClass('success')
                     .html('Successfully updated instructor')
                     .fadeIn().delay(4000).fadeOut();
+        this.hideErrors();  // hide if successful for validation array to work
       },
-      error: function(model, error) {
-
+      error: function(model, errors) {
+        this.showErrors(errors);
       }
     };
 
-    this.model.save(formData, validate);
+    this.model.save(formData, check);
   },
   cancel: function(e) {
     e.preventDefault();  // prevent event bubbling
     this.render();
+  },
+  showErrors: function(errors) {
+    _.each(errors, function (error) {
+        var fields = this.$('.' + error.name);
+        fields.addClass('error');
+        fields.find('.help-inline').text(error.message);
+    }, this);
+  },
+
+  hideErrors: function () {
+    this.$('.textfield').removeClass('error');
+    this.$('.help-inline').text('');
   }
 });
