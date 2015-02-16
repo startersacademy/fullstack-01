@@ -58,7 +58,7 @@ module.exports = Backbone.View.extend({
                     .fadeIn().delay(4000).fadeOut();
         this.hideErrors();  // hide if successful for validation array to work
       },
-      error: function(model, error) {
+      error: function(model, errors) {
         this.showErrors(errors);
       }
     };
