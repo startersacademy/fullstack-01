@@ -56,7 +56,7 @@ module.exports = Backbone.Controller.extend({
 
   renderError: function(){
     return this.renderToContainer(
-      '<p>There was a problem rendering contacts</p>');
+      '<p>There was a problem rendering learning resources</p>');
   }
 
 });
