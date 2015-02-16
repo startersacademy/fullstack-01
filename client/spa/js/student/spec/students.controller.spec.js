@@ -5,13 +5,13 @@ spyOn
 
 // Get the code you want to test
 var Backbone = require('../../vendor/index').Backbone;
-var Controller = require('../learning-resources.controller');
+var Controller = require('../students.controller');
 var $ = require('jquery');
 var matchers = require('jasmine-jquery-matchers');
 
 // Test suite
-console.log('test learning-resources.controller');
-describe('Learning resources controller', function(){
+console.log('test students.controller');
+describe('Students controller', function(){
 
   var controller;
 
@@ -27,7 +27,7 @@ describe('Learning resources controller', function(){
 
     it('has the expected routes', function(){
       expect(controller.routes).toEqual(jasmine.objectContaining({
-        'learning-resources': 'showLearningResources'
+        'students': 'showStudents'
       }));
     });
 
@@ -41,7 +41,7 @@ describe('Learning resources controller', function(){
     });
   });
 
-  describe('when asked to showLearningResources', function(){
+  describe('when asked to show students', function(){
 
     beforeEach(function(){
       jasmine.addMatchers(matchers);
@@ -60,41 +60,41 @@ describe('Learning resources controller', function(){
 
       it('sets up the collection if it is not already', function(){
         expect(controller.collection).not.toBeDefined();
-        controller.showLearningResources();
+        controller.showStudents();
         expect(controller.collection).toBeDefined();
       });
 
       it('uses the existing collection if it is already setup', function(){
-        controller.showLearningResources();
+        controller.showStudents();
         controller.collection.add({id: 'xyz'});
-        controller.showLearningResources();
+        controller.showStudents();
         expect(controller.collection.at(0).get('id')).toEqual('xyz');
       });
 
       it('fetches data for the collection', function(){
-        controller.showLearningResources();
+        controller.showStudents();
         expect(controller.collection.fetch).toHaveBeenCalled();
       });
 
       it('sets up the view if it is not already', function(){
         expect(controller.view).not.toBeDefined();
-        controller.showLearningResources();
+        controller.showStudents();
         expect(controller.view).toBeDefined();
       });
 
       it('uses the existing view if it is already setup', function(){
-        controller.showLearningResources();
+        controller.showStudents();
         controller.view.test = true;
-        controller.showLearningResources();
+        controller.showStudents();
         expect(controller.view.test).toBeTruthy();
       });
 
       it('renders the view to the correct container', function() {
         spyOn(controller, 'renderView').and.callThrough();
-        controller.showLearningResources();
+        controller.showStudents();
         var returnedView = controller.renderView.calls.mostRecent().object.view;
         expect(returnedView).toEqual(controller.view);
-        expect($('body h3')).toHaveText('Learning Resources');
+        expect($('body h3')).toHaveText('Students');
       });
 
     });
@@ -110,8 +110,8 @@ describe('Learning resources controller', function(){
       });
 
       it('renders error', function(){
-        controller.showLearningResources();
-        expect($('body')).toHaveText('There was a problem rendering contacts');
+        controller.showStudents();
+        expect($('body')).toHaveText('There was a problem rendering students');
       });
 
     });
@@ -119,4 +119,3 @@ describe('Learning resources controller', function(){
   });
 
 });
-
