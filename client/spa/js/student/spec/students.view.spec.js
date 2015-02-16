@@ -4,14 +4,14 @@ spyOn
 */
 
 // Get the code you want to test
-var View = require('../learning-resources.view.js');
+var View = require('../students.view.js');
 var matchers = require('jasmine-jquery-matchers');
 var _ = require('../../vendor/index')._;
 var Backbone = require('../../vendor/index').Backbone;
 
 // Test suite
-console.log('test learning-resources.view');
-describe('Learning resources view ', function(){
+console.log('test students.view');
+describe('Students view ', function(){
 
   var model;
   var collection;
@@ -25,10 +25,9 @@ describe('Learning resources view ', function(){
     var Collection = Backbone.Collection.extend({model: Model});
     // Needs to have the fields required by the template
     model = new Model({
-      title: 'Meow',
-      resourceType: 'presentation',
-      description: 'Purrr',
-      authors: 'Mr. Meowmers'
+      firstName: 'Ash',
+      lastName: 'Ketchum',
+      skills: 'pokemon master, growl'
     });
 
     collection = new Collection(model);
@@ -47,7 +46,7 @@ describe('Learning resources view ', function(){
 
     it('sets the correct class', function () {
       view.render();
-      expect(view.$el).toHaveClass('learning-resources');
+      expect(view.$el).toHaveClass('students');
     });
 
   });
@@ -82,22 +81,100 @@ describe('Learning resources view ', function(){
     });
     it('produces the correct HTML', function(){
       view.render();
-      expect(view.$el[0]).toHaveText('Meow');
+      expect(view.$el[0]).toHaveText('Ash');
     });
 
   });
 
-  // describe('when the user clicks on the Sort By Id button ', function(){
+  describe('when the user clicks on the First Name header ', function(){
+
+    beforeEach(function(){
+      view.render();
+    });
+
+    it('triggers the sortByFirstName event on the collection', function(){
+      var spy = jasmine.createSpy('sortByFirstName');
+      collection.on('sortByFirstName', spy);
+
+      view.$('.sortByFirstName').trigger('click');
+
+      expect(spy).toHaveBeenCalled();
+
+    });
+
+    it('renders the view', function(){
+      spyOn(view, 'render');
+
+      view.$('.sortByFirstName').trigger('click');
+
+      expect(view.render).toHaveBeenCalled();
+    });
+
+  });
+
+  describe('when the user clicks on the LastName header ', function(){
+
+    beforeEach(function(){
+      view.render();
+    });
+
+    it('triggers the sortByLastName event on the collection', function(){
+      var spy = jasmine.createSpy('sortByLastName');
+      collection.on('sortByLastName', spy);
+
+      view.$('.sortByLastName').trigger('click');
+
+      expect(spy).toHaveBeenCalled();
+
+    });
+
+    it('renders the view', function(){
+      spyOn(view, 'render');
+
+      view.$('.sortByLastName').trigger('click');
+
+      expect(view.render).toHaveBeenCalled();
+    });
+
+  });
+
+  describe('when the user clicks on the Skills header ', function(){
+
+    beforeEach(function(){
+      view.render();
+    });
+
+    it('triggers the sortBySkills event on the collection', function(){
+      var spy = jasmine.createSpy('sortBySkills');
+      collection.on('sortBySkills', spy);
+
+      view.$('.sortBySkills').trigger('click');
+
+      expect(spy).toHaveBeenCalled();
+
+    });
+
+    it('renders the view', function(){
+      spyOn(view, 'render');
+
+      view.$('.sortBySkills').trigger('click');
+
+      expect(view.render).toHaveBeenCalled();
+    });
+
+  });
+
+  // describe('when the user clicks on the Courses header ', function(){
 
   //   beforeEach(function(){
   //     view.render();
   //   });
 
-  //   it('triggers the sortById event on the collection', function(){
-  //     var spy = jasmine.createSpy('sortById');
-  //     collection.on('sortById', spy);
+  //   it('triggers the sortByCourses event on the collection', function(){
+  //     var spy = jasmine.createSpy('sortByCourses');
+  //     collection.on('sortByCourses', spy);
 
-  //     view.$('.sortById').trigger('click');
+  //     view.$('.sortByCourses').trigger('click');
 
   //     expect(spy).toHaveBeenCalled();
 
@@ -106,116 +183,12 @@ describe('Learning resources view ', function(){
   //   it('renders the view', function(){
   //     spyOn(view, 'render');
 
-  //     view.$('.sortById').trigger('click');
+  //     view.$('.sortByCourses').trigger('click');
 
   //     expect(view.render).toHaveBeenCalled();
   //   });
 
   // });
-
-  describe('when the user clicks on the Title header ', function(){
-
-    beforeEach(function(){
-      view.render();
-    });
-
-    it('triggers the sortByTitle event on the collection', function(){
-      var spy = jasmine.createSpy('sortByTitle');
-      collection.on('sortByTitle', spy);
-
-      view.$('.sortByTitle').trigger('click');
-
-      expect(spy).toHaveBeenCalled();
-
-    });
-
-    it('renders the view', function(){
-      spyOn(view, 'render');
-
-      view.$('.sortByTitle').trigger('click');
-
-      expect(view.render).toHaveBeenCalled();
-    });
-
-  });
-
-  describe('when the user clicks on the Type header ', function(){
-
-    beforeEach(function(){
-      view.render();
-    });
-
-    it('triggers the sortByTitle event on the collection', function(){
-      var spy = jasmine.createSpy('sortByResourceType');
-      collection.on('sortByResourceType', spy);
-
-      view.$('.sortByResourceType').trigger('click');
-
-      expect(spy).toHaveBeenCalled();
-
-    });
-
-    it('renders the view', function(){
-      spyOn(view, 'render');
-
-      view.$('.sortByResourceType').trigger('click');
-
-      expect(view.render).toHaveBeenCalled();
-    });
-
-  });
-
-  describe('when the user clicks on the Authors header ', function(){
-
-    beforeEach(function(){
-      view.render();
-    });
-
-    it('triggers the sortByTitle event on the collection', function(){
-      var spy = jasmine.createSpy('sortByAuthors');
-      collection.on('sortByAuthors', spy);
-
-      view.$('.sortByAuthors').trigger('click');
-
-      expect(spy).toHaveBeenCalled();
-
-    });
-
-    it('renders the view', function(){
-      spyOn(view, 'render');
-
-      view.$('.sortByAuthors').trigger('click');
-
-      expect(view.render).toHaveBeenCalled();
-    });
-
-  });
-
-    describe('when the user clicks on the Description header ', function(){
-
-    beforeEach(function(){
-      view.render();
-    });
-
-    it('triggers the sortByDescription event on the collection', function(){
-      var spy = jasmine.createSpy('sortByDescription');
-      collection.on('sortByDescription', spy);
-
-      view.$('.sortByDescription').trigger('click');
-
-      expect(spy).toHaveBeenCalled();
-
-    });
-
-    it('renders the view', function(){
-      spyOn(view, 'render');
-
-      view.$('.sortByDescription').trigger('click');
-
-      expect(view.render).toHaveBeenCalled();
-    });
-
-  });
 
 });
 

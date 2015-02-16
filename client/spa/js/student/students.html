@@ -6,6 +6,7 @@
         <!-- <th class="studn-tbl-h-n">#</th> -->
         <th class="studn-tbl-h-fn"><a class="sortByFirstName">First Name</a></th>
         <th class="studn-tbl-h-ln"><a class="sortByLastName">Last Name</a></th>
+        <th class="studn-tbl-h-sk"><a class="sortBySkills">Skills</a></th>
         <th class="studn-tbl-h-cr"><a class="sortByCourses">Courses</a></th>
       </tr>
       <% _.each( models, function( model ){ %>
@@ -13,6 +14,7 @@
         <!-- <td></td> -->
         <td><%- model.attributes.firstName %></td>
         <td><%- model.attributes.lastName %></td>
+        <td><%- model.attributes.skills %></td>
         <td><%- model.attributes.courses %></td>
       </tr>
       <% }); %>
