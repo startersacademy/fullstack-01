@@ -4,5 +4,10 @@
 <p><%- courseType %></p>
 <p><%- description %></p>
 <button class="delete">Delete</button>
-<button class="edit">Edit</button>
+<form method="PUT" action="/api/courses/" >
+  <input type="text" value="<%- title %>" name="title">
+  <input type="text" value="<%- courseType %>" name="courseType">
+  <input type="text" value="<%- description %>" name="description">
+<button class="edit" value="submit">Edit</button>
+</form>
 

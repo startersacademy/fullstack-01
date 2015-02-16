@@ -20,7 +20,8 @@ module.exports = Backbone.View.extend({
   template: _.template(template),
 
   events: {
-    'click .delete': 'destroy'
+    'click .delete': 'destroy',
+    'click .edit': 'change'
   },
 
   initialize: function(){
@@ -35,6 +36,24 @@ module.exports = Backbone.View.extend({
 
   destroy: function(){
     this.model.destroy();
+  },
+
+  change: function(event){
+    event.preventDefault();
+    var title = this.$('input[name="title"]').val();
+    var courseType = this.$('input[name="courseType"]').val();
+    var description = this.$('input[name="description"]').val();
+    var self = this;
+    this.model.save({title:title, courseType:courseType, description:description}, {
+      success: function(){
+        self.render();
+      },
+      error: function(){
+        alert('This did not save correctly')
+      }
+    });
+    console.log(title);
   }
+
 
 });
