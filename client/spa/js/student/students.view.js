@@ -17,7 +17,6 @@ module.exports = Backbone.View.extend({
   events:{
     'click .sortByFirstName': 'sortByFirstName',
     'click .sortByLastName': 'sortByLastName',
-    'click .sortBySkills': 'sortBySkills',
   },
 
   initialize: function() {
@@ -45,11 +44,6 @@ module.exports = Backbone.View.extend({
 
   sortByLastName: function(){
     this.collection.trigger('sortByLastName');
-    this.render();
-  },
-
-  sortBySkills: function(){
-    this.collection.trigger('sortBySkills');
     this.render();
   },
 

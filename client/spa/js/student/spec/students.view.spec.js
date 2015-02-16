@@ -138,32 +138,6 @@ describe('Students view ', function(){
 
   });
 
-  describe('when the user clicks on the Skills header ', function(){
-
-    beforeEach(function(){
-      view.render();
-    });
-
-    it('triggers the sortBySkills event on the collection', function(){
-      var spy = jasmine.createSpy('sortBySkills');
-      collection.on('sortBySkills', spy);
-
-      view.$('.sortBySkills').trigger('click');
-
-      expect(spy).toHaveBeenCalled();
-
-    });
-
-    it('renders the view', function(){
-      spyOn(view, 'render');
-
-      view.$('.sortBySkills').trigger('click');
-
-      expect(view.render).toHaveBeenCalled();
-    });
-
-  });
-
   // describe('when the user clicks on the Courses header ', function(){
 
   //   beforeEach(function(){
@@ -191,4 +165,3 @@ describe('Students view ', function(){
   // });
 
 });
-

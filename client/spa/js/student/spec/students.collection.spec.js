@@ -4,11 +4,11 @@ spyOn
 */
 
 // Get the code you want to test
-var Collection = require('../learning-resources.collection');
+var Collection = require('../students.collection');
 
 // Test suite
-console.log('test learning-resources.collection');
-describe('Learning resources collection ', function(){
+console.log('test students.collection');
+describe('Students collection ', function(){
 
   var collection;
   var modelA;
@@ -19,22 +19,18 @@ describe('Learning resources collection ', function(){
     // Set up test data
     modelA = {
       id: 2,
-      title: 'A',
-      resourceType: 'link',
-      description: 'reading',
-      authors: 'mom'
+      firstName: 'Ar',
+      lastName: 'gon'
     };
-    modelB = {id: 0,
-      title: 'M',
-      resourceType: 'presentation',
-      description: 'mixing',
-      authors: 'bro'
+    modelB = {
+      id: 0,
+      firstName: 'He',
+      lastName: 'lium'
     };
-    modelC = {id: 1,
-      title: 'X',
-      resourceType: 'document',
-      description: 'listing',
-      authors: 'hass'
+    modelC = {
+      id: 1,
+      firstName: 'Ne',
+      lastName: 'on'
     };
 
   });
@@ -55,20 +51,13 @@ describe('Learning resources collection ', function(){
 
     });
 
-
-    it('orders the models by the contact id', function(){
-      expect(collection.at(0).get('id')).toEqual(modelC.id);
-      expect(collection.at(1).get('id')).toEqual(modelB.id);
-      expect(collection.at(2).get('id')).toEqual(modelA.id);
-    });
-
   });
 
   describe('when the collection interacts with the server', function(){
 
     it('fetches from the correct url', function(){
       collection = new Collection();
-      expect(collection.url).toEqual('/api/learning-resources/');
+      expect(collection.url).toEqual('/api/students/');
     });
 
   });
@@ -88,32 +77,18 @@ describe('Learning resources collection ', function(){
 
     });
 
-    it('sorts by title', function(){
-      collection.trigger('sortByTitle');
-      expect(collection.at(0).get('title')).toEqual(modelA.title);
-      expect(collection.at(1).get('title')).toEqual(modelB.title);
-      expect(collection.at(2).get('title')).toEqual(modelC.title);
+    it('sorts by First Name', function(){
+      collection.trigger('sortByFirstName');
+      expect(collection.at(0).get('firstName')).toEqual(modelA.firstName);
+      expect(collection.at(1).get('firstName')).toEqual(modelB.firstName);
+      expect(collection.at(2).get('firstName')).toEqual(modelC.firstName);
     });
 
-    it('sorts by resource type', function(){
-      collection.trigger('sortByResourceType');
-      expect(collection.at(0).get('resourceType')).toEqual(modelC.resourceType);
-      expect(collection.at(1).get('resourceType')).toEqual(modelA.resourceType);
-      expect(collection.at(2).get('resourceType')).toEqual(modelB.resourceType);
-    });
-
-    it('sorts by authors', function(){
-      collection.trigger('sortByAuthors');
-      expect(collection.at(0).get('authors')).toEqual(modelB.authors);
-      expect(collection.at(1).get('authors')).toEqual(modelC.authors);
-      expect(collection.at(2).get('authors')).toEqual(modelA.authors);
-    });
-
-    it('sorts by description', function(){
-      collection.trigger('sortByDescription');
-      expect(collection.at(0).get('description')).toEqual(modelC.description);
-      expect(collection.at(1).get('description')).toEqual(modelB.description);
-      expect(collection.at(2).get('description')).toEqual(modelA.description);
+    it('sorts by Last Name', function(){
+      collection.trigger('sortByLastName');
+      expect(collection.at(0).get('lastName')).toEqual(modelA.lastName);
+      expect(collection.at(1).get('lastName')).toEqual(modelB.lastName);
+      expect(collection.at(2).get('lastName')).toEqual(modelC.lastName);
     });
 
   });
