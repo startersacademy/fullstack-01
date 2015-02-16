@@ -35,23 +35,34 @@ gulp.task('server:stop', function(done){
 });
 
 
+// Spawns a process on windows
+function windowsSpawn(executable, args, options){
+  return spawn('cmd.exe', ['/c', executable].concat(args), options);
+}
+
 // Runs integration tests with casperjs and phantomjs
+// Using casper with gulp and windows is not intuitive. Change this at your own
+// risk.
 gulp.task('test:integration', function (done) {
   var tests = ['spec/integration'];
-  var isWindows = process.platform === 'win32';
-  var casperCmd = 'casperjs';
+  var casperChild;
   var onError = function(code){
     done(code);
     // Gulp doesn't handle the error properly so clean up properly
     stopServer(1);
   };
 
-  if(isWindows){
-    casperCmd = 'casperjs.cmd';
+  if(process.platform === 'win32'){
+    // Don't inherit stdio here since it causes problems
+    casperChild = windowsSpawn('casperjs', ['test'].concat(tests));
+    // Must handle data here for the tests to execute within the task
+    // Handle this only for windows
+    casperChild.stdout.on('data', function(data){
+      gutil.log('CasperJS:', data.toString().slice(0, -1)); // remove \n
+    });
+  } else {
+    casperChild = spawn('casperjs', ['test'].concat(tests), {stdio: 'inherit'});
   }
-
-  var casperChild = spawn(casperCmd, ['test'].concat(tests),
-    {stdio: 'inherit'});
 
   casperChild.on('close', function (code) {
     if (code) {
@@ -102,7 +113,7 @@ gulp.task('test:unit:tdd', function (done) {
 
 
 // Runs server unit tests with jasmine 2.1
-gulp.task('test:server-unit', function () {
+gulp.task('test:unit:server', function () {
   return gulp.src('server/**/*.spec.js')
     .pipe(jasmine());
 });
@@ -113,6 +124,7 @@ gulp.task('test:lint', function(){
     'apps/**/*.js',
     'server/**/*.js',
     'spec/**/*.js',
+    'client/spa/**/*.js',
     '!client/js/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
@@ -123,7 +135,8 @@ gulp.task('test:all',
   gulpSequence(
     'server:start',
     'test:lint',
-    'test:server-unit',
+    'test:unit',
+    'test:unit:server',
     'test:api',
     'test:integration',
     'server:stop'));

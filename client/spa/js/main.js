@@ -3,9 +3,11 @@
 window.Backbone = require('./vendor').Backbone;
 
 // Include your code
-//var Contact = require('./contact/contact.controller');
+var Instructor = require('./instructor/instructor.controller');
+var Resource = require('./learning-resource/learning-resource.controller');
 // Initialize it
-//window.contact = new Contact({router:true, container: 'body'});
+window.instructor = new Instructor({router:true, container: 'body'});
+window.resource = new Resource({router:true, container: 'body'});
 
 var Course = require('./course/course.controller');
 window.course = new Course({router:true, container: 'body'});
