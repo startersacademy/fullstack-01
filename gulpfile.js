@@ -8,7 +8,6 @@ var server = require('gulp-develop-server');
 var jasmine = require('gulp-jasmine');
 var karma = require('karma').server;
 var jshint = require('gulp-jshint');
-var winSpawn = require('win-spawn');
 
 // Starts server for tasks that require a server
 gulp.task('server:start', function(done){
@@ -67,7 +66,6 @@ gulp.task('test:integration', function (done) {
 
   casperChild.on('close', function (code) {
     if (code) {
-      console.log('close error');
       // If there is an error, format the error object for gulp
       // Gulp depends on the this structure
       var err = {
@@ -81,13 +79,10 @@ gulp.task('test:integration', function (done) {
       };
       onError(err);
     } else {
-      console.log('close');
       // Everything is good
       done();
     }
   });
-
-  console.log('task end');
 });
 
 // Runs api tests with frisbyjs and jasmine-node
