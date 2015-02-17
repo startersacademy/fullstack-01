@@ -111,7 +111,9 @@ describe('Learning resources controller', function(){
 
       it('renders error', function(){
         controller.showLearningResources();
-        expect($('body')).toHaveText('There was a problem rendering learning resources');
+        expect($('body')).toHaveText(
+          'There was a problem rendering learning resources'
+        );
       });
 
     });
