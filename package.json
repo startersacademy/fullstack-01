@@ -54,6 +54,7 @@
     "karma-browserify": "^2.0.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-coverage": "^0.2.6",
+    "karma-coveralls": "^0.1.5",
     "karma-jasmine": "^0.3.5",
     "strongloop": "^2.10.2"
   }
