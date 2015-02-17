@@ -69,13 +69,14 @@ module.exports = Backbone.View.extend({
     var view = this;
 
     var authorsFormat = function() {
-      var auth = [];
-      if ($('#auth').val() === '') auth = null;
+      var authors = [];
+      // console.log($('#auth').val().split(','));
+      if ($('#auth').val() === '') authors = null;
       else {
         $.each($('#auth').val().split(','), function(key,value){
-          auth.push(value.trim());
+          authors.push(value.trim());
         });
-        return auth;
+        return authors;
       }
     };
 
@@ -84,7 +85,7 @@ module.exports = Backbone.View.extend({
         title: this.$('#title').val().trim(),
         resourceType: $('#resourceType option:selected').val(),
         description: this.$('#desc').val().trim(),
-        authors: authorsFormat(this)
+        authors: authorsFormat
       },
       options: {
         success: function(){
