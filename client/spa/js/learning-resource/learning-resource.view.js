@@ -68,13 +68,15 @@ module.exports = Backbone.View.extend({
   save: function(){
     var view = this;
 
-    var authorsFormat = function(self) {
+    var authorsFormat = function() {
       var auth = [];
-      if (self.$('#auth').val() === '') auth = null;
-      else $.each(self.$('#auth').val().split(','), function(){
-        auth.push($.trim(self));
-      });
-      return auth;
+      if ($('#auth').val() === '') auth = null;
+      else {
+        $.each($('#auth').val().split(','), function(key,value){
+          auth.push(value.trim());
+        });
+        return auth;
+      }
     };
 
     var saveArgs = {
