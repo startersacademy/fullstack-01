@@ -1,9 +1,9 @@
 Learning Management System for Neukinnis
 ========================================
 
+[![Build Status](https://img.shields.io/travis/startersacademy/fullstack-project-01/master.svg)](https://travis-ci.org/startersacademy/fullstack-project-01)
+[![Coverage Status](https://img.shields.io/coveralls/startersacademy/fullstack-project-01/master.svg)](https://coveralls.io/r/startersacademy/fullstack-project-01)
 [![Stories in Ready](https://badge.waffle.io/startersacademy/fullstack-project-01.svg?label=ready&title=Ready)](http://waffle.io/startersacademy/fullstack-project-01)
-[![Build Status](https://travis-ci.org/startersacademy/fullstack-project-01.svg?branch=master)](https://travis-ci.org/startersacademy/fullstack-project-01)
-[![Coverage Status](https://coveralls.io/repos/startersacademy/fullstack-project-01/badge.svg)](https://coveralls.io/r/startersacademy/fullstack-project-01)
 
 Requirements
 ------------
