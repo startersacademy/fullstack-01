@@ -1,3 +1,4 @@
+'use strict';
 // spec/api/accounts.spec.js
 
 /* jshint quotmark:false */
