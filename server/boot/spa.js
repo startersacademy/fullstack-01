@@ -1,8 +1,9 @@
 'use strict';
 /**
  * Mounts a single page application on route /spa
- * @namespace server/boot/mountApps
- * @param {Object} server - The loopback (express) application on which the route will be mounted
+ * @namespace server/boot/spa
+ * @param {Object} server - The loopback (express) application on which the
+ * route will be mounted
  * @exports mountApps
  */
 module.exports = function mountApps(server) {
