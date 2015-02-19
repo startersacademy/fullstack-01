@@ -189,7 +189,7 @@ div .txt-help {
 /* Instructors */
 .instructor .main, .instructors .main {
   background: #555;
-  width: 700px;
+  max-width: 700px;
   margin: auto;
   color: #fff;
   padding-bottom: 1em;
@@ -214,8 +214,8 @@ div .txt-help {
 .success {
   color: #8DC63F;
 }
-button {
-  margin-right: 5px;
+button.btn {
+  margin: 0 5px 10px 0;
 }
 input {
   margin: 0 0 1em 0;
