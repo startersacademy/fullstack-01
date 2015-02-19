@@ -164,7 +164,10 @@ gulp.task('doc', function(done){
     if (err) {
       done(err);
     }
-    gulp.src(['./server/**/*.js', './client/spa/js/vendor/index.js', 'README.md'])
+    gulp.src([
+      './server/**/*.js',
+      './client/spa/js/**/*.js',
+      'README.md'])
       .pipe(jsdoc.parser({plugins: ['plugins/markdown']}))
       .pipe(jsdoc.generator('./doc/dist'));
     done();
