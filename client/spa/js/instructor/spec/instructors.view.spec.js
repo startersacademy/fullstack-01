@@ -69,6 +69,7 @@ describe('Instructors view ', function(){
       expect(view.render).toHaveBeenCalled();
     });
   });
+
   describe('when the view is rendered', function(){
     it('returns the view object', function(){
       expect(view.render()).toEqual(view);

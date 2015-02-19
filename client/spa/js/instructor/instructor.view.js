@@ -10,6 +10,7 @@ var editTemplate = fs.readFileSync(__dirname + '/editInstructor.html', 'utf8');
 module.exports = Backbone.View.extend({
   className: 'instructor',
   template: _.template(template),
+  showTemplate: _.template(template),
   editTemplate: _.template(editTemplate),
   events: {
     'click .delete': 'destroy',
@@ -44,15 +45,18 @@ module.exports = Backbone.View.extend({
       lastName: this.$('#lastName').val().trim(),
       skills: this.$('#skills').val().trim()
     };
+
     var check = {
       success: function() {
         $('#result').addClass('success')
-                    .html('Successfully updated instructor')
-                    .fadeIn().delay(4000).fadeOut();
-        this.hideErrors();  // hide if successful for validation array to work
+        .html('Successfully updated instructor')
+        .fadeIn().delay(4000).fadeOut();
       },
       error: function(model, errors) {
-        this.showErrors(errors);
+        /*_.each(errors, function (err) {
+          $('#result').addClass('error');
+          fields.find('.help-inline').text(err);
+        }, this);*/
       }
     };
 
@@ -61,16 +65,5 @@ module.exports = Backbone.View.extend({
   cancel: function(e) {
     e.preventDefault();  // prevent event bubbling
     this.render();
-  },
-  showErrors: function(errors) {
-    _.each(errors, function (error) {
-        var fields = this.$('.' + error.name);
-        fields.addClass('error');
-        fields.find('.help-inline').text(error.message);
-    }, this);
-  },
-  hideErrors: function () {
-    this.$('.textfield').removeClass('error');
-    this.$('.help-inline').text('');
   }
 });

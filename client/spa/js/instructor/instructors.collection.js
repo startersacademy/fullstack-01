@@ -9,7 +9,8 @@ module.exports = Backbone.Collection.extend({
     this.on('sortById', this.sortById);
     this.on('sortByFirstName', this.sortByFirstName);
     this.on('sortByLastName', this.sortByLastName);
-    this.trigger('sortByFirstName');
+    this.on('addNew', this.addNew);
+    this.trigger('sortById');
   },
 
   sortById: function(){
@@ -31,5 +32,13 @@ module.exports = Backbone.Collection.extend({
       return model.get('lastName');
     };
     this.sort();
+  },
+
+  addNew: function() {
+    this.create = function(model) {
+      model.get('firstName');
+      model.get('lastName');
+      model.get('skills');
+    };
   }
 });

@@ -185,3 +185,46 @@ div .txt-help {
   background: #EFEFEF;
   padding: 30px;
 }
+
+/* Instructors */
+.instructor .main, .instructors .main {
+  background: #555;
+  width: 700px;
+  margin: auto;
+  color: #fff;
+  padding-bottom: 1em;
+  border-radius: 10px;
+}
+.instructor h1, .instructors h1 {
+  text-align: center;
+  margin: 5px 0 1em;
+}
+.instructor p, .instructors p {
+  font-size: 1.2em;
+}
+.instructor #single, .instructors #single {
+  padding-bottom: 2em;
+}
+.instructor .content, .instructors .content {
+  padding: 2em 4em 1em;
+}
+#result, #added {
+  padding: 1em 0 0;
+}
+.success {
+  color: #8DC63F;
+}
+button {
+  margin-right: 5px;
+}
+input {
+  margin: 0 0 1em 0;
+  color: #000;
+}
+#collections ul {
+  padding: 1em 0 0;
+}
+#collections li {
+  list-style: none;
+  padding: 0 0 1em;
+}

@@ -1,9 +1,16 @@
-<h1>Instructors</h1>
-<button class="sortById">Sort By Id</button>
-<button class="sortByFirstName">Sort By First Name</button>
-<button class="sortByLastName">Sort By Last Name</button>
-<ul class="instructors">
-  <% _.each( models, function( model ){ %>
-  <li class="instructor"><%- model.attributes.firstName %> <%- model.attributes.lastName %></li>
-  <% }); %>
-</ul>
+<div class="container main" id="collections">
+  <div class="content">
+    <h1>Instructors</h1>
+    <button class="addNew btn btn-primary">Add New</button>
+    <button class="sortById btn btn-default">Sort By Id</button>
+    <button class="sortByFirstName btn btn-default">Sort By First Name</button>
+    <button class="sortByLastName btn btn-default">Sort By Last Name</button>
+    <ul class="instructors">
+      <% _.each( models, function( model ){ %>
+      <li class="instructor">
+        <%- model.attributes.firstName %> <%- model.attributes.lastName %>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>

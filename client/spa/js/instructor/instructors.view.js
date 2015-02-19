@@ -6,13 +6,15 @@ var fs = require('fs'); //will be replaced by brfs in the browser
 // readFileSync will be evaluated statically so errors can't be caught
 var template = fs.readFileSync(__dirname + '/instructors.html', 'utf8');
 
+
 module.exports = Backbone.View.extend({
   className: 'instructors',
   template: _.template(template),
   events:{
     'click .sortById': 'sortById',
     'click .sortByFirstName': 'sortByFirstName',
-    'click .sortByLastName': 'sortByLastName'
+    'click .sortByLastName': 'sortByLastName',
+    'click .addNew': 'addNew'
   },
 
   initialize: function() {
@@ -31,6 +33,10 @@ module.exports = Backbone.View.extend({
     var context = this.collection;
     this.$el.html(this.template(context));
     return this;
+  },
+
+  addNew: function() {
+    this.trigger('addNew');
   },
 
   sortById: function(){

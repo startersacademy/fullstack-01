@@ -7,7 +7,8 @@ var View = require('./instructor.view');
 
 module.exports = Backbone.Controller.extend({
   routes: {
-    'instructors/:id': 'showInstructor'
+    'instructors/:id': 'showInstructor',
+    'instructors/new': 'addInstructor'
   },
   initialize: function(){
     this.options.container = this.options.container || 'body';
@@ -18,12 +19,13 @@ module.exports = Backbone.Controller.extend({
     this.fetchModel(instructorId, function(err){
       var view;
 
-      this.remove();
+      this.view.remove();
       this.view = new View({model: this.model});
 
       if (err){
         view = this.renderError();
       } else {
+        this.view.template = this.view.showTemplate;
         view = this.renderView();
       }
       if (cb){
@@ -31,6 +33,14 @@ module.exports = Backbone.Controller.extend({
       }
 
     }.bind(this));
+  },
+  addInstructor: function() {
+    this.model = new Model();
+    this.model.isNew = true;
+
+    this.view.remove();
+    this.view.template = this.view.editTemplate;
+    this.renderView();
   },
   fetchModel: function(instructorId, cb){
     this.model.set({id: instructorId});
@@ -50,6 +60,7 @@ module.exports = Backbone.Controller.extend({
   },
   renderView: function(){
     this.renderToContainer(this.view.render().$el);
+    this.view.delegateEvents();  // delegate for add in collections
     return this.view;
   },
   renderError: function(){
