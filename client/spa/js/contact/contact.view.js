@@ -10,7 +10,7 @@ var fs = require('fs'); //will be replaced by brfs in the browser
 var template = fs.readFileSync(__dirname + '/contact.html', 'utf8');
 
 module.exports = Backbone.View.extend(
-  /** @lends Contact.prototype */
+  /** @lends Contact-View.prototype */
   {
 
   /** .contact */
@@ -37,8 +37,9 @@ module.exports = Backbone.View.extend(
    * @requires /contact.html
    *
    * @augments Backbone.View
+   * @memberof Contact
    *
-   * @constructs Contact
+   * @constructs Contact-View
    * @listens this.model:destroy > this.remove
    */
   initialize: function(){
