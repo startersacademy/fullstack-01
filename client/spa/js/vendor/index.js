@@ -15,6 +15,7 @@ var Backbone = require('backbone');
 
 /**
  * Patch Backbone with controller functionality
+ * @class Backbone.Controller
  * @memberof Backbone
  */
 var Controller = require('backbone.controller');
@@ -25,9 +26,9 @@ var Controller = require('backbone.controller');
  */
 Backbone.$ = exports.$;
 
-/** @namespace Backbone.View */
+/** @class Backbone.View */
 /**
- * Patch Backbone.View with close function to prevent 'ghost' views
+ * Removes the view and unbinds event listeners to prevent 'ghost' views
  * @memberof Backbone.View
  */
 Backbone.View.prototype.close = function(){
