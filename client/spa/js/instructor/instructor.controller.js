@@ -32,9 +32,14 @@ module.exports = Backbone.Controller.extend({
 
     }.bind(this));
   },
+  /**
+   *
+   * @param instructorId
+   * @param {function} cb - callback expects error and model
+   */
   fetchModel: function(instructorId, cb){
     this.model.set({id: instructorId});
-    this.model.fetch({
+;    this.model.fetch({
       success: function(model, response, options){
         //console.log(model);
         cb(null, model);

@@ -45,8 +45,9 @@ module.exports = Backbone.Controller.extend(
 
     /**
      * Fetches model and uses it to render the view or an error
-     * @param contactId - Contact's unique identifier
-     * @param cb - Callback to provide error or view to the calling function
+     * @param {string|number} contactId - Contact's unique identifier
+     * @param {function} cb - Callback to provide error or view to the calling
+     * function
      */
   showContact: function(contactId, cb){
     this.fetchModel(contactId, function(err){
