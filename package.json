@@ -43,6 +43,7 @@
     "gulp": "^3.8.10",
     "gulp-develop-server": "^0.2.5",
     "gulp-jasmine": "^2.0.0",
+    "gulp-jsdoc": "^0.1.4",
     "gulp-jshint": "^1.9.0",
     "gulp-sequence": "^0.3.1",
     "gulp-util": "^3.0.2",
@@ -53,6 +54,7 @@
     "karma-browserify": "^2.0.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.5",
+    "rimraf": "^2.2.8",
     "strongloop": "^2.10.2"
   }
 }
