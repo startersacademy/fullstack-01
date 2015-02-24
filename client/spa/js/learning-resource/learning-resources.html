@@ -1,23 +1,209 @@
+<style>
+.page-title {
+  height: 50px;
+  /*line-height: 50px;*/
+  font-size: 26px;
+  display: inline-block;
+  bac
+}
+.btn-lrs-add, .btn-lrs-del {
+  float: right;
+  padding: 0 0 0 15px;
+}
+table[class^="lrs-tbl-h"] {
+  border: 1px solid #4F4D4D;
+}
+.lrs-tbl th:hover {
+  cursor: pointer;
+}
+.tbl-ft {
+  height: 20px;
+  background: #D6D6D6;
+  width: 100%;
+}
+.lrs-tbl {
+  border-bottom: 2px solid #CDCBCB;
+  border-left: 1px solid #CDCBCB;
+  border-right: 1px solid #CDCBCB;
+  border-radius-top-left: 20px;
+  margin-bottom: 70px;
+}
+input#lrs-check {
+  width: 20px;
+  height: 20px;
+  border: none !important;
+}
+.btn-lrs-add:hover {
+  cursor: pointer;
+}
+.fa-plus {
+  color: #4EC435;
+}
+.lrs-tbl>thead>tr>th, .lrs-tbl>tbody>tr>th, .lrs-tbl>tfoot>tr>th, .lrs-tbl>thead>tr>td, .lrs-tbl>tbody>tr>td, .lrs-tbl>tfoot>tr>td {
+  padding: 12px 20px;
+}
+.table-curved {
+    border-collapse: separate;
+}
+.table-curved {
+    border: solid #ccc 1px;
+    border-radius: 6px;
+    border-left: 1px solid #ccc;
+}
+.table-curved td {
+    /*border-left: 1px solid #ccc;*/
+    border-top: 1px solid #ccc;
+}
+.table-curved th {
+    border-top: none;
+}
+.table-curved th:first-child {
+    border-radius: 6px 0 0 0;
+}
+.table-curved th:last-child {
+    border-radius: 0 6px 0 0;
+}
+.table-curved th:only-child{
+    border-radius: 6px 6px 0 0;
+}
+.table-curved tr:last-child td:first-child {
+    border-radius: 0 0 0 6px;
+}
+.table-curved tr:last-child td:last-child {
+    border-radius: 0 0 6px 0;
+}
+.btn-lrs-del:hover {
+  cursor: pointer;
+}
+</style>
 <div class="container">
-  <h3>Learning Resources</h3>
+<span id="msg" class="btn"></span>
+  <div class="content-head">
+    <div class="page-title">Learning Resources</div>
+    <!-- Button trigger modal -->
+    <span type="button" class="btn-lrs-del"><i class="fa fa-trash-o fa-2x"></i></span>
+    <span type="button" class="btn-lrs-add"><i class="fa fa-plus fa-2x"></i></span>
+    <!-- <span type="button" class="btn-lrs-add" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus fa-2x"></i></span> -->
+    <!-- <button id="add-button" type="button" class="btn btn-default" data-toggle="modal" data-target="#dialog">Add</button> -->
+  </div>
   <div class="table-responsive">
-    <table class="lrs-tbl table table-bordered">
+    <table class="lrs-tbl table-curved">
       <tr class="lrs-tbl-header">
-        <!-- <th class="lrs-tbl-h-n">#</th> -->
         <th class="lrs-tbl-h-t"><a class="sortByTitle">Title</a></th>
         <th class="lrs-tbl-h-rt"><a class="sortByResourceType">Type</a></th>
         <th class="lrs-tbl-h-a"><a class="sortByAuthors">Authors</th>
         <th class="lrs-tbl-h-d"><a class="sortByDescription">Description</th>
+        <th class="lrs-tbl-h-de"><a class="delResource"></th>
       </tr>
       <% _.each( models, function( model ){ %>
       <tr>
-        <!-- <td></td> -->
-        <td><%- model.attributes.title %></td>
+        <td><a href="#learning-resources/<%- model.attributes.id %>"><%- model.attributes.title.substr(0,50) %></a></td>
         <td><%- model.attributes.resourceType %></td>
         <td><%- model.attributes.authors %></td>
-        <td><%- model.attributes.description %></td>
+        <td><%- model.attributes.description.substr(0,60) %></td>
+        <td><input type="checkbox" id="lrs-check" value="<% if (model.attributes.id) { %><%= model.attributes.id %><% } else { %><%= 'na' %><% } %>"></td>
       </tr>
       <% }); %>
     </table>
   </div>
 </div>
+
+<!-- Modal No Backbone -->
+<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;<span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Learning Resource</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2" for="title">Title</label>
+            <div class="col-sm-10">
+              <input id="lrs-add-title" class="form-control" type="text" placeholder="Title" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2" for="title">Resource Type</label>
+            <div class="col-sm-10">
+              <select id="lrs-add-resourceType" class="form-control">
+                <option value="document">Document</option>
+                <option value="link">Link</option>
+                <option value="presentation">Presentation</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2" for="tags">Authors</label>
+            <div class="col-sm-10">
+              <input id="lrs-add-authors" type="text" class="form-control" placeholder="Authors" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2" for="description">Description</label>
+            <div class="col-sm-10">
+              <textarea id="lrs-add-description" class="form-control" rows="3" placeholder="Description" value=""></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button> -->
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!--         <button type="button" id="lrs-add-save" class="btn btn-primary">Add</button>
+        <button type="button" id="lrs-dismiss" data-dismiss="modal" hidden></button>
+          </div>
+        </div>
+      </div>
+    </div>
+ -->
+<script id="dialog-template" type="text/template">
+ <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;<span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Learning Resource</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2" for="title">Title</label>
+            <div class="col-sm-10">
+              <input id="lrs-add-title" class="form-control" type="text" placeholder="Title" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2" for="title">Resource Type</label>
+            <div class="col-sm-10">
+              <select id="lrs-add-resourceType" class="form-control">
+                <option value="document">Document</option>
+                <option value="link">Link</option>
+                <option value="presentation">Presentation</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2" for="tags">Authors</label>
+            <div class="col-sm-10">
+              <input id="lrs-add-authors" type="text" class="form-control" placeholder="Authors" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2" for="description">Description</label>
+            <div class="col-sm-10">
+              <textarea id="lrs-add-description" class="form-control" rows="3" placeholder="Description" value=""></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        <button type="button" id="lrs-add-save" class="btn btn-primary">Add</button>
+        <button type="button" id="lrs-dismiss" data-dismiss="modal" hidden></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
