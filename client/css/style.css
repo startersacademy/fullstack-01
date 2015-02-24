@@ -132,7 +132,7 @@ header.carousel .fill {
     color: #FAFAFA;
   }
   .lrs-tbl tr td {
-    background: #FBFBFB;
+    background: #FDFDFD;
   }
 
   .lrs-tbl-h-n {
@@ -149,6 +149,9 @@ header.carousel .fill {
   }
   .lrs-tbl-h-d {
     width: 30%;
+  }
+  .lrs-tbl-h-de {
+    width: 2%;
   }
   .borderless {
     border: none;
