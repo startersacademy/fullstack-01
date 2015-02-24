@@ -36,9 +36,10 @@ module.exports = Backbone.Controller.extend({
   },
   addInstructor: function() {
     this.model = new Model();
-    this.model.isNew = true;
+    this.model.isNew();
 
     this.view.remove();
+
     this.view.template = this.view.editTemplate;
     this.renderView();
   },

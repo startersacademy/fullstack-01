@@ -187,7 +187,8 @@ div .txt-help {
 }
 
 /* Instructors */
-.instructor .main, .instructors .main {
+.instructor .main, .instructors .main,
+.course .main, .courses .main {
   background: #555;
   max-width: 700px;
   margin: auto;
@@ -195,17 +196,21 @@ div .txt-help {
   padding-bottom: 1em;
   border-radius: 10px;
 }
-.instructor h1, .instructors h1 {
+.instructor h1, .instructors h1,
+.course h1, .courses h1 {
   text-align: center;
   margin: 5px 0 1em;
 }
-.instructor p, .instructors p {
+.instructor p, .instructors p,
+.course p, .course p {
   font-size: 1.2em;
 }
-.instructor #single, .instructors #single {
+.instructor #single, .instructors #single,
+.course #single, .courses #single {
   padding-bottom: 2em;
 }
-.instructor .content, .instructors .content {
+.instructor .content, .instructors .content,
+.course .content, .courses .content {
   padding: 2em 4em 1em;
 }
 #result, #added {
@@ -217,9 +222,12 @@ div .txt-help {
 button.btn {
   margin: 0 5px 10px 0;
 }
-input {
+input, select {
   margin: 0 0 1em 0;
   color: #000;
+}
+option {
+  padding: 8px 10px;
 }
 #collections ul {
   padding: 1em 0 0;

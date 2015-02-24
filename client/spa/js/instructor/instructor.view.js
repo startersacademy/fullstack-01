@@ -26,6 +26,11 @@ module.exports = Backbone.View.extend({
     var context = this.model.toJSON();
     this.$el.html(this.template(context));
 
+    // if it's adding new model, change button to Add
+    if (this.model.get('id') === undefined) {
+      this.$('.save').html('Add');
+    }
+
     return this;
   },
   destroy: function(){
@@ -38,7 +43,8 @@ module.exports = Backbone.View.extend({
     return this;
   },
   save: function(e) {
-    e.preventDefault(); // if there's no changes, do not do anything
+    // if there's no changes, do not do anything
+    e.preventDefault();
 
     var formData = {
       firstName: this.$('#firstName').val().trim(),
@@ -51,12 +57,16 @@ module.exports = Backbone.View.extend({
         $('#result').addClass('success')
         .html('Successfully updated instructor')
         .fadeIn().delay(4000).fadeOut();
+
+        var addNew = $('.save').html();
+
+        if (addNew === 'Add') {
+          $('#added').addClass('success')
+          .html('Successfully added new instructor')
+          .fadeIn().delay(4000).fadeOut();
+        }
       },
       error: function(model, errors) {
-        /*_.each(errors, function (err) {
-          $('#result').addClass('error');
-          fields.find('.help-inline').text(err);
-        }, this);*/
       }
     };
 
