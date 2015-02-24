@@ -10,6 +10,7 @@ module.exports = Backbone.Collection.extend({
     this.on('sortByTitle', this.sortByTitle);
     this.on('sortByCourseType', this.sortByCourseType);
     this.on('addNew', this.addNew);
+    this.on('filterByCourseType', this.filterByCourseType);
     this.trigger('sortById');
   },
 
@@ -40,5 +41,9 @@ module.exports = Backbone.Collection.extend({
       model.get('courseType');
       model.get('description');
     };
+  },
+
+  filterByCourseType: function() {
+    return this.where({courseType: 'instructor led'});
   }
 });

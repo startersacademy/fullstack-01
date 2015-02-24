@@ -10,7 +10,7 @@ module.exports = Backbone.Model.extend({
   urlRoot: '/api/courses',
   initialize: function(){
     this.on('change', function(){
-      this.trigger('foo', 'bar');
+
     });
   },
   validate: function(attrs){

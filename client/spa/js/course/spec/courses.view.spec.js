@@ -137,4 +137,23 @@ describe('Courses view ', function(){
       expect(view.render).toHaveBeenCalled();
     });
   });
+
+  describe('when the user clicks on the Filter By Course Type ', function(){
+    beforeEach(function(){
+      view.render();
+    });
+
+    it('triggers the filterByCourseType event on the collection', function(){
+      var spy = jasmine.createSpy('filterByCourseType');
+      collection.on('filterByCourseType', spy);
+      view.$('.filterByCourseType').trigger('click');
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('renders the view', function(){
+      spyOn(view, 'render');
+      view.$('.filterByCourseType').trigger('click');
+      expect(view.render).toHaveBeenCalled();
+    });
+  });
 });

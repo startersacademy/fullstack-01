@@ -14,7 +14,8 @@ module.exports = Backbone.View.extend({
     'click .sortById': 'sortById',
     'click .sortByTitle': 'sortByTitle',
     'click .sortByCourseType': 'sortByCourseType',
-    'click .addNew': 'addNew'
+    'click .addNew': 'addNew',
+    'click .filterByCourseType': 'filterByCourseType'
   },
 
   initialize: function() {
@@ -52,6 +53,11 @@ module.exports = Backbone.View.extend({
 
   sortByCourseType: function(){
     this.collection.trigger('sortByCourseType');
+    this.render();
+  },
+
+  filterByCourseType: function() {
+    this.collection.trigger('filterByCourseType');
     this.render();
   }
 });

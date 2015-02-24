@@ -47,8 +47,8 @@ describe('Course controller', function(){
     });
 
     var success = function(callbacks){
-      controller.model.set({'firstName': 'valid firstName',
-        'lastName': 'valid lastName', 'skills':'valid skills'});
+      controller.model.set({'title': 'valid title',
+        'courseType': 'valid courseType', 'description':'valid description'});
       callbacks.success(controller.model);
     };
 
@@ -60,9 +60,9 @@ describe('Course controller', function(){
       spyOn(controller.model, 'fetch').and.callFake(success);
       var cb = function(err, view){
         expect(err).toBeNull();
-        expect(controller.model.get('firstName')).toEqual('valid firstName');
-        expect(controller.model.get('lastName')).toEqual('valid lastName');
-        expect(controller.model.get('skills')).toEqual('valid skills');
+        expect(controller.model.get('title')).toEqual('valid title');
+        expect(controller.model.get('courseType')).toEqual('valid courseType');
+        expect(controller.model.get('description')).toEqual('valid description');
       };
 
       controller.showCourse(1, cb);
