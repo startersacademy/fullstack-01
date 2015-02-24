@@ -25,9 +25,11 @@ module.exports = Backbone.Controller.extend({
   },
 
   getView: function(){
-    if (!this.view){
-      var V = View.extend({collection: this.collection});
-      this.view = new V();
+    // if (this.view) {
+    //   this.view.remove();
+    // }
+    if (!this.view) {
+      this.view = new View({collection: this.collection});
     }
     return this.view;
   },
