@@ -3,11 +3,11 @@
 var Backbone = require('../vendor/index').Backbone;
 module.exports = Backbone.Model.extend({
   defaults: {
-    firstName: '',
-    lastName: '',
-    skills: ''
+    title: '',
+    courseType: 'video',
+    description: ''
   },
-  urlRoot: '/api/instructors',
+  urlRoot: '/api/courses',
   initialize: function(){
     this.on('change', function(){
       this.trigger('foo', 'bar');
@@ -15,14 +15,14 @@ module.exports = Backbone.Model.extend({
   },
   validate: function(attrs){
     var errors = [];
-    if (!attrs.firstName){
-      errors.push('firstName cannot be empty');
+    if (!attrs.title){
+      errors.push('title cannot be empty');
     }
-    if (!attrs.lastName){
-      errors.push('lastName cannot be empty');
+    if (!attrs.courseType){
+      errors.push('courseType cannot be empty');
     }
-    if (!attrs.skills){
-      errors.push('skills cannot be empty');
+    if (!attrs.description){
+      errors.push('description cannot be empty');
     }
     return errors.length > 0 ? errors: false;
   }

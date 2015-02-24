@@ -4,11 +4,11 @@ var _ = require('../vendor/index')._;
 var $ = require('../vendor/index').$;
 var fs = require('fs'); //will be replaced by brfs in the browser
 // readFileSync will be evaluated statically so errors can't be caught
-var template = fs.readFileSync(__dirname + '/instructor.html', 'utf8');
-var editTemplate = fs.readFileSync(__dirname + '/editInstructor.html', 'utf8');
+var template = fs.readFileSync(__dirname + '/course.html', 'utf8');
+var editTemplate = fs.readFileSync(__dirname + '/editCourse.html', 'utf8');
 
 module.exports = Backbone.View.extend({
-  className: 'instructor',
+  className: 'course',
   template: _.template(template),
   showTemplate: _.template(template),
   editTemplate: _.template(editTemplate),
@@ -47,22 +47,22 @@ module.exports = Backbone.View.extend({
     e.preventDefault();
 
     var formData = {
-      firstName: this.$('#firstName').val().trim(),
-      lastName: this.$('#lastName').val().trim(),
-      skills: this.$('#skills').val().trim()
+      title: this.$('#title').val().trim(),
+      courseType: this.$('#courseType').val(),
+      description: this.$('#description').val().trim()
     };
 
     var check = {
       success: function() {
         $('#result').addClass('success')
-        .html('Successfully updated instructor')
+        .html('Successfully updated course')
         .fadeIn().delay(4000).fadeOut();
 
         var addNew = $('.save').html();
 
         if (addNew === 'Add') {
           $('#added').addClass('success')
-          .html('Successfully added new instructor')
+          .html('Successfully added new course')
           .fadeIn().delay(4000).fadeOut();
         }
       },
