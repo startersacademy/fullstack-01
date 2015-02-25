@@ -4,7 +4,6 @@
   /*line-height: 50px;*/
   font-size: 26px;
   display: inline-block;
-  bac
 }
 .btn-lrs-add, .btn-lrs-del {
   float: right;
@@ -28,7 +27,7 @@ table[class^="lrs-tbl-h"] {
   border-radius-top-left: 20px;
   margin-bottom: 70px;
 }
-input#lrs-check {
+input.lrs-check, input.lrs-select-all {
   width: 20px;
   height: 20px;
   border: none !important;
@@ -93,7 +92,7 @@ input#lrs-check {
         <th class="lrs-tbl-h-rt"><a class="sortByResourceType">Type</a></th>
         <th class="lrs-tbl-h-a"><a class="sortByAuthors">Authors</th>
         <th class="lrs-tbl-h-d"><a class="sortByDescription">Description</th>
-        <th class="lrs-tbl-h-de"><a class="delResource"></th>
+        <th class="lrs-tbl-h-de"><a class="delResource"><input type="checkbox" class="lrs-select-all"></th>
       </tr>
       <% _.each( models, function( model ){ %>
       <tr>
@@ -101,15 +100,15 @@ input#lrs-check {
         <td><%- model.attributes.resourceType %></td>
         <td><%- model.attributes.authors %></td>
         <td><%- model.attributes.description.substr(0,60) %></td>
-        <td><input type="checkbox" id="lrs-check" value="<% if (model.attributes.id) { %><%= model.attributes.id %><% } else { %><%= 'na' %><% } %>"></td>
+        <td><input type="checkbox" class="lrs-check" value="<% if (model.attributes.id) { %><%= model.attributes.id %><% } else { %><%= 'na' %><% } %>"></td>
       </tr>
       <% }); %>
     </table>
   </div>
 </div>
 
-<!-- Modal No Backbone -->
-<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Modal -->
+<script id="dialog-template" type="text/template">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -149,61 +148,12 @@ input#lrs-check {
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button> -->
-        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-<!--         <button type="button" id="lrs-add-save" class="btn btn-primary">Add</button>
-        <button type="button" id="lrs-dismiss" data-dismiss="modal" hidden></button>
-          </div>
-        </div>
-      </div>
-    </div>
- -->
-<script id="dialog-template" type="text/template">
- <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;<span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Add Learning Resource</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form" class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-2" for="title">Title</label>
-            <div class="col-sm-10">
-              <input id="lrs-add-title" class="form-control" type="text" placeholder="Title" value="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2" for="title">Resource Type</label>
-            <div class="col-sm-10">
-              <select id="lrs-add-resourceType" class="form-control">
-                <option value="document">Document</option>
-                <option value="link">Link</option>
-                <option value="presentation">Presentation</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2" for="tags">Authors</label>
-            <div class="col-sm-10">
-              <input id="lrs-add-authors" type="text" class="form-control" placeholder="Authors" value="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2" for="description">Description</label>
-            <div class="col-sm-10">
-              <textarea id="lrs-add-description" class="form-control" rows="3" placeholder="Description" value=""></textarea>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        <button type="button" id="cancel" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
         <button type="button" id="lrs-add-save" class="btn btn-primary">Add</button>
         <button type="button" id="lrs-dismiss" data-dismiss="modal" hidden></button>
           </div>
         </div>
       </div>
     </div>
-  </script>
+  </div>
+</script>
