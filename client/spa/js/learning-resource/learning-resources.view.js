@@ -1,4 +1,5 @@
 'use strict';
+/*jslint browser: true*/
 
 var Backbone = require('../vendor/index').Backbone;
 var _ = require('../vendor/index')._;
@@ -32,6 +33,90 @@ var Add = Backbone.Model.extend({
 
 });
 
+//Modal View
+
+var ResourceDialog = Backbone.View.extend({
+  className: 'modal fade',
+  attributes: {
+    tabindex: '-1',
+    role: 'dialog',
+  },
+
+  initialize: function() {
+    this.model = new Add();
+    this.temp = _.template($('#dialog-template').html());
+  },
+
+  events: {
+    'click #lrs-add-save': 'saveNewResource',
+    'click .close, #cancel': 'close'
+  },
+
+  render: function() {
+    var context = this.model.toJSON();
+    this.$el.html(this.temp(context)).appendTo(document.body);
+    this.$el.modal();
+    return this;
+  },
+
+  close: function() {
+    this.remove();
+    $('.modal').remove();
+    showMessage('alert-warning', 'Changes cancelled');
+  },
+
+  saveNewResource: function(){
+    var collection = this.collection;
+
+    var newResource = new Model();
+
+    var authorsFormat = function() {
+      var authors = [];
+      // console.log($('#auth').val().split(','));
+      // if ($('#lrs-add-authors').val() === '') authors = null;
+      // else {
+      //   $.each($('#lrs-add-authors').val().split(','), function(key,value){
+      //     console.log(value);
+      //     authors.push(value.trim());
+      //   });
+      // }
+      return authors;
+    };
+
+    var saveArgs = {
+      attributes: {
+        title: $('#lrs-add-title').val().trim(),
+        resourceType: $('#lrs-add-resourceType option:selected').val(),
+        description: $('#lrs-add-description').val().trim(),
+        authors: $('#lrs-add-authors').val().split(',')
+      },
+      options: {
+        success: function(response){
+          $('#lrs-dismiss').click();
+          setTimeout(function() {
+            collection.fetch();
+            // collection.add(saveArgs.attributes);
+            $('table tr td').find('[value="na"]').attr('value', response.id);
+            $('.modal').remove();
+          }, 450);
+          showMessage('alert-success', 'Successfully updated');
+        },
+        error: function(model, error){
+          //server response errors if no validations specified
+        }
+      }
+    };
+    newResource.save(saveArgs.attributes, saveArgs.options);
+
+    if (newResource.validationError) {
+      showMessage('alert-danger', newResource.validationError);
+    }
+  },
+
+});
+
+//Main Collection View
+
 module.exports = Backbone.View.extend({
 
   className: 'learning-resources',
@@ -45,7 +130,8 @@ module.exports = Backbone.View.extend({
     'click .sortByAuthors': 'sortByAuthors',
     'click .sortByDescription': 'sortByDescription',
     'click .btn-lrs-add': 'renderModal',
-    'click .btn-lrs-del': 'delConfirm'
+    'click .btn-lrs-del': 'delConfirm',
+    'click .lrs-select-all': 'selectAll'
   },
 
   initialize: function() {
@@ -58,10 +144,13 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.collection, 'sort', function(){
       this.render();
     });
+    this.listenTo(this.collection, 'remove', function(){
+      this.render();
+    });
   },
 
   render: function() {
-    console.log(this.collection.models);
+    this.delegateEvents();
     var context = this.collection;
     this.$el.html(this.template(context));
     return this;
@@ -88,107 +177,41 @@ module.exports = Backbone.View.extend({
   },
 
   renderModal: function(){
-    var view = new ResourceDialog();
-    view.render();
+    var modal = new ResourceDialog({
+      collection: this.collection
+    });
+    modal.render();
+  },
+
+  selectAll: function(){
+      if ($('.lrs-select-all')[0].checked === true) {
+        $('.lrs-check').each(function() {
+          this.checked = true;
+        });
+      }
+      else {
+        $('.lrs-check').each(function() {
+          this.checked = false;
+        });
+      }
   },
 
   delConfirm: function() {
     var collection = this.collection;
     var checkedIds = [];
-    if ($(':checkbox:checked').length === 0) {
+    if ($('.lrs-check:checked').length === 0) {
       showMessage('alert-info', 'No resources selected');
     }
     else {
-      $(':checkbox:checked').each(function () {
-        console.log($(this).val());
+      $('.lrs-check:checked').each(function () {
         checkedIds.push($(this).val());
       });
       $.each(checkedIds, function(key, value) {
-        console.log(value);
         var item = collection.get({id:value});
         item.destroy();
         collection.remove({id:value});
       });
     }
-  },
-
-});
-
-var ResourceDialog = Backbone.View.extend({
-  className: 'modal fade',
-  attributes: {
-    tabindex: '-1',
-    role: 'dialog',
-  },
-
-  initialize: function() {
-    this.model = this.model || new Add();
-    this.temp = _.template($('#dialog-template').html());
-  },
-
-  events: {
-    'click #lrs-add-save': 'saveNewResource',
-    'click .close': 'close'
-  },
-
-  render: function() {
-    var context = this.model.toJSON();
-    this.$el.html(this.temp(context)).appendTo(document.body);
-    this.$el.modal();
-    return this;
-  },
-
-  close: function() {
-    this.remove();
-  },
-
-  saveNewResource: function(){
-
-    var newResource = new Model();
-
-    var authorsFormat = function(authored) {
-      var authors = [];
-      // console.log($('#auth').val().split(','));
-      // if ($('#lrs-add-authors').val() === '') authors = null;
-      // else {
-      //   $.each($('#lrs-add-authors').val().split(','), function(key,value){
-      //     console.log(value);
-      //     authors.push(value.trim());
-      //   });
-      // }
-      authored(authors);
-    };
-
-    var saveArgs = {
-      attributes: {
-        title: $('#lrs-add-title').val().trim(),
-        resourceType: $('#lrs-add-resourceType option:selected').val(),
-        description: $('#lrs-add-description').val().trim(),
-        authors: $('#lrs-add-authors').val().split(',')
-      },
-      options: {
-        success: function(response){
-          $('#lrs-dismiss').click();
-          setTimeout(function() {
-            // collection.fetch();
-            // collection.add(saveArgs.attributes);
-            $('table tr td').find('[value="na"]').attr('value', response.id);
-          }, 400);
-
-          showMessage('alert-success', 'Successfully updated');
-          console.log('success');
-        },
-        error: function(model, error){
-          //server response errors if no validations specified
-        }
-      }
-    };
-
-    newResource.save(saveArgs.attributes, saveArgs.options);
-
-    // if (newResource.validationError) {
-    //   showMessage('alert-danger', this.model.validationError);
-    // }
   },
 
 });
