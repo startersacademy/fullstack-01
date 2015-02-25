@@ -96,8 +96,7 @@ gulp.task('test:unit', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true,
-    autoWatch: false,
-    reporters: ['dots']
+    autoWatch: false
   }, done);
 });
 
@@ -106,8 +105,7 @@ gulp.task('test:unit:tdd', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: false,
-    autoWatch: true,
-    reporters: ['dots']
+    autoWatch: true
   }, done);
 });
 
