@@ -1,4 +1,5 @@
 'use strict';
+/*jslint browser: true*/
 
 // Expose underscore
 exports._ = require('underscore');
