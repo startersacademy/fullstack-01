@@ -28,6 +28,10 @@ module.exports = Backbone.Controller.extend({
         // trigger the router for addNew
         this.navigate('courses/new', { trigger: true });
       }.bind(this));
+      this.view.on('displayCourses', function() {
+        // trigger display:courses from instructor
+        this.trigger('display:courses');
+      }.bind(this));
     }
     return this.view;
   },

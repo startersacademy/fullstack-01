@@ -58,7 +58,7 @@ describe('Courses collection ', function(){
       var typeCollection = collection.where({courseType: 'instructor led'});
       var newcollection = new Collection(typeCollection);
 
-      console.log("newcollection length = " + newcollection.length);
+      //console.log('newcollection length = ' + newcollection.length);
 
       expect(newcollection.at(0).get('id')).toEqual(modelB.id);
       expect(newcollection.at(1).get('id')).toEqual(modelC.id);
@@ -68,9 +68,9 @@ describe('Courses collection ', function(){
     it('filters by courseType2', function(){
       var instructorLed = collection.trigger('filterByCourseType');
 
-      var newInstructors = new Collection(instructorLed);
+      //var newInstructors = new Collection(instructorLed);
 
-      console.log("instructorLed length = " + newInstructors.length);
+      //console.log('instructorLed length = ' + instructorLed.length);
 
       expect(collection.at(0).get('id')).toEqual(modelB.id);
       expect(collection.at(1).get('id')).toEqual(modelC.id);

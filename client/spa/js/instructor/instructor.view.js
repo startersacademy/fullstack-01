@@ -16,7 +16,8 @@ module.exports = Backbone.View.extend({
     'click .delete': 'destroy',
     'click .modify': 'modify',
     'click .save': 'save',
-    'click .cancel': 'cancel'
+    'click .cancel': 'cancel',
+    'click .displayCourses': 'displayCourses'
   },
   initialize: function(){
     this.listenTo(this.model, 'destroy', this.remove);
@@ -32,6 +33,13 @@ module.exports = Backbone.View.extend({
     }
 
     return this;
+  },
+  displayCourses: function() {
+    // trigger event to populate the courses for this instructorId
+    this.trigger('display:courses', {
+      container: '.instructor-courses',
+      instructorId: this.model.get('id')
+    });
   },
   destroy: function(){
     this.model.destroy();

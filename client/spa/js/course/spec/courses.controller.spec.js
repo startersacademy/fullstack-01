@@ -62,7 +62,8 @@ describe('Course controller', function(){
         expect(err).toBeNull();
         expect(controller.model.get('title')).toEqual('valid title');
         expect(controller.model.get('courseType')).toEqual('valid courseType');
-        expect(controller.model.get('description')).toEqual('valid description');
+        expect(controller.model.get('description'))
+          .toEqual('valid description');
       };
 
       controller.showCourse(1, cb);

@@ -44,6 +44,8 @@ module.exports = Backbone.Collection.extend({
   },
 
   filterByCourseType: function() {
-    return this.where({courseType: 'instructor led'});
+    var filtered = this.where({courseType: 'instructor led'});
+
+    return new Backbone.Collection(filtered);
   }
 });

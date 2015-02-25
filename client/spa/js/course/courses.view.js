@@ -28,10 +28,13 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.collection, 'sort', function(){
       this.render();
     });
+    this.listenTo(this.collection, 'display:courses', function(id){
+      this.displayCourses(id);
+    });
   },
 
-  render: function() {
-    var context = this.collection;
+  render: function(collection) {
+    var context = collection || this.collection;
     this.$el.html(this.template(context));
     return this;
   },
@@ -56,8 +59,17 @@ module.exports = Backbone.View.extend({
     this.render();
   },
 
-  filterByCourseType: function() {
-    this.collection.trigger('filterByCourseType');
+  /* Filter courses by the instructor id */
+  displayCourses: function(id) {
+    this.collection.where({instructorId: id});
     this.render();
+  },
+
+  filterByCourseType: function() {
+    var subset = this.collection.trigger('filterByCourseType');
+    var collection = new Backbone.Collection(subset);
+    this.render(collection);
+
+    return this;
   }
 });
