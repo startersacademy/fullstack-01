@@ -10,12 +10,13 @@ var editTemplate = fs.readFileSync(__dirname + '/editInstructor.html', 'utf8');
 module.exports = Backbone.View.extend({
   className: 'instructor',
   template: _.template(template),
+  showTemplate: _.template(template),
   editTemplate: _.template(editTemplate),
   events: {
-    'click .i-delete': 'destroy',
-    'click .i-edit': 'edit',
-    'click .i-save': 'save',
-    'click .i-cancel': 'cancel'
+    'click .delete': 'destroy',
+    'click .modify': 'modify',
+    'click .save': 'save',
+    'click .cancel': 'cancel'
   },
   initialize: function(){
     this.listenTo(this.model, 'destroy', this.remove);
@@ -25,37 +26,51 @@ module.exports = Backbone.View.extend({
     var context = this.model.toJSON();
     this.$el.html(this.template(context));
 
+    // if it's adding new model, change button to Add
+    if (this.model.get('id') === undefined) {
+      this.$('.save').html('Add');
+    }
+
     return this;
   },
   destroy: function(){
     this.model.destroy();
   },
-  edit: function(e){
+  modify: function(e){
     var context = this.model.toJSON();
     this.$el.html(this.editTemplate(context));
 
     return this;
   },
   save: function(e) {
-    e.preventDefault(); // if there's no changes, do not do anything
+    // if there's no changes, do not do anything
+    e.preventDefault();
 
     var formData = {
       firstName: this.$('#firstName').val().trim(),
       lastName: this.$('#lastName').val().trim(),
       skills: this.$('#skills').val().trim()
     };
-    var validate = {
+
+    var check = {
       success: function() {
         $('#result').addClass('success')
-                    .html('Successfully updated instructor')
-                    .fadeIn().delay(4000).fadeOut();
-      },
-      error: function(model, error) {
+        .html('Successfully updated instructor')
+        .fadeIn().delay(4000).fadeOut();
 
+        var addNew = $('.save').html();
+
+        if (addNew === 'Add') {
+          $('#added').addClass('success')
+          .html('Successfully added new instructor')
+          .fadeIn().delay(4000).fadeOut();
+        }
+      },
+      error: function(model, errors) {
       }
     };
 
-    this.model.save(formData, validate);
+    this.model.save(formData, check);
   },
   cancel: function(e) {
     e.preventDefault();  // prevent event bubbling
