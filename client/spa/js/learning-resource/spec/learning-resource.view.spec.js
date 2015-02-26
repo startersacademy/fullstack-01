@@ -101,7 +101,7 @@ describe('Learning resource view ', function(){
           view.render();
           view.$('#title').val('changed title');
           view.$('#desc').val('changed description');
-          view.$('#authors').val('sis');
+          view.$('#auth').val('sis');
           view.$('#resourceType option:selected').val('link');
           spyOn(view, 'save').and.callThrough();
           view.delegateEvents();

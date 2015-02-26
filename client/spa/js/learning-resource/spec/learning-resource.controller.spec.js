@@ -28,7 +28,7 @@ describe('Learning resource controller', function(){
 
     it('has the expected routes', function(){
       expect(controller.routes).toEqual(jasmine.objectContaining({
-        'learning-resource/:id': 'showLearningResource'
+        'learning-resources/:id': 'showLearningResource'
       }));
     });
 
@@ -80,9 +80,9 @@ describe('Learning resource controller', function(){
 
       it('does has a previous view to remove', function(){
         var oldView = controller.view;
-        spyOn(oldView, 'destroy');
+        spyOn(oldView, 'remove');
         controller.showLearningResource(222);
-        expect(oldView.destroy).toHaveBeenCalled();
+        expect(oldView.remove).toHaveBeenCalled();
       });
 
     });
