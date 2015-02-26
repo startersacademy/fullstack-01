@@ -35,6 +35,16 @@ module.exports = Backbone.View.extend({
   },
   destroy: function(){
     this.model.destroy();
+
+    $('body').append($('<div/>').addClass('course')
+      .append($('<div/>')
+        .addClass('container main')
+        .append($('<div/>')
+          .attr('id', 'result')
+          .addClass('success content')
+          .html('Successfully deleted course'))));
+
+    this.remove();
   },
   modify: function(e){
     var context = this.model.toJSON();

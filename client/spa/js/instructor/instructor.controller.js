@@ -22,6 +22,13 @@ module.exports = Backbone.Controller.extend({
       this.view.remove();
       this.view = new View({model: this.model});
 
+      /* listen to display:courses to display this
+       * event in the view, trigger event on itself
+       */
+      this.listenTo(this.view, 'display:courses', function(data) {
+        this.trigger('display:courses', data);
+      });
+
       if (err){
         view = this.renderError();
       } else {

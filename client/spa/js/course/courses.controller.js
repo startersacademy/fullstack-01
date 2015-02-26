@@ -12,6 +12,13 @@ module.exports = Backbone.Controller.extend({
   },
   initialize: function(){
     this.options.container = this.options.container || 'body';
+
+    // listen to event from instructor controller
+    this.on('display:courses', function(data) {
+      // make sure this view exist
+      this.getView();
+      this.view.trigger('display:courses', data);
+    });
   },
   getCollection: function(){
     if (!this.collection){
@@ -27,10 +34,6 @@ module.exports = Backbone.Controller.extend({
       this.view.on('addNew', function() {
         // trigger the router for addNew
         this.navigate('courses/new', { trigger: true });
-      }.bind(this));
-      this.view.on('displayCourses', function() {
-        // trigger display:courses from instructor
-        this.trigger('display:courses');
       }.bind(this));
     }
     return this.view;

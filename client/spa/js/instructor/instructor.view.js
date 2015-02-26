@@ -6,6 +6,8 @@ var fs = require('fs'); //will be replaced by brfs in the browser
 // readFileSync will be evaluated statically so errors can't be caught
 var template = fs.readFileSync(__dirname + '/instructor.html', 'utf8');
 var editTemplate = fs.readFileSync(__dirname + '/editInstructor.html', 'utf8');
+// class, not an instance of courses
+//var CoursesView = require('../course/courses.view');
 
 module.exports = Backbone.View.extend({
   className: 'instructor',
@@ -22,6 +24,7 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     this.listenTo(this.model, 'destroy', this.remove);
     this.listenTo(this.model, 'change', this.render);
+//    this.coursesView = new CoursesView({instructor: this.model});
   },
   render: function(){
     var context = this.model.toJSON();
@@ -32,9 +35,12 @@ module.exports = Backbone.View.extend({
       this.$('.save').html('Add');
     }
 
+//    this.coursesView.render();
+
     return this;
   },
   displayCourses: function() {
+    console.log('inside instructor display');
     // trigger event to populate the courses for this instructorId
     this.trigger('display:courses', {
       container: '.instructor-courses',
@@ -43,6 +49,16 @@ module.exports = Backbone.View.extend({
   },
   destroy: function(){
     this.model.destroy();
+
+    $('body').append($('<div/>').addClass('instructor')
+      .append($('<div/>')
+        .addClass('container main')
+        .append($('<div/>')
+          .attr('id', 'result')
+          .addClass('success content')
+          .html('Successfully deleted instructor'))));
+
+    this.remove();
   },
   modify: function(e){
     var context = this.model.toJSON();

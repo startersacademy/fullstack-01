@@ -16,6 +16,12 @@ window.instructors = new Instructors({router:true, container: 'body'});
 window.resource = new Resource({router:true, container: 'body'});
 // Additional modules go here
 
+/* live instance to coordinate controller behavior for courses and instructor
+ * glues both controllers together
+ */
+window.instructor.on('display:courses', function(data) {
+  window.courses.trigger('display:courses', data);
+});
 
 // This should be the last line
 window.Backbone.history.start();

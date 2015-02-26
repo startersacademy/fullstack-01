@@ -37,6 +37,7 @@ module.exports = Backbone.View.extend({
 
   addNew: function() {
     this.trigger('addNew');
+    this.remove();
     this.render();
   },
 

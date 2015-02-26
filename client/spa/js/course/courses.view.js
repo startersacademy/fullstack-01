@@ -6,7 +6,6 @@ var fs = require('fs'); //will be replaced by brfs in the browser
 // readFileSync will be evaluated statically so errors can't be caught
 var template = fs.readFileSync(__dirname + '/courses.html', 'utf8');
 
-
 module.exports = Backbone.View.extend({
   className: 'courses',
   template: _.template(template),
@@ -28,8 +27,12 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.collection, 'sort', function(){
       this.render();
     });
-    this.listenTo(this.collection, 'display:courses', function(id){
-      this.displayCourses(id);
+    /* listen to the controller's event on this view
+     * where displayCourses is an object and
+     * this.on is for events happening to object on itself */
+    this.on('display:courses', function(data) {
+      console.log('inside listen');
+      this.displayCourses(data);
     });
   },
 
@@ -60,9 +63,13 @@ module.exports = Backbone.View.extend({
   },
 
   /* Filter courses by the instructor id */
-  displayCourses: function(id) {
-    this.collection.where({instructorId: id});
-    this.render();
+  displayCourses: function(data) {
+    console.log('displayCourses');
+    var subset = this.collection.where({instructorId: data.instructorId});
+    var collection = new Backbone.Collection(subset);
+
+    // pass this subset to the container from the instructor
+    this(data.container).html(this.template(collection));
   },
 
   filterByCourseType: function() {
