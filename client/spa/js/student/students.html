@@ -1,0 +1,21 @@
+<div class="container">
+  <h3>Students</h3>
+  <div class="table-responsive">
+    <table class="studn-tbl table table-bordered">
+      <tr class="studn-tbl-header">
+        <!-- <th class="studn-tbl-h-n">#</th> -->
+        <th class="studn-tbl-h-fn"><a class="sortByFirstName">First Name</a></th>
+        <th class="studn-tbl-h-ln"><a class="sortByLastName">Last Name</a></th>
+        <th class="studn-tbl-h-cr"><a class="sortByCourses">Courses</a></th>
+      </tr>
+      <% _.each( models, function( model ){ %>
+      <tr>
+        <!-- <td></td> -->
+        <td><%- model.attributes.firstName %></td>
+        <td><%- model.attributes.lastName %></td>
+        <td><%- model.attributes.courses %></td>
+      </tr>
+      <% }); %>
+    </table>
+  </div>
+</div>
