@@ -1,18 +1,21 @@
 'use strict';
 
 var Backbone = require('../vendor/index').Backbone;
+
 module.exports = Backbone.Model.extend({
   defaults: {
     firstName: '',
-    lastName: '',
-    skills: ''
+    lastName: ''
   },
-  urlRoot: '/api/instructors',
+
+  urlRoot: '/api/students',
+
   initialize: function(){
     this.on('change', function(){
       this.trigger('foo', 'bar');
     });
   },
+
   validate: function(attrs){
     var errors = [];
     if (!attrs.firstName){
@@ -20,9 +23,6 @@ module.exports = Backbone.Model.extend({
     }
     if (!attrs.lastName){
       errors.push('lastName cannot be empty');
-    }
-    if (!attrs.skills){
-      errors.push('skills cannot be empty');
     }
     return errors.length > 0 ? errors: false;
   }
