@@ -7,7 +7,33 @@ var $ = require('../vendor/index').$;
 var fs = require('fs'); //will be replaced by brfs in the browser
 
 // readFileSync will be evaluated statically so errors can't be caught
-var template = fs.readFileSync(__dirname + '/learning-resources.html', 'utf8');
+var template = fs.readFileSync(__dirname + '/learning-resource.html', 'utf8');
+
+var showMessage = function(type, msg) {
+  $('#msg').empty().addClass(type)
+    .html(msg).fadeIn().delay(2000)
+    .fadeOut('slow').queue(function(remove) {
+      $('#msg').removeClass(type);
+      remove();
+    });
+};
+
+var renderAuthors = function(self) {
+  var auth = self.model.get('authors').toString().split(',').join(', ');
+  self.input = self.$('.editing');
+  self.$('select option[value="'+self.model.get('resourceType')+'"]')
+      .attr('selected','selected');
+  self.$('#auth').val(auth);
+  self.$('#author-dsp').text(auth);
+};
+
+var initialValues = function(self) {
+  self.$('#title').val(self.model.get('title'));
+  self.$('#desc').val(self.model.get('description'));
+  self.$('#auth').val(self.model.get('authors'));
+  self.$('select option[value="'+self.model.get('resourceType')+'"]')
+      .attr('selected','selected');
+};
 
 module.exports = Backbone.View.extend({
 
@@ -34,75 +60,56 @@ module.exports = Backbone.View.extend({
   },
 
   cancel: function(){
-    this.$('#title').val(this.model.get('title'));
-    this.$('#desc').val(this.model.get('description'));
-    this.$('#auth').val(this.model.get('authors'));
-    this.$('select option[value="'+this.model.get('resourceType')+'"]')
-        .attr('selected','selected');
     $('#form-area').removeClass('sty-form'); //remove bg color of form
-    $('#msg').empty()
-             .addClass('alert-warning')
-             .html('Changes cancelled')
-             .fadeIn().delay(2000).fadeOut('slow')
-             .queue(function(remove){
-                $('#msg').removeClass('alert-warning');
-                remove();
-             });
+    showMessage('alert-warning', 'Changes cancelled');
     this.$el.removeClass('editing');
   },
 
   save: function(){
     var view = this;
-    var auth = [];
-    if (this.$('#auth').val() === '') auth = null;
-    else $.each(this.$('#auth').val().split(','), function(){
-      auth.push($.trim(this));
-    });
-    var attributes = {
-      title: this.$('#title').val().trim(),
-      resourceType: $('#resourceType option:selected').val(),
-      description: this.$('#desc').val().trim(),
-      authors: auth
-    };
-    var options = {
-      success: function(){
-        $('#form-area').removeClass('sty-form');
-        view.$el.removeClass('editing');
-        $('#msg').empty()
-                 .addClass('alert-success')
-                 .html('Sucessfully updated')
-                 .fadeIn().delay(2000).fadeOut('slow')
-                 .queue(function(remove){
-                    $('#msg').removeClass('alert-success');
-                    remove();
-                  });
-      },
-      error: function(model, error){
-        //server response errors if no validations specified
+
+    var authorsFormat = function() {
+      var authors = [];
+      // console.log($('#auth').val().split(','));
+      if ($('#auth').val() === '') authors = null;
+      else {
+        $.each($('#auth').val().split(','), function(key,value){
+          authors.push(value.trim());
+        });
+        return authors;
       }
     };
-    this.model.save(attributes, options);
+
+    var saveArgs = {
+      attributes: {
+        title: this.$('#title').val().trim(),
+        resourceType: $('#resourceType option:selected').val(),
+        description: this.$('#desc').val().trim(),
+        authors: authorsFormat
+      },
+      options: {
+        success: function(){
+          $('#form-area').removeClass('sty-form');
+          view.$el.removeClass('editing');
+          showMessage('alert-success', 'Successfully updated');
+        },
+        error: function(model, error){
+          //server response errors if no validations specified
+        }
+      }
+    };
+
+    this.model.save(saveArgs.attributes, saveArgs.options);
+
     if (this.model.validationError) {
-      $('#msg').empty()
-         .addClass('alert-danger')
-         .html(this.model.validationError)
-         .fadeIn().delay(2000).fadeOut('slow')
-         .queue(function(remove){
-            $('#msg').removeClass('alert-danger');
-            remove();
-      });
+      showMessage('alert-danger', this.model.validationError);
     }
   },
 
   render: function(){
     var context = this.model.toJSON();
-    var auth = this.model.get('authors').toString().split(',').join(', ');
     this.$el.html(this.template(context));
-    this.input = this.$('.editing');
-    this.$('select option[value="'+this.model.get('resourceType')+'"]')
-        .attr('selected','selected');
-    this.$('#auth').val(auth);
-    this.$('#author-dsp').text(auth);
+    renderAuthors(this);
     return this;
   },
 
